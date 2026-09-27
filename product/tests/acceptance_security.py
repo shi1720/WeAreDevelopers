@@ -91,6 +91,16 @@ def test_demo_cookie_locator_is_not_authority_and_expiry_synchronous(tmp_path):
         server.start()
         assert a.request('GET','/reservations').status_code == 401
         assert b.request('GET','/reservations').status_code == 200
+        server.stop()
+        store = SQLiteStore(tmp_path/'state.sqlite3')
+        try:
+            assert operations.cleanup(store,limit=1) == 1
+            assert namespace_a not in store.snapshot('main')[1]['registry']
+            assert namespace_b in store.snapshot('main')[1]['registry']
+        finally:
+            store.close()
+        server.start()
+        assert b.request('GET','/reservations').status_code == 200
     finally:
         server.close()
 

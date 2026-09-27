@@ -293,6 +293,13 @@ def test_demo_two_visitors_copied_reference_role_reset_isolation(tmp_path):
             b.expect(404, 'GET', '/reservations/' + booking['reference'] + suffix)
         b.expect(200, 'POST', '/api/demo/role', {'role': 'manager'})
         b.session()
+        a.expect(200, 'POST', '/api/demo/role', {'role': 'manager'})
+        a.session()
+        plan = a.expect(201,'POST','/restaurants/'+rid+'/replans',
+                        {'table_id':table,'from':'2032-06-17T00:00:00+00:00','to':'2032-06-18T00:00:00+00:00'},'private-plan')
+        b.expect(404,'POST','/restaurants/'+rid+'/replans/'+plan['plan_id']+'/apply',{},'copied-plan')
+        a.expect(200, 'POST', '/api/demo/role', {'role': 'guest'})
+        a.session()
         b.expect(200, 'POST', '/api/demo/reset', {})
         assert a.expect(200, 'GET', '/reservations/' + booking['reference'])['reference'] == booking['reference']
         assert a.session()['account_scope'] == scopes[0]
