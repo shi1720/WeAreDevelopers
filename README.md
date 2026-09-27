@@ -29,6 +29,15 @@ The official contracts are from kickoff revision `803560d2a678ace1414465c098eb0a
 
 Every run needs a new output directory. Published checks are partial; independent specification-derived checks and source review are also required. The operator exports the authentic complete Band room as `room.json` after the autonomous run. Until then the room-log submission gate remains pending.
 
-Run and synthetic-demo commands will be documented in each accepted stage's `RUN.md` and `docs/DEMO-RUNBOOK.md`. The judge image intentionally enables unauthenticated test controls. It must not be exposed publicly in that mode.
+Stage 2 is also accepted at `e4fc1c5bf52769927b50e139be1d380b1c044aeb`, evidence `f2e3189db5f113f9b38509cc57241d9e50d91330`: official host/isolated 120+25 checks pass. Stage 3 is underway; stage 4 remains gated.
+
+Run the accepted browser product locally:
+
+```sh
+docker build -t tablekeeper-stage-2 stage-2
+docker run --rm -e PORT=8080 -p 127.0.0.1:8080:8080 tablekeeper-stage-2
+```
+
+Open `http://localhost:8080`. See [demo runbook](docs/DEMO-RUNBOOK.md) for the exact synthetic account and scenario, and each stage's `RUN.md` for options. The judge image intentionally enables unauthenticated test controls. It must not be exposed publicly in that mode.
 
 Licensed under [MIT](LICENSE). This is a hackathon service, not a production certification or claim of customer adoption.

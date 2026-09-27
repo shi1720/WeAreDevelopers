@@ -33,4 +33,6 @@ Stage 1 accepted: implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, pac
 
 ## Evidence convention
 
+Stage 2 accepted: implementation `e4fc1c5bf52769927b50e139be1d380b1c044aeb`, complete evidence/folder revision `f2e3189db5f113f9b38509cc57241d9e50d91330`. Official host and isolated inherited/current suites 120/120 + 25/25; independent HTTP 30/30 plus 2/2 source-review cases, seven browser scenarios including actual stage-1 pending-retry upgrade, author tests independently rerun 41/41. Expected stage-3 overshoot rejection. See [stage-2 commands, durations and limitations](../evidence/stage-2/verification.md). Stage-2 matrix rows are satisfied by that report; stage-3/4 remain pending.
+
 Record exact command, UTC start/end or elapsed duration, exit status, full Git revision, counts and limitations. Preserve failed attempts. Use a new harness output directory each time and keep exports carrying tokens outside this repository. Expected overshoot failures are identified separately from contract regressions.

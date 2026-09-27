@@ -28,7 +28,7 @@ Separating implementation from acceptance makes the review accountable to a diff
 
 The production dispatch was observed at 2026-09-27 11:36:24 UTC; coordinator execution began approximately 11:37 UTC. Final elapsed time and accepted revisions will be recorded after completion. Tool durations and verifier command logs provide measured execution times. Provider-billed spend and a reliable per-run token total are currently unknown; any available Band catalog estimate will be labelled an estimate rather than a bill.
 
-Stage 1 is accepted at implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, independent evidence `3813508b5624b4ae89a346b68611a595f83cfde5`. Official host and isolated 120/120; independent HTTP/offline 23/23; independently rerun implementation tests 24/24. Stage 2 has been dispatched as a complete copy-forward. Infrastructure rehearsal is a separate room and is not product-build evidence.
+Stage 1 is accepted at implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, independent evidence `3813508b5624b4ae89a346b68611a595f83cfde5`. Official host and isolated 120/120; independent HTTP/offline 23/23; independently rerun implementation tests 24/24. Stage 2 is accepted at implementation `e4fc1c5bf52769927b50e139be1d380b1c044aeb`, evidence `f2e3189db5f113f9b38509cc57241d9e50d91330`: official host/isolated 120+25, independent HTTP 30 plus 2 review cases, browser 7 and author tests 41 passed. Stage 3 has been dispatched as a complete copy-forward. Infrastructure rehearsal is a separate room and is not product-build evidence.
 
 ## Observed recovery
 
