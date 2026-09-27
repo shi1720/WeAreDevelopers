@@ -319,7 +319,8 @@ class Companion:
             # Internal compatibility token exists only in the private callback.
             domain['tokens']['internal'] = uid
             try:
-                status, response = self.domain_route(domain, method, path, query, dict(headers) | {'Authorization': 'Bearer internal'}, body)
+                status, response = self.domain_route(domain, method, path, query,
+                    {'Authorization': 'Bearer internal', 'Idempotency-Key': headers.get('Idempotency-Key')}, body)
             finally:
                 domain['tokens'].clear()
             return status, response, None

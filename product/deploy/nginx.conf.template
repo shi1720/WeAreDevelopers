@@ -14,6 +14,8 @@ http {
   client_body_timeout 5s;
   send_timeout 10s;
   keepalive_timeout 5s;
+  lingering_time 1s;
+  lingering_timeout 1s;
   large_client_header_buffers 2 8k;
   limit_conn_zone $binary_remote_addr zone=clients:1m;
   server {
@@ -34,7 +36,9 @@ http {
       proxy_read_timeout 20s;
       proxy_send_timeout 5s;
       proxy_buffering off;
-      proxy_request_buffering on;
+      # Stream bounded bodies so the backend's absolute connection deadline
+      # also bounds clients that continuously trickle bytes.
+      proxy_request_buffering off;
       proxy_hide_header Cache-Control;
     }
   }
