@@ -1,6 +1,8 @@
 # Deploy the separately accepted companion
 
-**Recipe prepared; actual deployment and live verification are pending.** This is an operator workflow for a public synthetic demo of the separate `product/` companion. It does not deploy the frozen graded stage folders or claim that the original BAND run created a live cloud service. Update this status only with actual deployment evidence.
+**The companion is deployed at [tablekeeper-proofline.web.app](https://tablekeeper-proofline.web.app). The published image passed live HTTP/isolation and desktop/mobile browser checks; durable revision continuity passed on the preceding deployment.** See the [hosted evidence](../evidence/hosted/README.md) for the actual image, scoped settings, contention recovery and successful cleanup executions. This portable operator recipe documents how to reproduce the separate `product/` deployment; it does not claim the original graded BAND run created a live cloud service or that every host has tested this script.
+
+The initial deployment used accepted evidence commit `8f749427004a35e6ac25ed34abb7997515ec4354`; its image digest is `sha256:d22729b181ac9b8df69d743d52b260fbb11039d2b46affe40876b16a0fb2d0c2`. The published operator UI follow-up uses source `053ae0d6260f79b924752949c37a8837ded4d480`, image `sha256:4242b0226aaad2aecc432cb1999a2e49530025b3da92fc36eb3f2d21b4ea6792`, and ready revision `proofline-tablekeeper-00005-dz5`. Its [local acceptance](../evidence/hosted/operator-ui-acceptance.json), [live API verification](../evidence/hosted/final-firebase-check.json) and [browser recheck](../evidence/hosted/browser-check.json) are separate post-factory evidence. The initial image and its continuity checks remain preserved. An earlier image failed because private snapshot permissions were copied into a root-owned image unreadable by UID 65534. Snapshot source now uses 0644/0755 inside the private enclosing directory; preserve that distinction.
 
 The script plans by default. It requires a full accepted Git commit and a nonempty tracked independent acceptance report at that commit. It archives only committed `product/` source into a private directory outside the repository, scans for common credential files/key patterns, and creates a narrowly scoped Firebase config. A report's existence is not proof of acceptance: read its actual result before executing. The secret scan is a conservative screen, not proof that arbitrary secret formats are absent.
 
@@ -47,7 +49,7 @@ deploy_companion() {
 deploy_companion
 ```
 
-Inspect the generated `plan.json`, source snapshot, named-database rules/indexes and runtime environment. No cloud calls occur in plan mode. Optional `--cleanup-job` and `--scheduler-name` select explicit dedicated names; otherwise they derive from the service name. Pass the same choices in every phase. For the operator's intended initial installation those names are `proofline-demo-cleanup` and `proofline-demo-cleanup-hourly`; naming alone is not evidence they have been deployed.
+Inspect the generated `plan.json`, source snapshot, named-database rules/indexes and runtime environment. No cloud calls occur in plan mode. Optional `--cleanup-job` and `--scheduler-name` select explicit dedicated names; otherwise they derive from the service name. Pass the same choices in every phase. For the operator's intended initial installation those names are `proofline-demo-cleanup` and `proofline-demo-cleanup-hourly`; the [hosted summary](../evidence/hosted/deployment-summary.json) records their actual deployed configuration and completed verification executions.
 
 ## Execute one phase at a time
 
@@ -70,6 +72,7 @@ The datastore phase uses `--only firestore` with a config containing exactly one
 - Firestore adapter with explicit project, database and `proofline_demo` collection.
 - Production HTTPS/security mode, exact `https://SITE.web.app` origin and isolated public-demo flag `1`.
 - Minimum 0 / maximum 2 instances, two CPUs, two GiB, concurrency 16 and 30-second request timeout.
+- HTTP startup probe `/health/ready` on port 8080, every ten seconds, ten-second timeout, twelve allowed failures. A TCP listener alone is insufficient: nginx can accept connections before Python is ready under request-based CPU allocation.
 - Dedicated runtime identity, no setup secret, and accepted image by digest.
 
 Run live backend acceptance before Hosting publication: health; two independent visitor sessions with cross-namespace access denied; persistence across revision/instance restart; retry recovery; absence of test controls; setup unavailable without a secret; secure `__session` cookie and no-store responses. Origin-sensitive checks must use the configured origin. Do not disable origin checks to make direct-service tests pass.

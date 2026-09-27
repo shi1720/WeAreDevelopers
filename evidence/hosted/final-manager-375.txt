@@ -1,0 +1,226 @@
+- link "Skip to content":
+  - /url: "#main"
+- banner:
+  - link "Tablekeeper home":
+    - /url: /
+    - generic: t.
+    - text: tablekeeper
+  - navigation "Main navigation":
+    - link "Find a table":
+      - /url: /
+    - link "Your bookings":
+      - /url: /bookings
+    - link "Find a reference":
+      - /url: /lookup
+    - link "Regular evenings":
+      - /url: /series
+    - link "For restaurants":
+      - /url: /manager
+    - generic: Sam
+    - link "Account":
+      - /url: /account
+    - button "Sign out"
+- complementary:
+  - strong: Synthetic demo
+  - generic: Only made-up guests. This private demo expires; do not enter real guest data.
+  - link "Demo controls":
+    - /url: /demo
+- main:
+  - paragraph: For a thoughtful service
+  - heading "Set the terms. Keep the promise." [level=1]:
+    - text: Set the terms.
+    - text: Keep the promise.
+  - paragraph: Publish the rules for future decisions. Existing guests keep the terms they accepted.
+  - generic: Your restaurant
+  - combobox "Your restaurant":
+    - option "The Orangery" [selected]
+  - paragraph: The service at a glance
+  - heading "Your date roster" [level=2]
+  - paragraph: Operational booking details for The Orangery only. Times use Europe/London.
+  - generic: Service date
+  - textbox "Service date": 2035-06-14
+  - button "Load roster"
+  - article:
+    - generic: confirmed
+    - heading "19:00 · 2 guests" [level=3]
+    - paragraph: Alex · Garden table
+    - paragraph: Reference EVENING1
+  - article:
+    - generic: confirmed
+    - heading "19:00 · 4 guests" [level=3]
+    - paragraph: Alex · The round table
+    - paragraph: Reference FRIENDS1
+  - article:
+    - generic: confirmed
+    - heading "20:30 · 2 guests" [level=3]
+    - paragraph: Alex · Garden table
+    - paragraph: Reference LATER001
+  - paragraph: Keep the promise, even when the floor changes
+  - heading "A closed table. An evening still kept." [level=2]:
+    - text: A closed table.
+    - text: An evening still kept.
+  - paragraph: Review the smallest safe seating change before making it. Guests keep their arrival times, party sizes and accepted terms.
+  - generic: Table to close
+  - combobox "Table to close":
+    - option "Window nook" [selected]
+    - option "Garden table"
+    - option "The round table"
+    - option "Quiet alcove"
+  - generic: Closed from
+  - textbox "Closed from": 2035-06-14T19:00
+  - generic: Until
+  - textbox "Until": 2035-06-14T21:00
+  - button "Preview seating repair"
+  - paragraph:
+    - text: Times are local to
+    - strong: Europe/London
+    - text: . A repeated daylight-saving time uses its first occurrence. Preview does not close the table or move any booking.
+  - paragraph: Applied · Preview based on restaurant revision 0
+  - heading "Seating repair saved." [level=2]
+  - generic: Applied
+  - strong: "1"
+  - generic: booking moved
+  - strong: "3"
+  - generic: bookings considered
+  - strong: "0"
+  - generic: unused seats after repair
+  - paragraph: Arrival times, guest counts and accepted terms stay exactly the same.
+  - generic: ×
+  - strong: Window nook
+  - generic: Closed for the selected interval
+  - generic: ○
+  - strong: Garden table
+  - generic: 2 considered bookings after repair
+  - generic: ○
+  - strong: The round table
+  - generic: 1 considered bookings after repair
+  - generic: ○
+  - strong: Quiet alcove
+  - generic: 0 considered bookings after repair
+  - article:
+    - strong: EVENING1
+    - generic: Moved
+    - generic: Before
+    - generic: Window nook
+    - generic: →
+    - generic: After
+    - generic: Garden table
+    - paragraph: 2035-06-14 · 19:00 · 2 guests · 90 minutes · Policy 0 preserved
+    - generic "View preserved accepted terms"
+  - article:
+    - strong: FRIENDS1
+    - generic: Unchanged
+    - generic: Before
+    - generic: The round table
+    - generic: →
+    - generic: After
+    - generic: The round table
+    - paragraph: 2035-06-14 · 19:00 · 4 guests · 90 minutes · Policy 0 preserved
+    - generic "View preserved accepted terms"
+  - article:
+    - strong: LATER001
+    - generic: Unchanged
+    - generic: Before
+    - generic: Garden table
+    - generic: →
+    - generic: After
+    - generic: Garden table
+    - paragraph: 2035-06-14 · 20:30 · 2 guests · 90 minutes · Policy 0 preserved
+    - generic "View preserved accepted terms"
+  - paragraph: The closure and all seating changes are saved. This before-and-after record shows the applied repair.
+  - button "Seating repair applied" [disabled]
+  - status: Seating repaired. 3 bookings kept their promises. The closure and all table changes are saved together.
+  - paragraph: Europe/London
+  - heading "Publish a booking policy" [level=2]
+  - paragraph: This is a complete policy. Use the date when these rules should start applying. A newer policy on the same date takes precedence for new decisions.
+  - generic: Effective from
+  - textbox "Effective from": 2026-09-28
+  - generic: Start interval (minutes)
+  - spinbutton "Start interval (minutes)": "30"
+  - generic: Dining time (minutes)
+  - spinbutton "Dining time (minutes)": "90"
+  - generic: Change deadline (minutes)
+  - spinbutton "Change deadline (minutes)": "60"
+  - group "Opening hours":
+    - generic: Opening hours
+    - paragraph: Uncheck a day to close. Hours are local to Europe/London and finish on the same day.
+    - checkbox "mon" [checked]
+    - text: mon
+    - generic: mon opens
+    - textbox "mon opens": 17:00
+    - generic: to
+    - generic: mon closes
+    - textbox "mon closes": 23:00
+    - checkbox "tue" [checked]
+    - text: tue
+    - generic: tue opens
+    - textbox "tue opens": 17:00
+    - generic: to
+    - generic: tue closes
+    - textbox "tue closes": 23:00
+    - checkbox "wed" [checked]
+    - text: wed
+    - generic: wed opens
+    - textbox "wed opens": 17:00
+    - generic: to
+    - generic: wed closes
+    - textbox "wed closes": 23:00
+    - checkbox "thu" [checked]
+    - text: thu
+    - generic: thu opens
+    - textbox "thu opens": 17:00
+    - generic: to
+    - generic: thu closes
+    - textbox "thu closes": 23:00
+    - checkbox "fri" [checked]
+    - text: fri
+    - generic: fri opens
+    - textbox "fri opens": 17:00
+    - generic: to
+    - generic: fri closes
+    - textbox "fri closes": 23:00
+    - checkbox "sat" [checked]
+    - text: sat
+    - generic: sat opens
+    - textbox "sat opens": 17:00
+    - generic: to
+    - generic: sat closes
+    - textbox "sat closes": 23:00
+    - checkbox "sun" [checked]
+    - text: sun
+    - generic: sun opens
+    - textbox "sun opens": 17:00
+    - generic: to
+    - generic: sun closes
+    - textbox "sun closes": 23:00
+  - group "Table capacities":
+    - generic: Table capacities
+    - generic: Window nook
+    - spinbutton "Window nook": "2"
+    - generic: Garden table
+    - spinbutton "Garden table": "2"
+    - generic: The round table
+    - spinbutton "The round table": "4"
+    - generic: Quiet alcove
+    - spinbutton "Quiet alcove": "6"
+  - button "Publish policy"
+  - complementary:
+    - heading "Published policies" [level=2]
+    - paragraph: Publication order is shown here. The latest applicable effective date wins, then the newest version on that date.
+    - article:
+      - paragraph: Version 0
+      - heading "Initial venue policy" [level=3]
+      - term: Policy
+      - definition: Version 0
+      - term: Dining time
+      - definition: 90 minutes
+      - term: Start intervals
+      - definition: 30 minutes
+      - term: Change deadline
+      - definition: 60 minutes before arrival
+      - generic "Opening hours and table capacities"
+- contentinfo:
+  - link "tablekeeper":
+    - /url: /
+  - paragraph: A booking is a promise. Keep the evening yours.
+  - generic: Made for gathering.

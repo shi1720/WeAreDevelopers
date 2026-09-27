@@ -1,85 +1,79 @@
 # Hosted companion: operator deployment evidence
 
-**Status: the first image built but failed Cloud Run startup; corrected materialization/rebuild and live acceptance are pending.** This report is an operator evidence scaffold. It does not establish that the website works, that live persistence/isolation checks passed, or that scheduled cleanup is running. Replace pending rows only with observed results and sanitized supporting records.
+**The published companion passed live HTTPS API, visitor-isolation and desktop/mobile browser checks at [tablekeeper-proofline.web.app](https://tablekeeper-proofline.web.app). Durable revision continuity also passed on the preceding deployment.** This is a public synthetic demo of the separately accepted operational companion, not a production certification or an extension of the original graded run's evidence.
 
-This is the separately built operational companion. Its deployment does not change or extend the original four-stage BAND run's test results. The frozen graded folders and their room export retain their original provenance.
+The [sanitized deployment summary](deployment-summary.json) records the scoped image, revisions, traffic, startup probe, resources, database/IAM/rules and cleanup observations. It excludes credentials, cookies, visitor request bodies and unrelated project resources.
 
-## Artifact identity
+## Accepted source and deployed artifact
 
-| Item | Recorded value |
+| Item | Value |
 |---|---|
 | Accepted companion evidence commit | `8f749427004a35e6ac25ed34abb7997515ec4354` |
 | Runtime implementation revision | `d6194c8c9575f0a6b85ec2a322e8a65cbb9af740` |
-| Accepted `product/` Git tree | `81f770ca92f61af4c58e5a763d9a466a671804c8` |
-| First built image digest, rejected for cloud startup | `sha256:429e0df437255c0e5de29d3f901e323bc57de3fba236152f3d5e92b57a316a1c` |
-| Artifact Registry image | `us-central1-docker.pkg.dev/gen-lang-client-0444960702/proofline/proofline-tablekeeper` |
-| Build ID, immutable build record and time | **PENDING operator attachment** |
-| Deployed Cloud Run revision / resolved image digest | **PENDING observation** |
-| Live Hosting release/version and time | **PENDING observation** |
+| Accepted product tree | `81f770ca92f61af4c58e5a763d9a466a671804c8` |
+| Initial verified deployment image digest | `sha256:d22729b181ac9b8df69d743d52b260fbb11039d2b46affe40876b16a0fb2d0c2` |
+| Published source commit | `053ae0d6260f79b924752949c37a8837ded4d480` |
+| Published product tree | `3045a3091e812a4171a8decd514e3ee5edd784ab` |
+| Published image digest | `sha256:4242b0226aaad2aecc432cb1999a2e49530025b3da92fc36eb3f2d21b4ea6792` |
+| Service / region | `proofline-tablekeeper` / `us-central1` |
+| Previous tested revision | `proofline-tablekeeper-00003-6th` |
+| Latest ready revision / observed traffic | `proofline-tablekeeper-00005-dz5` / 100% |
+| Public Hosting site | `tablekeeper-proofline` |
 
-The accepted commit and product tree above were read from Git. Image build success/digest were supplied by the deploying operator; attach the actual build record before treating this table as independently checked build provenance. The companion acceptance report records local and emulator evidence with explicit gaps. It does not claim real Cloud Run, Firestore IAM or Hosting behavior was already tested.
+Source identities were read from Git; deployed image/revision/traffic are selected from operator-captured service metadata. The finalized Hosting release is `1790538459826000`, version `0b3ca453ade4aa32`, published at 19:47:39.826 UTC on 27 September 2026. Its pinned Run tag selects the published revision. Hosting metadata records private no-store headers and the dedicated service rewrite. The cloud build record ID is not included in the summary. The original graded folders retain their own accepted revisions and authentic room export.
 
-## Dedicated scope within the shared project
+## Executed live checks
 
-- Project: `gen-lang-client-0444960702`; region: `us-central1`.
-- Named Firestore database: `proofline-tablekeeper`, not `(default)`.
-- Runtime identity: `proofline-runtime@gen-lang-client-0444960702.iam.gserviceaccount.com`.
-- Hosting site: `tablekeeper-proofline`; intended URL: `https://tablekeeper-proofline.web.app`. **Reserved/intended address, not yet a verified live application.**
-- Cloud Run service: `proofline-tablekeeper`; collection: `proofline_demo`.
-- Cleanup job: `proofline-demo-cleanup`; hourly scheduler: `proofline-demo-cleanup-hourly`.
-- Scheduler identity: `proofline-scheduler@gen-lang-client-0444960702.iam.gserviceaccount.com`.
+| Observation | Result and evidence |
+|---|---|
+| Published image, direct Cloud Run backend | [PASS](final-backend-check.json), 19:46:55 to 19:47:13 UTC, 27 September 2026 |
+| Published image, actual Firebase Hosting origin | [PASS](final-firebase-check.json), 19:48:04 to 19:48:23 UTC |
+| Previous image API checks | [Backend PASS](backend-check-5.json) and [Firebase PASS](firebase-check-2.json), preserved as historical observations |
+| Durable booking/session prepared before revision change | [PASS](continuity-before.json), revision 00003-6th |
+| Original booking/session and exact retry receipt after new revision | [PASS](continuity-after.json), revision 00004-gfq; post-check logout revoked the session |
+| Explicit chunk index exemptions | [Verified](field-index-config.json), both data and revision fields |
+| Initial cleanup execution | Completed successfully: `proofline-demo-cleanup-lqkwb` |
+| Authenticated Scheduler-triggered cleanup execution | Completed successfully: `proofline-demo-cleanup-6ttt4`, 19:38:35.889619 UTC |
+| Published-image cleanup execution | Completed successfully: `proofline-demo-cleanup-qznnz`, 19:48:54.029745 UTC |
+| Published JavaScript content | [Both live hashes match source](final-static-hashes.json) |
+| Final live browser walkthrough at desktop/mobile sizes | [PASS](browser-check.json): automatic roster refresh, applied/closed labels, viewport widths 375 and 1440 equal scroll width; no captured warning/error entries |
 
-Only dedicated resources are in scope. Do not publish full project IAM inventories or unrelated applications' resource details. The [portable deployment recipe](../../deployment/README.md) generates a config with one explicit Hosting site and one explicit named database, and never calls the default-scoped product helper. Actual operator command evidence must still establish what was deployed.
+Live API assertions include health/readiness, static assets/security headers, JSON errors, secure `__session` cookies, no-store responses, missing public test controls, denied setup without a secret, distinct synthetic visitor scopes, booking/replay, cross-visitor denial/reset isolation and concurrent same-key recovery. Read the individual reports for exact assertions and limitations.
 
-## Preprovision safeguards observed
+**Contention was observed and recovered, not hidden.** The final backend test received two 503 responses and the final Firebase test received one among four concurrent same-key requests. Retrying with the unchanged request/key returned 200; identical original response and one-effect assertions passed. This does not establish zero transient errors, unlimited concurrency or a latency guarantee. The continuity test demonstrates state and receipt survival across a verified new revision/traffic switch, not every possible regional outage or disaster scenario.
 
-The operator's private preprovision configuration contains a one-entry Firestore array with `database: proofline-tablekeeper`. Its rules deny all browser/client reads and writes. The private release observation identifies `cloud.firestore/proofline-tablekeeper`, created/updated at `2026-09-27T19:07:48.141635Z`, ruleset `73bb5c10-1d83-4dcd-bce2-dbc0a331b908`, and records an exact source match with SHA-256 `ed1e7c11f025d9464e80e4c4584711c474a0c9b0e07802618de8d02dddadec87`. The Firebase CLI preprovision log reports successful rules/index deployment for this named database. Attach a sanitized release/rules extract here; do not expose unrelated project rules.
+## Verified post-factory UI polish
 
-The later private IAM removal result retains the runtime's `roles/datastore.user` binding with this exact condition:
+The operator's initial live browser walkthrough found that a successful seating repair did not refresh the manager roster and retained “Preview only” / “Proposed closure” labels. The published source contains a narrow two-JavaScript-file operator repair outside both completed factory runs. It refreshes the selected-date roster after confirmed apply, shows applied/closed labels, and keeps a failed follow-up read separate from a successful mutation. The backend implementation is unchanged from the accepted companion.
+
+[Local acceptance](operator-ui-acceptance.json) and the [three-test result](operator-ui-tests.log) cover roster refresh, a failed roster read after a successful mutation, and exact retry following a real committed response loss across durable restart. The local report's cloud-pending status records its earlier checkpoint; subsequent [live browser verification](browser-check.json), API reports and source-hash checks above complete that follow-up. The browser report distinguishes the full initial-image walkthrough from affected-flow and responsive checks on the patched image. This is finite Chrome verification, not exhaustive accessibility or cross-browser certification.
+
+## Scoped configuration and access
+
+Dedicated resources live in shared project `gen-lang-client-0444960702`. Firestore database is explicitly `proofline-tablekeeper`, never `(default)`; the demo collection is `proofline_demo`. The service uses `proofline-runtime@gen-lang-client-0444960702.iam.gserviceaccount.com`. The read-only project IAM inspection retained this identity's `roles/datastore.user` binding with:
 
 ```text
 resource.name=="projects/gen-lang-client-0444960702/databases/proofline-tablekeeper"
 ```
 
-The earlier `startsWith` binding was removed. Older private inventory summaries still show that prefix-based state and must not be copied as the final configuration. This reviewed result supports the narrow binding change; a live request under the deployed runtime identity and a review for additional inherited/broad grants remain separate verification steps. Server SDKs use IAM and bypass browser Security Rules; deny-all rules alone do not constrain a privileged server identity.
+The prior prefix condition was removed. This targeted project-policy check does not independently enumerate organization/folder inheritance. No unrelated project bindings are published. Deny-all client rules are attached to `cloud.firestore/proofline-tablekeeper`; the matched rules source SHA-256 is `ed1e7c11f025d9464e80e4c4584711c474a0c9b0e07802618de8d02dddadec87`. Server SDK authorization uses IAM, not those browser rules.
 
-The configured index exemptions target `chunks.data` and `chunks.revision`. A subsequent read-only Firestore Admin API check parsed both responses through the official Python SDK Field protobuf: each has an index configuration present, `usesAncestorConfig=false`, zero indexes and `reverting=false`. Both explicit empty-index configurations are verified in [field-index-config.json](field-index-config.json). The earlier concern based on the presence of `ancestorField` was resolved: that field is also present for explicit configurations and names the ancestor that would apply if the override were removed. It does not itself indicate inheritance. [Official field semantics](https://docs.cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.collectionGroups.fields)
+Read-only field API responses decoded through the official SDK confirm explicit empty indexes for `chunks.data` and `chunks.revision`: `usesAncestorConfig=false`, zero indexes, `reverting=false`. The presence of `ancestorField` is expected even with explicit settings and is not evidence of inherited indexing. [Official field semantics](https://docs.cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.collectionGroups.fields)
 
-Official references: [named database selection and IAM](https://firebase.google.com/docs/firestore/manage-databases), [multi-database Firebase configuration](https://firebase.google.com/docs/cli#configuration_for_multiple_cloud_firestore_databases), [server SDK rules boundary](https://firebase.google.com/docs/firestore/security/rules-conditions).
+The deployed environment specifies production security mode, Firestore, the named database, exact public origin and isolated demo flag `1`. Service metadata records two CPUs/two GiB, concurrency 16, timeout 30 seconds and maximum two instances. Minimum zero is the omitted platform default, consistent with the configured setting. The explicit HTTP startup probe checks `/health/ready` on port 8080 every ten seconds, with ten-second timeout and twelve allowed failures. The [portable deployment recipe](../../deployment/README.md) documents these boundaries.
 
-## Preserved deployment failure
+## Preserved startup failures and operator repair
 
-The operator reports that the first image at digest `429e0df437255c0e5de29d3f901e323bc57de3fba236152f3d5e92b57a316a1c` failed startup with `PermissionError` on `/app/tablekeeper/__init__.py`. The deployment wrapper had materialized archived source files as 0600 and directories as 0700; Docker COPY made them root-owned, unreadable to the accepted image's UID 65534. This is a deployment packaging failure, not a successful launch. The operator changed snapshot file/directory modes to 0644/0755 under a private 0700 enclosing record and initiated a rebuild. **Replacement image digest and startup result remain pending.** Preserve the actual failed revision/log and corrected build record when finalizing this report.
+The first built image, `sha256:429e0df437255c0e5de29d3f901e323bc57de3fba236152f3d5e92b57a316a1c`, failed startup with `PermissionError` on `/app/tablekeeper/__init__.py`. Archived source was materialized as 0600 files/0700 directories; Docker COPY made it root-owned and unreadable to runtime UID 65534. The operator corrected snapshot files/directories to 0644/0755 inside a private 0700 enclosing record and rebuilt. This packaging failure is not presented as a successful deployment.
 
-## Deployment and live acceptance record
+The default TCP startup check could observe nginx listening before Python was ready. Under request-based CPU allocation this produced 502 behavior before the backend completed startup. The operator configured an HTTP `/health/ready` startup probe to require application readiness. The subsequent deployed revision and live checks above passed. These are post-run operator infrastructure repairs, not undocumented changes to the original autonomous graded result.
 
-| Required observation | Current result / evidence |
-|---|---|
-| Actual deployed image matches accepted build digest | PENDING |
-| Production mode, Firestore adapter, explicit named database/collection and exact origin | PENDING deployed environment inspection |
-| Dedicated runtime identity; exact database-scoped IAM; no default-database changes | Preprovision binding reviewed; deployed identity/access and noninterference PENDING |
-| Min 0 / max 2 instances, CPU 2, memory 2 GiB, concurrency 16, timeout 30 seconds | Intended settings; PENDING deployed inspection |
-| Public demo enabled, no setup secret and no default real manager credentials | Intended configuration; PENDING live negative checks |
-| HTTPS Hosting route, `__session` forwarding, secure cookie and no-store headers | PENDING |
-| Two browser visitors cannot read, mutate, reset or assume roles in the other's demo | PENDING |
-| Guest booking/edit and manager preview/apply at desktop/mobile sizes | PENDING |
-| Persistence after new revision/instance; original retry receipt after uncertain response | PENDING |
-| Live concurrent mutations preserve one effect and original receipt | PENDING |
-| Public test/import/export routes absent; anonymous owner setup denied | PENDING |
-| Active chunk-field index exemptions in the named database | Verified read-only for data and revision; see field-index-config.json |
-| Cleanup job uses same digest/identity/database, limit 100; initial execution succeeds | PENDING |
-| Dedicated scheduler identity has invoker only on the cleanup job | PENDING job-scoped binding and broad-grant review |
-| Hourly authenticated scheduler dispatch and completed cleanup execution | PENDING; API dispatch success alone is insufficient |
-| Final public URL opened and full workflow verified | PENDING |
+## Cleanup and operating limits
 
-Attach UTC timestamps, command exit status, resource/revision/digest, synthetic scenario, expected/actual result and limitations for each observation. Use selected nonsecret extracts, not full raw API responses, cookies, bearer tokens or visitor records. A pass in an emulator does not fill a live-cloud row.
+The cleanup job uses the same deployed image, runtime identity, named database and demo collection, invoking `python -m tablekeeper.operations cleanup --limit 100`. It has one task, parallelism one, zero retries and a 300-second task timeout. The dedicated scheduler identity `proofline-scheduler@gen-lang-client-0444960702.iam.gserviceaccount.com` has `roles/run.invoker` on that named job. The enabled UTC schedule is `0 * * * *`, calling the Run API with OAuth.
 
-## Operating and cost boundaries
+The Scheduler was manually triggered for verification on the preceding image, and its created execution reached Completed=True with one successful task. The job was then updated to the published image and a new operator-triggered execution also completed successfully. This proves the configured authenticated trigger completed a job; it does not establish future unattended reliability or a specific number of expired namespaces deleted. Monitor both scheduler dispatch and job completion.
 
-This deployment is a synthetic visitor demo, not the authoritative booking book of a real restaurant. Each visitor receives an isolated demo namespace with a two-hour authorization lifetime. The registry permits at most 100 retained entries, including expired entries until cleanup. A successful hourly cleanup with limit 100 can remove the full expired registry; it does not guarantee spare capacity between runs or after failures. Monitor capacity errors and completed job executions.
+Demo authorization expires after two hours. The registry holds at most 100 retained entries, including expired entries until cleanup. A successful hourly limit-100 run can clear the full expired registry; availability between runs or after failures is bounded. The planner remains limited to six tables, four declared pairs and six considered bookings, counting every overlapping confirmed booking.
 
-The database provisioning record reports **`freeTier: false`**. No Firestore free allowance, zero-cost deployment or current cash bill is claimed. Cloud Run, Firestore reads/writes/storage, build execution, Artifact Registry, Hosting transfer, Scheduler and cleanup can incur charges. Instance caps and timeouts limit some exposure but do not cap the whole project's bill. Any budget controls must preserve unrelated shared-project services.
-
-The planner still supports at most six tables, four declared pairs and six considered bookings. All overlapping confirmed bookings count. The companion has bounded store/network operations and known emulator precommit lock recovery observations; none establishes a universal deployed request-latency guarantee. Durable storage is distinct from off-host backup and tested disaster recovery. Production certification, real customers, revenue, hidden-suite success and unlimited scale are not claimed.
-
-**Finalization action:** replace the top status and pending rows only after the deploying operator captures actual results. Preserve preprovision failures and incomplete snapshots as history. Do not change the original graded evidence to imply it tested this cloud deployment.
+The named database reports **`freeTier: false`**. Actual billed spend is unknown. Compute, Firestore operations/storage, builds, image storage, Hosting transfer, Scheduler and cleanup can incur charges; instance limits do not cap the entire bill. Durable storage is distinct from off-host backup/disaster-recovery proof. No real customers, revenue, production certification, hidden-suite success or unlimited scale are claimed.

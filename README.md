@@ -8,6 +8,8 @@ This repository is the Tablekeeper-track output of **Proofline**, a four-seat so
 
 Start with the [three-minute evidence guide](docs/JUDGE-GUIDE.md), [captioned demo video](output/video/final/proofline-tablekeeper-demo.mp4), or [presentation PDF](output/pdf/proofline-tablekeeper.pdf). The video includes an authentic BAND Desktop room recording and a working reservation-repair walkthrough.
 
+Explore the [deployed companion](https://tablekeeper-proofline.web.app) using the [hosted walkthrough](docs/HOSTED-TESTING.md). The separate companion is accepted and its cloud backend is verified. Firebase Hosting is live, and the public-origin HTTP and Chrome checks passed. The video demonstrates the original accepted local stage. [Hosted verification](evidence/hosted/browser-check.json) records the tested flows and limits at source revision `053ae0d`.
+
 ## Read the repository
 
 - `stage-1/`: clean-room reservation API, retry receipts, atomic multi-booking moves and state transfer.
@@ -46,7 +48,7 @@ Open `http://localhost:8080`. See [demo runbook](docs/DEMO-RUNBOOK.md) for the e
 
 The accepted stage-4 product includes guest signup/login, booking and lookup, recurring administration, manager closure preview/apply, and responsive browser flows. Its recovery planner supports at most **6 tables, 4 declared pairs and 6 considered bookings**. All confirmed bookings overlapping the closure count, including those on unaffected tables; splitting arbitrary overlapping plans is not a validated extension.
 
-The graded service keeps state in memory and enables judge test controls by default. It is a local demonstration and contract implementation, not a durable public restaurant service. A separate operational companion and Firebase deployment are pending. No hosted URL, durable cloud storage or production certification is claimed here. Individual booking amendment is API-only in the frozen product, and amended-series summary refresh has a documented UX limitation.
+The graded service keeps state in memory and enables judge test controls by default. It is a local demonstration and contract implementation, not a durable public restaurant service. The separate `product/` companion adds durable storage and operational browser flows. It has independent acceptance and a verified cloud backend, deployed through Firebase Hosting with passing public-origin HTTP and Chrome checks. Its acceptance does not replace or extend the original graded results. No production certification is claimed. Individual booking amendment is API-only in the frozen product, and amended-series summary refresh has a documented UX limitation.
 
 Our proposed first pilots are intimate four-to-six-table venues with direct or recurring groups. The proposed $79/location/month is a hypothesis, not customer revenue. Read the [commercial thesis](docs/COMMERCIAL-THESIS.md), [submission copy](docs/SUBMISSION.md), and [video script](docs/VIDEO-SCRIPT.md).
 

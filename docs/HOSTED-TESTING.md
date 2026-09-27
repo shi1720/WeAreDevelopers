@@ -1,6 +1,6 @@
 # Try Tablekeeper
 
-Deployment status: pending live verification. These are the intended hosted test steps, not a claim that the reserved address is already serving the app.
+Live application: [tablekeeper-proofline.web.app](https://tablekeeper-proofline.web.app). Start with the private demo. Hosted HTTP, revision-continuity and real Chrome walkthrough checks passed on 27 September 2026 UTC. The final closure workflow was verified at 375px and 1440px without horizontal overflow.
 
 The public demonstration uses made-up guests and an isolated data space for each browser session. You do not need an API key or a shared password. Do not enter real guest information. A demo expires after two hours; expired data is scheduled for hourly cleanup. The service retains at most 100 demo spaces, including expired spaces awaiting cleanup.
 
@@ -9,7 +9,7 @@ The public demonstration uses made-up guests and an isolated data space for each
 1. Open the live app, choose **Start a private demo**, then **Create synthetic demo**. You begin as the synthetic guest.
 2. Open **Your bookings** and inspect **EVENING1**. It is for two guests at **Window nook**, on **14 June 2035 at 19:00**, in **Europe/London**. Note the arrival time and accepted terms.
 3. Open **Demo controls**, then **Explore as manager**. In **For restaurants**, load the roster for **14 June 2035**.
-4. In the closure form, choose **Window nook**, **14 June 2035 at 19:00** through **21:00**. Choose **Preview repair**. Expect one proposed move among three considered bookings, with zero unused seats after repair. A preview has not changed any booking.
+4. In the closure form, choose **Window nook**, **14 June 2035 at 19:00** through **21:00**. Choose **Preview seating repair**. Expect one proposed move among three considered bookings, with zero unused seats after repair. A preview has not changed any booking.
 5. Choose **Apply seating repair** and wait for confirmation. Return through **Demo controls** to **Explore as guest**.
 6. Inspect **EVENING1** again. Its seating is now **Garden table**. Arrival time, party size and accepted terms are preserved. Its history records the reassignment.
 

@@ -42,9 +42,9 @@ We also learned to separate a working challenge service from an operational busi
 
 ## What's next for the project
 
-A separate cloud companion is underway for a hosted demonstration. It is outside the original graded run and does not inherit the graded test results automatically. Its live URL, storage behavior and deployment checks will be reported only after verification.
+A separate durable cloud companion is accepted and its cloud backend is verified. It is deployed at [tablekeeper-proofline.web.app](https://tablekeeper-proofline.web.app); public-origin HTTP and Chrome checks passed. It is outside the original graded run and does not inherit those test results automatically. Follow the [hosted walkthrough](HOSTED-TESTING.md) and the [independent companion report](../evidence/product/verification/final-report.md), whose local/emulator scope is stated explicitly. The separate [hosted evidence](../evidence/hosted/browser-check.json) records the cloud browser flows, final-image rechecks and remaining coverage limits.
 
-Our customer hypothesis is intimate venues with four to six tables and direct or recurring groups. The proposed price is $79 per location per month, subject to observed trials and paid decisions. No customers, revenue or savings are claimed. Before authoritative restaurant use, we need operational authentication, durable storage, restore testing and a support model that works economically.
+Our customer hypothesis is intimate venues with four to six tables and direct or recurring groups. The proposed price is $79 per location per month, subject to observed trials and paid decisions. No customers, revenue or savings are claimed. Before authoritative restaurant use, we need real operating trials, off-host recovery validation and a support model that works economically. Companion acceptance is a bounded pilot result, not a restaurant production certification.
 
 ## Evidence
 

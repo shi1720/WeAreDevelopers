@@ -346,3 +346,12 @@ This configuration was chosen for the explicitly authorized unattended local bui
 
 
 For usage accounting, identify every provider-session epoch, including replacements, and follow the [published measurement method](evidence/final/runtime-usage-method.md). Never publish raw provider rollouts.
+
+
+## Separate hosted companion
+
+After freezing the graded run, four fresh BAND seats built the durable `product/` companion from the unchanged accepted stage-4 tree. This was a separate task and room, not a rerun of a graded stage. Its [dispatch and mandates](factory/companion/), [acceptance report](evidence/product/report.md), and [operator deployment evidence](evidence/hosted/README.md) preserve that boundary.
+
+The companion coordinator accepted runtime `d6194c8c9575f0a6b85ec2a322e8a65cbb9af740` and final code/test commit `8f749427004a35e6ac25ed34abb7997515ec4354`; report commit `84e8379fa9875021325b62484eaabcf976bdb442` followed. An operator-led browser review subsequently fixed the manager roster refresh and applied-state labels in two frontend files. That later polish and cloud deployment are explicitly outside the accepted BAND run.
+
+The coordinator could not obtain room-attributed provider billing. The operator later measured four verified, zero-baseline provider-session epochs after stopping the seats: 99,494,629 input tokens, including 98,185,728 cached input; 274,107 output tokens, including 53,361 reasoning output; total 99,768,736. These are runtime counters, not a cash invoice. Cached and reasoning subsets must not be added twice. See [companion usage](factory/companion/runtime-usage.json). The large repeated-context volume is a cost limitation to improve before offering the factory commercially. No zero-cost or final dollar claim is made.

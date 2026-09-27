@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-09-27T19:49:49.245Z",
+  "url": "https://tablekeeper-proofline.web.app",
+  "source_revision": "053ae0d6260f79b924752949c37a8837ded4d480",
+  "passed": true,
+  "observations": [
+    "Created isolated synthetic demo in real Chrome through Firebase",
+    "Loaded seeded booking and preserved accepted terms",
+    "Loaded manager roster, previewed one move among three bookings, applied repair",
+    "Final frontend automatically refreshed selected-date roster from Window nook to Garden table",
+    "Applied and closed labels shown after confirmed repair",
+    "Guest history records reassignment with same arrival, party size and policy",
+    "Saved individual amendment and viewed updated history",
+    "Created three weekly visits and amended visits two and three; saved summary refreshed",
+    "375px and1440px measured viewport widths equal scrollWidth",
+    "No captured browser error or warning entries"
+  ],
+  "limitations": [
+    "Initial hosted flow used first verified image; final patched image rechecked closure preview/apply/roster and responsive layout, with live static hashes matched",
+    "Temporary browser viewport capability initially had no effect; explicit CDP viewport measurements were used and both overrides cleared",
+    "Finite Chrome checks, not exhaustive accessibility or cross-browser certification"
+  ],
+  "screenshots": [
+    "final-manager-375.png",
+    "final-manager-1440.png",
+    "final-preview-375.png",
+    "guest-history-375.png",
+    "series-amended-375.png"
+  ],
+  "capture_note": "home-1440.png is an early compatibility filename: its actual capture was1512px because the first browser viewport capability had no effect. Final explicit1440 and375 measurements are recorded separately."
+}

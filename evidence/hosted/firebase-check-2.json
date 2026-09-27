@@ -1,0 +1,767 @@
+{
+  "started_at_utc": "2026-09-27T19:36:50.132858+00:00",
+  "finished_at_utc": "2026-09-27T19:37:08.166145+00:00",
+  "duration_seconds": 18.033,
+  "base_url": "https://tablekeeper-proofline.web.app",
+  "request_origin": "https://tablekeeper-proofline.web.app",
+  "base_matches_origin": true,
+  "freeze_sha": "8f749427004a35e6ac25ed34abb7997515ec4354",
+  "operator_supplied_image_digest": "sha256:d22729b181ac9b8df69d743d52b260fbb11039d2b46affe40876b16a0fb2d0c2",
+  "passed": true,
+  "failure": null,
+  "checks": [
+    {
+      "request": "/health",
+      "status": 200,
+      "duration_seconds": 0.346
+    },
+    {
+      "assertion": "/health: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "/health: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "/health: ready route HTTP 200 JSON",
+      "passed": true
+    },
+    {
+      "request": "/health/live",
+      "status": 200,
+      "duration_seconds": 0.339
+    },
+    {
+      "assertion": "/health/live: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "/health/live: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "/health/live: ready route HTTP 200 JSON",
+      "passed": true
+    },
+    {
+      "request": "/health/ready",
+      "status": 200,
+      "duration_seconds": 0.416
+    },
+    {
+      "assertion": "/health/ready: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "/health/ready: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "/health/ready: ready route HTTP 200 JSON",
+      "passed": true
+    },
+    {
+      "request": "/",
+      "status": 200,
+      "duration_seconds": 0.43
+    },
+    {
+      "assertion": "/: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "/: static HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "/: CSP and nosniff",
+      "passed": true
+    },
+    {
+      "request": "/static/app.js",
+      "status": 200,
+      "duration_seconds": 0.4
+    },
+    {
+      "assertion": "/static/app.js: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "/static/app.js: static HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "/static/app.js: CSP and nosniff",
+      "passed": true
+    },
+    {
+      "request": "/static/styles.css",
+      "status": 200,
+      "duration_seconds": 0.378
+    },
+    {
+      "assertion": "/static/styles.css: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "/static/styles.css: static HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "/static/styles.css: CSP and nosniff",
+      "passed": true
+    },
+    {
+      "request": "test-control GET probe",
+      "status": 404,
+      "duration_seconds": 0.365
+    },
+    {
+      "assertion": "test-control GET probe: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "test-control GET unavailable",
+      "passed": true
+    },
+    {
+      "request": "test-control GET probe",
+      "status": 404,
+      "duration_seconds": 0.291
+    },
+    {
+      "assertion": "test-control GET probe: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "test-control GET unavailable",
+      "passed": true
+    },
+    {
+      "request": "test-control GET probe",
+      "status": 404,
+      "duration_seconds": 0.631
+    },
+    {
+      "assertion": "test-control GET probe: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "test-control GET unavailable",
+      "passed": true
+    },
+    {
+      "request": "unconfigured production boundary",
+      "status": 200,
+      "duration_seconds": 0.513
+    },
+    {
+      "assertion": "unconfigured production boundary: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "unconfigured production boundary: HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "unconfigured production boundary: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "unconfigured production boundary: CSRF supplied",
+      "passed": true
+    },
+    {
+      "assertion": "production owner setup remains unconfigured",
+      "passed": true
+    },
+    {
+      "request": "setup without operator secret blocked",
+      "status": 403,
+      "duration_seconds": 0.362
+    },
+    {
+      "assertion": "setup without operator secret blocked: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "setup denial: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "no public setup secret accepted",
+      "passed": true
+    },
+    {
+      "request": "setup failure leaves production unchanged",
+      "status": 200,
+      "duration_seconds": 0.384
+    },
+    {
+      "assertion": "setup failure leaves production unchanged: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "setup failure leaves production unchanged: HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "setup failure leaves production unchanged: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "setup failure leaves production unchanged: CSRF supplied",
+      "passed": true
+    },
+    {
+      "assertion": "setup failure did not create owner or venue",
+      "passed": true
+    },
+    {
+      "request": "visitor A anonymous preparation",
+      "status": 200,
+      "duration_seconds": 0.381
+    },
+    {
+      "assertion": "visitor A anonymous preparation: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A anonymous preparation: HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A anonymous preparation: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A anonymous preparation: CSRF supplied",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A anonymous: one session cookie",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A anonymous: Secure HttpOnly SameSite=Lax Path=/",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A: demo enabled",
+      "passed": true
+    },
+    {
+      "request": "visitor A start own isolated demo",
+      "status": 201,
+      "duration_seconds": 0.659
+    },
+    {
+      "assertion": "visitor A start own isolated demo: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A: started",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A demo: one session cookie",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A demo: Secure HttpOnly SameSite=Lax Path=/",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "visitor A: synthetic authenticated guest",
+      "passed": true
+    },
+    {
+      "request": "visitor B anonymous preparation",
+      "status": 200,
+      "duration_seconds": 0.36
+    },
+    {
+      "assertion": "visitor B anonymous preparation: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B anonymous preparation: HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B anonymous preparation: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B anonymous preparation: CSRF supplied",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B anonymous: one session cookie",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B anonymous: Secure HttpOnly SameSite=Lax Path=/",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B: demo enabled",
+      "passed": true
+    },
+    {
+      "request": "visitor B start own isolated demo",
+      "status": 201,
+      "duration_seconds": 0.899
+    },
+    {
+      "assertion": "visitor B start own isolated demo: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B: started",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B demo: one session cookie",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B demo: Secure HttpOnly SameSite=Lax Path=/",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "visitor B: synthetic authenticated guest",
+      "passed": true
+    },
+    {
+      "assertion": "independent demo account scopes",
+      "passed": true
+    },
+    {
+      "request": "unknown API JSON error",
+      "status": 404,
+      "duration_seconds": 0.539
+    },
+    {
+      "assertion": "unknown API JSON error: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "API error: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "unknown API HTTP 404 with error object",
+      "passed": true
+    },
+    {
+      "request": "discover own demo venue",
+      "status": 200,
+      "duration_seconds": 0.398
+    },
+    {
+      "assertion": "discover own demo venue: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "venue discovery HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "venues: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "single synthetic venue",
+      "passed": true
+    },
+    {
+      "request": "find synthetic availability",
+      "status": 200,
+      "duration_seconds": 0.36
+    },
+    {
+      "assertion": "find synthetic availability: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "availability HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "availability: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "at least two separated available slots",
+      "passed": true
+    },
+    {
+      "assertion": "nonoverlapping demo test times",
+      "passed": true
+    },
+    {
+      "request": "invalid CSRF",
+      "status": 403,
+      "duration_seconds": 0.369
+    },
+    {
+      "assertion": "invalid CSRF: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "invalid CSRF: blocked",
+      "passed": true
+    },
+    {
+      "request": "invalid Origin",
+      "status": 403,
+      "duration_seconds": 0.409
+    },
+    {
+      "assertion": "invalid Origin: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "invalid Origin: blocked",
+      "passed": true
+    },
+    {
+      "request": "create own booking lowercase key",
+      "status": 201,
+      "duration_seconds": 0.408
+    },
+    {
+      "assertion": "create own booking lowercase key: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "booking created",
+      "passed": true
+    },
+    {
+      "assertion": "created booking: JSON object",
+      "passed": true
+    },
+    {
+      "request": "replay exact lowercase key",
+      "status": 200,
+      "duration_seconds": 0.36
+    },
+    {
+      "assertion": "replay exact lowercase key: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "replayed booking: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "original receipt exact replay",
+      "passed": true
+    },
+    {
+      "request": "copied reference isolation",
+      "status": 404,
+      "duration_seconds": 0.388
+    },
+    {
+      "assertion": "copied reference isolation: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "other visitor cannot read created record",
+      "passed": true
+    },
+    {
+      "request": "copied reference isolation",
+      "status": 404,
+      "duration_seconds": 0.747
+    },
+    {
+      "assertion": "copied reference isolation: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "other visitor cannot read created record",
+      "passed": true
+    },
+    {
+      "request": "copied reference isolation",
+      "status": 404,
+      "duration_seconds": 0.437
+    },
+    {
+      "assertion": "copied reference isolation: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "other visitor cannot read created record",
+      "passed": true
+    },
+    {
+      "request": "B own manager role",
+      "status": 200,
+      "duration_seconds": 0.562
+    },
+    {
+      "assertion": "B own manager role: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "B role switch succeeds",
+      "passed": true
+    },
+    {
+      "assertion": "B manager: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "B role is manager",
+      "passed": true
+    },
+    {
+      "request": "B own manager roster",
+      "status": 200,
+      "duration_seconds": 0.394
+    },
+    {
+      "assertion": "B own manager roster: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "B roster: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "B roster excludes A new booking",
+      "passed": true
+    },
+    {
+      "request": "A role unaffected",
+      "status": 200,
+      "duration_seconds": 0.355
+    },
+    {
+      "assertion": "A role unaffected: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "A role unaffected: HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "A role unaffected: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "A role unaffected: CSRF supplied",
+      "passed": true
+    },
+    {
+      "assertion": "A remains guest",
+      "passed": true
+    },
+    {
+      "request": "B reset only own synthetic demo",
+      "status": 200,
+      "duration_seconds": 0.538
+    },
+    {
+      "assertion": "B reset only own synthetic demo: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "B own reset succeeds",
+      "passed": true
+    },
+    {
+      "request": "A survives B reset",
+      "status": 200,
+      "duration_seconds": 0.412
+    },
+    {
+      "assertion": "A survives B reset: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "A after B reset: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "A booking unchanged by B reset",
+      "passed": true
+    },
+    {
+      "request": "four-way same-key request",
+      "status": 201,
+      "duration_seconds": 0.48
+    },
+    {
+      "assertion": "four-way same-key request: private no-store",
+      "passed": true
+    },
+    {
+      "request": "four-way same-key request",
+      "status": 200,
+      "duration_seconds": 1.188
+    },
+    {
+      "assertion": "four-way same-key request: private no-store",
+      "passed": true
+    },
+    {
+      "request": "four-way same-key request",
+      "status": 503,
+      "duration_seconds": 1.195
+    },
+    {
+      "assertion": "four-way same-key request: private no-store",
+      "passed": true
+    },
+    {
+      "request": "four-way same-key request",
+      "status": 200,
+      "duration_seconds": 1.225
+    },
+    {
+      "assertion": "four-way same-key request: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "four-way only success or bounded contention",
+      "passed": true
+    },
+    {
+      "request": "four-way same-key request",
+      "status": 200,
+      "duration_seconds": 0.39
+    },
+    {
+      "assertion": "four-way same-key request: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "four-way recovered success with at most one create",
+      "passed": true
+    },
+    {
+      "assertion": "four-way one create unless initial response was uncertain",
+      "passed": true
+    },
+    {
+      "assertion": "parallel receipt: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "parallel receipt: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "parallel receipt: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "parallel receipt: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "four-way identical response bodies",
+      "passed": true
+    },
+    {
+      "request": "inspect own resulting bookings",
+      "status": 200,
+      "duration_seconds": 0.427
+    },
+    {
+      "assertion": "inspect own resulting bookings: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "result list HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "booking list: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "exactly two new records on unique test day",
+      "passed": true
+    },
+    {
+      "request": "new HTTP client retained session",
+      "status": 200,
+      "duration_seconds": 0.394
+    },
+    {
+      "assertion": "new HTTP client retained session: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "retained booking: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "original booking survives client replacement",
+      "passed": true
+    },
+    {
+      "request": "logout own demo session",
+      "status": 200,
+      "duration_seconds": 0.374
+    },
+    {
+      "assertion": "logout own demo session: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "logout succeeds",
+      "passed": true
+    },
+    {
+      "request": "revoked cookie booking read",
+      "status": 401,
+      "duration_seconds": 0.436
+    },
+    {
+      "assertion": "revoked cookie booking read: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "revoked session cannot read namespace",
+      "passed": true
+    },
+    {
+      "request": "revoked cookie manager attempt",
+      "status": 401,
+      "duration_seconds": 0.378
+    },
+    {
+      "assertion": "revoked cookie manager attempt: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "revoked session cannot switch role",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Booking mutations affect only synthetic namespaces owned by this run; authentication preparation and rejection counters can update main metadata. Expiration/cleanup remain operator-managed.",
+    "GET-only judge-control probes: destructive reset/import verbs intentionally not invoked.",
+    "New HTTP client with retained cookie is not a Cloud Run revision restart test.",
+    "No browser/CSP execution, IAM privilege audit, backup/restore or cloud billing/abuse load test.",
+    "When base_matches_origin is false this is direct-backend verification, not proof of Firebase Hosting cookie forwarding.",
+    "Image digest is operator-supplied metadata, not remotely attested by this script."
+  ]
+}

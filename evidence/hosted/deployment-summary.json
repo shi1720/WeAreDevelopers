@@ -1,0 +1,260 @@
+{
+  "observed_at_utc": "2026-09-27T19:52:49.850233+00:00",
+  "status": "published image passed live backend, Firebase visitor-isolation and browser checks; prior deployment passed revision continuity",
+  "accepted_revision": "8f749427004a35e6ac25ed34abb7997515ec4354",
+  "runtime_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "public_url": "https://tablekeeper-proofline.web.app",
+  "service": {
+    "name": "proofline-tablekeeper",
+    "image": "us-central1-docker.pkg.dev/gen-lang-client-0444960702/proofline/proofline-tablekeeper@sha256:4242b0226aaad2aecc432cb1999a2e49530025b3da92fc36eb3f2d21b4ea6792",
+    "old_ready_revision": "proofline-tablekeeper-00003-6th",
+    "latest_ready_revision": "proofline-tablekeeper-00005-dz5",
+    "traffic": [
+      {
+        "revisionName": "proofline-tablekeeper-00004-gfq",
+        "tag": "fh-0f5989a125db05f0",
+        "url": "https://fh-0f5989a125db05f0---proofline-tablekeeper-wh46bdeima-uc.a.run.app"
+      },
+      {
+        "latestRevision": true,
+        "percent": 100,
+        "revisionName": "proofline-tablekeeper-00005-dz5",
+        "tag": "fh-0b3ca453ade4aa32",
+        "url": "https://fh-0b3ca453ade4aa32---proofline-tablekeeper-wh46bdeima-uc.a.run.app"
+      }
+    ],
+    "service_account": "proofline-runtime@gen-lang-client-0444960702.iam.gserviceaccount.com",
+    "environment": {
+      "TABLEKEEPER_MODE": "production",
+      "TABLEKEEPER_STORAGE": "firestore",
+      "GOOGLE_CLOUD_PROJECT": "gen-lang-client-0444960702",
+      "TABLEKEEPER_DATABASE": "proofline-tablekeeper",
+      "TABLEKEEPER_COLLECTION": "proofline_demo",
+      "TABLEKEEPER_PUBLIC_ORIGIN": "https://tablekeeper-proofline.web.app",
+      "TABLEKEEPER_PUBLIC_DEMO": "1"
+    },
+    "resources": {
+      "limits": {
+        "cpu": "2",
+        "memory": "2Gi"
+      }
+    },
+    "concurrency": 16,
+    "timeout_seconds": 30,
+    "startup_probe": {
+      "failureThreshold": 12,
+      "httpGet": {
+        "path": "/health/ready",
+        "port": 8080
+      },
+      "periodSeconds": 10,
+      "timeoutSeconds": 10
+    },
+    "maximum_service_instances": "2",
+    "maximum_revision_instances": "2",
+    "minimum_instances": 0,
+    "minimum_evidence": "No minimum scaling annotation in service/revision metadata; platform default zero, consistent with operator min=0 setting.",
+    "continuity_scope": "Earlier image d22729b1, revisions 00003-6th to 00004-gfq; not a new continuity test on 00005-dz5."
+  },
+  "firestore": {
+    "database": "proofline-tablekeeper",
+    "freeTier": false,
+    "runtime_project_bindings": [
+      {
+        "role": "roles/datastore.user",
+        "condition": {
+          "description": "Only the dedicated Proofline database",
+          "expression": "resource.name==\"projects/gen-lang-client-0444960702/databases/proofline-tablekeeper\"",
+          "title": "proofline_database_exact"
+        }
+      }
+    ],
+    "iam_scope_limit": "Project policy inspected for this identity only; does not independently enumerate organization/folder inherited grants.",
+    "rules": {
+      "release": {
+        "name": "projects/gen-lang-client-0444960702/releases/cloud.firestore/proofline-tablekeeper",
+        "rulesetName": "projects/gen-lang-client-0444960702/rulesets/73bb5c10-1d83-4dcd-bce2-dbc0a331b908",
+        "createTime": "2026-09-27T19:07:48.141635Z",
+        "updateTime": "2026-09-27T19:07:48.141635Z"
+      },
+      "rules_sha256": "ed1e7c11f025d9464e80e4c4584711c474a0c9b0e07802618de8d02dddadec87",
+      "deny_all_source_matches": true
+    },
+    "indexes": "field-index-config.json"
+  },
+  "checks": {
+    "backend-check-5": {
+      "passed": true,
+      "started_at_utc": "2026-09-27T19:34:12.625170+00:00",
+      "finished_at_utc": "2026-09-27T19:34:29.637324+00:00",
+      "duration_seconds": 17.012,
+      "base_url": "https://proofline-tablekeeper-wh46bdeima-uc.a.run.app",
+      "evidence": "backend-check-5.json"
+    },
+    "firebase-check-2": {
+      "passed": true,
+      "started_at_utc": "2026-09-27T19:36:50.132858+00:00",
+      "finished_at_utc": "2026-09-27T19:37:08.166145+00:00",
+      "duration_seconds": 18.033,
+      "base_url": "https://tablekeeper-proofline.web.app",
+      "evidence": "firebase-check-2.json"
+    },
+    "continuity-before": {
+      "passed": true,
+      "started_at_utc": "2026-09-27T19:31:59.803172+00:00",
+      "finished_at_utc": "2026-09-27T19:32:02.324074+00:00",
+      "duration_seconds": 2.521,
+      "base_url": "https://proofline-tablekeeper-wh46bdeima-uc.a.run.app",
+      "evidence": "continuity-before.json"
+    },
+    "continuity-after": {
+      "passed": true,
+      "started_at_utc": "2026-09-27T19:33:00.371310+00:00",
+      "finished_at_utc": "2026-09-27T19:33:02.645330+00:00",
+      "duration_seconds": 2.274,
+      "base_url": "https://proofline-tablekeeper-wh46bdeima-uc.a.run.app",
+      "evidence": "continuity-after.json"
+    },
+    "final-backend-check": {
+      "passed": true,
+      "started_at_utc": "2026-09-27T19:46:55.114269+00:00",
+      "finished_at_utc": "2026-09-27T19:47:13.233736+00:00",
+      "duration_seconds": 18.119,
+      "base_url": "https://proofline-tablekeeper-wh46bdeima-uc.a.run.app",
+      "evidence": "final-backend-check.json"
+    },
+    "final-firebase-check": {
+      "passed": true,
+      "started_at_utc": "2026-09-27T19:48:04.926155+00:00",
+      "finished_at_utc": "2026-09-27T19:48:23.019140+00:00",
+      "duration_seconds": 18.093,
+      "base_url": "https://tablekeeper-proofline.web.app",
+      "evidence": "final-firebase-check.json"
+    },
+    "browser-check": {
+      "passed": true,
+      "checked_at_utc": "2026-09-27T19:49:49.245Z",
+      "source_revision": "053ae0d6260f79b924752949c37a8837ded4d480",
+      "evidence": "browser-check.json"
+    },
+    "final-static-hashes": {
+      "base_url": "https://tablekeeper-proofline.web.app",
+      "evidence": "final-static-hashes.json"
+    }
+  },
+  "contention": "Final backend run observed two 503 responses among four same-key requests; final Firebase run observed one. Unchanged retries returned 200 with identical response and one-effect assertions passing. Prior API runs also observed recovered contention. No claim of zero transient errors.",
+  "cleanup": {
+    "job": "proofline-demo-cleanup",
+    "image": "us-central1-docker.pkg.dev/gen-lang-client-0444960702/proofline/proofline-tablekeeper@sha256:4242b0226aaad2aecc432cb1999a2e49530025b3da92fc36eb3f2d21b4ea6792",
+    "command": [
+      "python"
+    ],
+    "args": [
+      "-m",
+      "tablekeeper.operations",
+      "cleanup",
+      "--limit",
+      "100"
+    ],
+    "service_account": "proofline-runtime@gen-lang-client-0444960702.iam.gserviceaccount.com",
+    "task_count": 1,
+    "parallelism": 1,
+    "max_retries": 0,
+    "timeout_seconds": "300",
+    "initial_execution": {
+      "name": "proofline-demo-cleanup-lqkwb",
+      "created_at": "2026-09-27T19:33:03.800171Z",
+      "started_at": "2026-09-27T19:33:21.833667Z",
+      "completed_at": "2026-09-27T19:35:03.676094Z",
+      "succeeded_count": 1,
+      "completed": "True"
+    },
+    "scheduler_triggered_execution": {
+      "name": "proofline-demo-cleanup-6ttt4",
+      "created_at": "2026-09-27T19:35:38.363486Z",
+      "started_at": "2026-09-27T19:35:49.824752Z",
+      "completed_at": "2026-09-27T19:38:35.889619Z",
+      "succeeded_count": 1,
+      "completed": "True"
+    },
+    "scheduler_execution_creator": "proofline-scheduler@gen-lang-client-0444960702.iam.gserviceaccount.com",
+    "schedule": {
+      "name": "projects/gen-lang-client-0444960702/locations/us-central1/jobs/proofline-demo-cleanup-hourly",
+      "state": "ENABLED",
+      "schedule": "0 * * * *",
+      "time_zone": "UTC",
+      "last_attempt": "2026-09-27T19:35:38.285932Z",
+      "method": "POST",
+      "uri": "https://run.googleapis.com/v2/projects/gen-lang-client-0444960702/locations/us-central1/jobs/proofline-demo-cleanup:run",
+      "oauth_service_account": "proofline-scheduler@gen-lang-client-0444960702.iam.gserviceaccount.com"
+    },
+    "job_invoker_bindings": [
+      {
+        "role": "roles/run.invoker",
+        "members": [
+          "serviceAccount:proofline-scheduler@gen-lang-client-0444960702.iam.gserviceaccount.com"
+        ]
+      }
+    ],
+    "limit": "100 retained demo entries; 2-hour authorization; expired entries remain until cleanup. Scheduler manually triggered for this verification; unattended future hourly reliability is not established.",
+    "published_image_execution": {
+      "name": "proofline-demo-cleanup-qznnz",
+      "created_at": "2026-09-27T19:46:25.441618Z",
+      "image": "us-central1-docker.pkg.dev/gen-lang-client-0444960702/proofline/proofline-tablekeeper@sha256:4242b0226aaad2aecc432cb1999a2e49530025b3da92fc36eb3f2d21b4ea6792",
+      "completed_at": "2026-09-27T19:48:54.029745Z",
+      "succeeded_count": 1,
+      "completed": "True",
+      "trigger": "Operator initial execution after final image update; prior scheduler-triggered completion retained separately."
+    }
+  },
+  "limitations": [
+    "Selected scoped metadata only; no credentials, cookies, request bodies or unrelated project bindings.",
+    "Finite Chrome affected-flow and responsive recheck, not exhaustive accessibility or cross-browser certification.",
+    "Cloud build record ID is not included in this summary.",
+    "Provider bill unknown; database reports freeTier false.",
+    "Scheduled job completion is verified on prior image and operator job completion on published image; no expired-deletion count inferred.",
+    "Earlier durable continuity test is not misrepresented as a fresh revision switch on the final image."
+  ],
+  "post_factory_ui_repair": {
+    "status": "published and affected flow verified",
+    "observed_issue": "Successful seating repair did not refresh manager roster and retained Preview only / Proposed closure labels.",
+    "scope": "Two JavaScript files, operator presentation polish outside completed factory run.",
+    "replacement_revision": "053ae0d6260f79b924752949c37a8837ded4d480",
+    "replacement_image_digest": "sha256:4242b0226aaad2aecc432cb1999a2e49530025b3da92fc36eb3f2d21b4ea6792",
+    "final_browser_recheck": "PASS: browser-check.json",
+    "local_acceptance": "operator-ui-acceptance.json",
+    "static_content": "final-static-hashes.json"
+  },
+  "factory_accepted_product_tree": "81f770ca92f61af4c58e5a763d9a466a671804c8",
+  "published_source_revision": "053ae0d6260f79b924752949c37a8837ded4d480",
+  "published_product_tree": "3045a3091e812a4171a8decd514e3ee5edd784ab",
+  "hosting_release": {
+    "name": "sites/tablekeeper-proofline/releases/1790538459826000",
+    "type": "DEPLOY",
+    "releaseTime": "2026-09-27T19:47:39.826Z",
+    "version": {
+      "name": "sites/tablekeeper-proofline/versions/0b3ca453ade4aa32",
+      "status": "FINALIZED",
+      "config": {
+        "headers": [
+          {
+            "headers": {
+              "Cache-Control": "private, no-store"
+            },
+            "glob": "**"
+          }
+        ],
+        "rewrites": [
+          {
+            "glob": "**",
+            "run": {
+              "serviceId": "proofline-tablekeeper",
+              "region": "us-central1",
+              "tag": "fh-0b3ca453ade4aa32"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

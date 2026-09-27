@@ -14,7 +14,7 @@ Proofline: Tablekeeper
 A BAND agent factory builds reliable reservations and seating repair, so restaurants can keep guest promises when the floor changes.
 ```
 
-## Long description (1971 characters)
+## Long description (1990 characters)
 
 ```text
 Inspiration
@@ -36,7 +36,7 @@ What we learned
 Independent review matters after public tests pass. The frozen service has ephemeral state and judge controls, so it is not a public production deployment. Provider-billed spend is unknown.
 
 Next
-A separate durable hosted companion is pending verification. Our first customer hypothesis is intimate four-to-six-table venues with direct or recurring groups. The proposed $79 per location monthly needs paid-pilot validation; no customers or revenue are claimed.
+A separate durable companion is live, with verified backend and browser checks. Our first customer hypothesis is intimate four-to-six-table venues with direct or recurring groups. The proposed $79 per location monthly needs paid-pilot validation; no customers or revenue are claimed.
 ```
 
 ## Separate fields and finalization notes
@@ -44,10 +44,10 @@ A separate durable hosted companion is pending verification. Our first customer 
 These notes are outside the copiable description text.
 
 - Creator: Shivam Gupta. Track: tablekeeper.
-- Repository: use the confirmed public GitHub URL after the final push/access check.
-- Website URL: PENDING. Enter only the verified live Firebase Hosting address after companion acceptance and deployment. A reserved site name is not a working app.
-- Video URL: PENDING. Enter the actual public YouTube watch URL after upload and playback verification.
-- Suggested technologies: BAND Desktop, Codex, Python, Docker, automated testing. Add deployed companion technologies only when verified.
+- Repository: https://github.com/shi1720/WeAreDevelopers. Public access and unauthenticated clone check are recorded; retain final push receipts.
+- Website URL: https://tablekeeper-proofline.web.app. Companion accepted, cloud backend verified and Firebase Hosting deployed; public-origin HTTP and Chrome checks passed.
+- Video URL: PENDING. The final MP4, PDF and cover are uploaded to the saved lablab draft. YouTube upload awaits action-time confirmation; enter an actual public watch URL only after verification. Final lablab submission remains pending.
+- Suggested technologies: BAND Desktop, Codex, Python, Docker, automated testing; Firebase Hosting, Google Cloud Run and Firestore for the separate deployed companion.
 - Full seven-section story: [PROJECT-STORY.md](PROJECT-STORY.md). Detailed original-run submission narrative: [SUBMISSION.md](SUBMISSION.md).
 - Do not claim this deployment has a Firestore free allowance. The operator reports a dedicated named database in an existing billing project with `freeTier: false`. Usage and actual billing must be measured; generic platform allowances do not establish this database's entitlement.
-- If the companion is verified before submission, update only its final status sentence using the actual result. Preserve the frozen-service boundary, one-task/restart disclosure and original test counts.
+- Hosted checks passed at source revision 053ae0d. Preserve the frozen-service boundary, one-task/restart disclosure and original test counts.

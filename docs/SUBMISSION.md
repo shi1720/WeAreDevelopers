@@ -1,6 +1,6 @@
 # Proofline submission pack
 
-**Verified original-run copy; final packaging, hosted companion and platform submission are pending.** Reconcile this status with actual upload receipts before submitting. Do not substitute future companion results for the original graded run.
+**Verified original-run copy with a separate deployed companion.** The companion is accepted and its cloud backend is verified; public-origin HTTP and Chrome checks passed. The video, PDF and cover are completed and uploaded to the saved lablab draft. Final submission and public YouTube publication remain pending. Keep companion results separate from the original graded run.
 
 ## Form fields
 
@@ -18,7 +18,7 @@
 
 **Category tags:** Developer tools, Hospitality, Workflow automation, Reliability
 
-Use the platform's available choices. Do not add Firebase or durable-database implementation tags before the separate companion is actually verified and deployed.
+Use the platform's available choices. Firebase Hosting, Google Cloud Run and Firestore describe the separate deployed companion, not the offline graded containers. Public-origin HTTP and Chrome checks passed.
 
 ## Long description
 
@@ -38,24 +38,24 @@ The planner is deliberately bounded to six tables, four declared combinable pair
 
 From dispatch at 11:36:12.525834 UTC to the final report at 18:00:17.507353 UTC on September 27, the original run took 6 hours, 24 minutes and 4.981519 seconds of wall time, including recovery. A post-acceptance snapshot across eight identified provider-session epochs reports 119,443,159 runtime tokens, mostly cached input. These are repeated-request counters, not unique generated text or an invoice. Provider-billed spend is unknown; the repository explains the cutoff and exclusions instead of presenting an incomplete catalog estimate as cost.
 
-The frozen graded service uses ephemeral state and judge controls, so it is a local demonstration rather than an internet-production deployment. Individual booking amendments remain API-only, and amended-series summary refresh has a documented UX limitation. A separate durable operational companion and Firebase deployment are pending. The submission preserves the original factory, full room, accepted stages, measured evidence and remaining limits so judges can inspect both the result and the process that produced it.
+The frozen graded service uses ephemeral state and judge controls, so it is a local demonstration rather than an internet-production deployment. Individual booking amendments remain API-only, and amended-series summary refresh has a documented UX limitation. A separate durable operational companion is accepted, its cloud backend is verified, and Firebase Hosting is deployed at https://tablekeeper-proofline.web.app. Public-origin HTTP and Chrome checks passed; [hosted evidence](../evidence/hosted/browser-check.json) distinguishes initial-image guest flows from final-image closure/roster and responsive rechecks at `053ae0d`. The submission preserves the original factory, full room, accepted stages, measured evidence and remaining limits so judges can inspect both the result and the process that produced it.
 
 ## Submission field checklist
 
 | Field or gate | Evidence / current state |
 |---|---|
 | Title and descriptions | Verified original-run copy above; confirm platform limits |
-| Public repository | Confirm final pushed URL and public clean clone |
+| Public repository | Public GitHub repository and unauthenticated clone check recorded; preserve final push receipts |
 | Stage folders | All four accepted; frozen implementation and independent reports linked in FACTORY.md |
 | Factory setup | FACTORY.md includes portable commands, recovery and measured usage limitations |
 | Generic mandates | Actual files preserved; run final official package check |
 | Room export | Authentic root room.json; full export, 3,540 messages, exported 18:01:32 UTC |
-| Cover and slide presentation | Local assets need final editorial/visual review and upload confirmation |
-| Video | Evidence-finalized script; genuine BAND Desktop recording, final audio/captions and public YouTube URL still need verification |
+| Cover and slide presentation | Completed, reviewed and uploaded to the saved lablab draft |
+| Video | Final MP4 includes authentic room recording and captions; saved in lablab draft. YouTube awaits action-time confirmation and verified watch URL; listening review unavailable |
 | Security/licensing | Best-effort export review complete; final staged-file/history scan and third-party notices required |
-| Service checks | Original workspace and fresh-clone isolated tests passed; historical package check predates export |
-| Final package check | Post-export official checker and final public clone remain distinct finalization gates |
-| Hosted companion | Pending; no public deployment or durable operation claim |
-| Submission receipt | Not submitted; retain actual lablab confirmation |
+| Service checks | Original workspace and fresh-clone isolated tests passed; post-export package/public-clone checks recorded |
+| Final package check | Post-export official checker and unauthenticated public clone passed; distinct from original runtime tests |
+| Hosted companion | Accepted companion; cloud backend verified; deployed at https://tablekeeper-proofline.web.app. Public-origin HTTP and Chrome checks passed |
+| Submission receipt | Saved lablab draft with completed media; final submission pending. Retain actual confirmation |
 
 The original room export and old checker logs are historical records. Keep them unchanged; add later package-check evidence separately. Platform publication, team creation and submission require their actual successful results, not this checklist alone.

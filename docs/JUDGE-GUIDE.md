@@ -1,6 +1,6 @@
 # Inspect Proofline in three minutes
 
-**Tablekeeper is the restaurant product. Proofline is the reusable four-seat BAND factory that built and checked it.** This route covers the original completed four-stage run. The [captioned demo video](../output/video/final/proofline-tablekeeper-demo.mp4) includes an authentic BAND Desktop room recording captured after completion. The separately verified hosted companion remains pending; a reserved website address is not a live deployment.
+**Tablekeeper is the restaurant product. Proofline is the reusable four-seat BAND factory that built and checked it.** This route covers the original completed four-stage run. The [captioned demo video](../output/video/final/proofline-tablekeeper-demo.mp4) includes an authentic BAND Desktop room recording captured after completion. The [separate durable companion](https://tablekeeper-proofline.web.app) is accepted, its cloud backend is verified, and Firebase Hosting is deployed. Public-origin HTTP and Chrome checks passed. The video shows the original accepted local stage, not the cloud companion. The [hosted check](../evidence/hosted/browser-check.json) records the final closure/roster and responsive recheck at `053ae0d`; broader guest flows were checked on the first verified image.
 
 ## 0:00 to 0:40: the task and the team
 
@@ -33,7 +33,7 @@ The [post-export package check](../evidence/final/package-check.md) passed. The 
 
 ## 2:00 to 3:00: try the promise, see the boundaries
 
-Follow the [local demo runbook](DEMO-RUNBOOK.md): preview the Window nook closure at The Orangery, inspect one proposed move among three synthetic bookings, apply it, then view the guest's unchanged arrival time and accepted terms. The preview alone changes nothing. [README](../README.md) gives the Docker start commands; [FACTORY](../FACTORY.md) gives pinned harness and new-factory reproduction steps.
+Use the [hosted walkthrough](HOSTED-TESTING.md) for the verified deployed companion. For the frozen graded service, follow the [local demo runbook](DEMO-RUNBOOK.md): preview the Window nook closure at The Orangery, inspect one proposed move among three synthetic bookings, apply it, then view the guest's unchanged arrival time and accepted terms. The preview alone changes nothing. [README](../README.md) gives the Docker start commands; [FACTORY](../FACTORY.md) gives pinned harness and new-factory reproduction steps.
 
 The planner supports **6 tables, 4 declared pairs and 6 considered bookings**. Every confirmed booking overlapping the closure counts. The frozen graded service is ephemeral and enables judge controls by default; run it locally, not as a public production service. Individual booking amendment is API-only, and amended-series summary refresh has a documented UX limitation.
 

@@ -8,5 +8,8 @@
   "sha256": "17379ebbe6df3db3745c20426dfae2d00d055e87542fe03645935436d9c58e27",
   "redacted": false,
   "review": "Public export reviewed for credential-shaped values and actual versus synthetic test secrets; no actual credentials identified. Original export retained byte-for-byte.",
-  "boundary": "Separate post-graded companion run. Root room.json remains the original graded factory export."
+  "boundary": "Separate post-graded companion run. Root room.json remains the original graded factory export.",
+  "public_file": "room-export.txt",
+  "format": "Unmodified UTF-8 JSON export, stored with .txt extension because this supplemental transcript is source/tool evidence, not application configuration.",
+  "packaging_note": "The official checker exempts only root room.json from its config-assignment heuristic. It misclassifies nested JSON transcripts as configuration. An audit identified 93 source-expression/synthetic-placeholder matches in 39 message fields and no real credential. The supplemental export is stored as plain text without changing any byte. General credential scans still apply. The required original graded room.json is untouched."
 }

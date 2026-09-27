@@ -1,0 +1,15 @@
+Open https://tablekeeper-proofline.web.app and choose Start a private demo, then Create synthetic demo. No API key or shared password is needed. Use made-up information only; each browser session has isolated data and expires after two hours.
+
+Three-minute test:
+1. In Your bookings, open EVENING1. Note Window nook, 14 June 2035 at 19:00 Europe/London, two guests, policy 0.
+2. Open Demo controls, Explore as manager. Load the roster for 14 June 2035.
+3. Preview a Window nook closure from 19:00 to 21:00 that day. Expect one move among three considered bookings and zero unused seats. Preview does not apply changes.
+4. Apply seating repair. The roster refreshes automatically and EVENING1 moves to Garden table.
+5. Switch back to guest and inspect EVENING1. Arrival, party size and accepted terms are preserved; history records the reassignment.
+
+Also try Find a table, booking edits, and Regular evenings. If a response is uncertain, Recover original result retries the saved request unchanged. Reset this demo affects only your synthetic space.
+
+Guide: https://github.com/shi1720/WeAreDevelopers/blob/main/docs/HOSTED-TESTING.md
+Evidence: https://github.com/shi1720/WeAreDevelopers/blob/main/evidence/hosted/README.md
+
+The hosted product is a separate durable companion. Original graded stage-1 through stage-4 containers and the authentic BAND room export remain in the repository. Limits: six tables, four pairs and six overlapping confirmed bookings in closure planning. This is a synthetic pilot, not a live restaurant booking service.

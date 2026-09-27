@@ -1,0 +1,92 @@
+- link "Skip to content":
+  - /url: "#main"
+- banner:
+  - link "Tablekeeper home":
+    - /url: /
+    - generic: t.
+    - text: tablekeeper
+  - navigation "Main navigation":
+    - link "Find a table":
+      - /url: /
+    - link "Your bookings":
+      - /url: /bookings
+    - link "Find a reference":
+      - /url: /lookup
+    - link "Regular evenings":
+      - /url: /series
+    - link "For restaurants":
+      - /url: /manager
+    - generic: Alex
+    - link "Account":
+      - /url: /account
+    - button "Sign out"
+- complementary:
+  - strong: Synthetic demo
+  - generic: Only made-up guests. This private demo expires; do not enter real guest data.
+  - link "Demo controls":
+    - /url: /demo
+- main:
+  - paragraph: Keep the evening yours
+  - heading "Your place is in the book." [level=1]
+  - paragraph: Find the details of your reservation, or let us know if your plans have changed.
+  - heading "Find your reservation" [level=2]
+  - generic: Booking reference
+  - textbox "Booking reference":
+    - /placeholder: Your confirmation reference
+    - text: EVENING1
+  - button "Find reservation"
+  - paragraph: Sign in with the account you used to book. Your reservations are private to you.
+  - paragraph: The Orangery
+  - heading "Your evening" [level=2]
+  - generic: confirmed
+  - term: Reference
+  - definition: EVENING1
+  - term: When
+  - definition: 2035-06-14 · 19:00
+  - term: Timezone
+  - definition: Europe/London
+  - term: Your table
+  - definition: Window nook
+  - term: Guests
+  - definition: "2"
+  - button "Cancel reservation"
+  - heading "The promise we kept" [level=3]
+  - paragraph: Revision 1 · These terms belong to this reservation. Later restaurant policies do not rewrite them.
+  - term: Policy
+  - definition: Version 0
+  - term: Dining time
+  - definition: 90 minutes
+  - term: Start intervals
+  - definition: 30 minutes
+  - term: Change deadline
+  - definition: 60 minutes before arrival
+  - generic "Opening hours and table capacities"
+  - heading "Your reservation history" [level=3]
+  - list:
+    - strong: Reserved
+    - generic: Revision 1
+    - paragraph: 2026-09-27T19:37:02.027846+00:00
+    - list:
+      - listitem: "Table: Window nook"
+      - listitem: "Arrival: 2035-06-14T19:00"
+      - listitem: "Guests: 2"
+    - generic "Terms at this point"
+  - heading "Make it a regular evening" [level=3]
+  - paragraph: Keep this booking as your first visit. Every following visit is checked against its own date’s policy, with all visits reserved together.
+  - generic: Total visits, including this one
+  - spinbutton "Total visits, including this one": "4"
+  - generic: Weeks between visits
+  - spinbutton "Weeks between visits": "1"
+  - button "Reserve regular visits"
+  - heading "Make room for a change." [level=3]
+  - paragraph: Find available seating, then review the proposed terms. Your current booking stays in place until the server confirms the change.
+  - generic: New date
+  - textbox "New date": 2035-06-14
+  - generic: Guests
+  - spinbutton "Guests": "2"
+  - button "Find change options"
+- contentinfo:
+  - link "tablekeeper":
+    - /url: /
+  - paragraph: A booking is a promise. Keep the evening yours.
+  - generic: Made for gathering.

@@ -1,6 +1,6 @@
 # YouTube publication copy
 
-Status: final video and measured chapters prepared. Replace the single final URL slot after the live deployment check. Listening review remains a disclosed limitation; automatic transcription and objective audio checks do not establish naturalness.
+Status: final video and measured chapters prepared. The companion backend is verified and Firebase Hosting is deployed; public-origin HTTP and Chrome checks passed. Public YouTube upload still awaits action-time confirmation. Listening review remains a disclosed limitation; automatic transcription and objective audio checks do not establish naturalness.
 
 ## Title
 
@@ -14,7 +14,8 @@ Tablekeeper previews the smallest safe seating change while preserving guests' t
 
 This walkthrough follows the real BAND collaboration, a review that rejected a flawed candidate, and the restaurant recovery workflow. Shivam Gupta directed the product and configured the factory. Coordinator, Engineer, Experience and Verifier handled planning, implementation and independent review.
 
-Explore the hosted companion: [FINAL_VERIFIED_FIREBASE_URL]
+Explore the separate hosted companion: https://tablekeeper-proofline.web.app
+Companion backend verified; Firebase Hosting deployed. Public-origin HTTP and Chrome checks passed.
 Source and evidence: https://github.com/shi1720/WeAreDevelopers
 
 Chapters:
@@ -46,7 +47,7 @@ Credits: Shivam Gupta, product direction and factory configuration. Proofline's 
 
 ## Editor notes
 
-- The URL slot belongs to the hosted companion only. Do not label it as the exact offline judge container.
+- The website URL belongs to the hosted companion only. Do not label it as the exact offline judge container. The original video remains a local-stage demonstration; hosted verification is separate.
 - Chapters match the final 177.227-second narration edit, rounded to the nearest whole second. Every chapter is at least ten seconds. Keep these timestamps only if the edit remains unchanged.
 - The produced narration uses en-US-Chirp3-HD-Kore. Confirm the exported video uses this master before retaining the narration credit. Audio provenance and measured timing are in output/video/final/.
 - A listening pass remains necessary because the asset agent could inspect waveform metrics but had no audio-input capability.
