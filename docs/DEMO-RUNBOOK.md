@@ -1,7 +1,7 @@
 # Tablekeeper local demo
 
-This runbook covers the stage-3 experience. Closure planning and collective recurring
-amendments are later-stage work and are not demonstrated here.
+This runbook describes the stage-4 closure-repair scenario and recurring amendments.
+Final execution evidence and independent acceptance are recorded separately below.
 All people, restaurant names and account details below are synthetic fixtures.
 
 ## Start a fresh local demo
@@ -9,11 +9,11 @@ All people, restaurant names and account details below are synthetic fixtures.
 From the repository root:
 
 ```sh
-docker build -t tablekeeper-stage3 ./stage-3
-docker run --rm --name tablekeeper-demo -p 127.0.0.1:8080:8080 -e PORT=8080 tablekeeper-stage3
+docker build -t tablekeeper-stage4 ./stage-4
+docker run --rm --name tablekeeper-demo -p 127.0.0.1:8080:8080 -e PORT=8080 tablekeeper-stage4
 ```
 
-Open `http://localhost:8080`. The initial startup loads `stage-3/tablekeeper/demo.py`:
+Open `http://localhost:8080`. The initial startup loads `stage-4/tablekeeper/demo.py`:
 
 | Fixture | Value |
 | --- | --- |
@@ -26,37 +26,40 @@ Open `http://localhost:8080`. The initial startup loads `stage-3/tablekeeper/dem
 | Demo guest | Alex, `guest@tablekeeper.test` |
 | Demo password | `a lovely evening` — deliberately public synthetic demo credential |
 | Demo manager | Sam, `manager@tablekeeper.test`, password `a thoughtful service` — also public and synthetic |
-| Initial reservations | None |
+| Initial reservations, 2035-06-14 | `EVENING1`: Window nook, 19:00, 2 guests; `FRIENDS1`: The round table, 19:00, 4 guests; `LATER001`: Garden table, 20:30, 2 guests. All belong to demo guest Alex. |
 
-The fixture is deterministic. Use 2035-06-14 for the walkthrough while that date is
-in the future; after it passes, choose any future date. Booking past dates is allowed,
-but cancellation still obeys the current-time cutoff. Restarting a fresh container
+The fixture is deterministic. Use 2035-06-14 for the closure walkthrough; operator
+repairs work even after a diner's cutoff. For guest cancellation or recurring amendments,
+use a future reservation if that date has passed. Restarting a fresh container
 restores the initial fixture. A test reset/import replaces it; it is not silently reloaded.
 `TABLEKEEPER_DEMO=0` starts empty instead.
 
 ## Three-minute walkthrough
 
-1. **0:00–0:30 — Browse before signing in.** At `/`, choose The Orangery,
-   2035-06-14 and 4 guests. Select **Find a table**. The small individual tables are
-   visibly unavailable, while **Window nook + Garden table** offers a combined seating
-   option. The restaurant's timezone is visible above the choices.
-2. **0:30–1:00 — Sign in.** Open **Sign in** (`/login`) and use the synthetic account
-   above. Alex appears in the header. New users can instead open `/signup`.
-3. **1:00–1:40 — Keep a promise.** Repeat the search. Select the combined option at
-   19:00, then **Confirm reservation**. The form stays visible and the confirmation
-   names both tables, the restaurant, local time and unique reference. Click
-   **Confirm reservation** again without editing: the server returns the same reference.
-4. **1:40–2:20 — Make it a regular evening.** Follow **View your reservation** to
-   `/lookup`. Show **The promise we kept** (policy 0, 90 minutes), then the immutable
-   creation history. In **Make it a regular evening**, keep 4 visits and 1 week and
-   select **Reserve regular visits**. Follow the agreement link. The original reference
-   remains occurrence 1; all four visits have their own references. `/series` lists
-   your agreements. Cancelling a visit from its lookup page cancels only that visit.
-5. **2:20–3:00 — Show manager policy control.** Sign out and sign in as the demo
-   manager. Open **For restaurants** (`/manager`), choose effective date 2035-06-14,
-   change dining time to 120 minutes and publish. Policy version 1 appears. Explain that
-   the guest's existing visits retain their accepted 90-minute terms. The manager cannot
-   open another diner's private reservation history. Show the 375px layout if time permits.
+1. **0:00–0:35 — A booking is a promise.** Sign in as the demo guest at `/login`.
+   Open `/lookup`, enter `EVENING1`, and show Window nook, 19:00, 2 guests, policy 0
+   and 90 minutes. The current guest history contains the original creation.
+2. **0:35–1:00 — The floor changes.** Sign out and sign in as the demo manager.
+   Open **For restaurants** (`/manager`). In the closure workspace, choose Window nook,
+   2035-06-14 from 19:00 until 21:00. Times are Europe/London, not the browser's timezone.
+3. **1:00–1:45 — Review the smallest safe change.** Select **Preview seating repair**.
+   Expect three considered bookings and exactly one move: `EVENING1` from Window nook
+   to Garden table. `FRIENDS1` and `LATER001` stay put. The first Garden visit ends at
+   20:30, exactly when `LATER001` begins. Unused seats total 0. Preview changes nothing.
+4. **1:45–2:15 — Keep the promise atomically.** Select **Apply seating repair**.
+   The success state appears only after the server confirms. All guests keep their
+   original references, arrival times, party sizes and accepted terms. The Window nook
+   closure now prevents new overlapping reservations.
+5. **2:15–3:00 — Show the guest's truth.** Sign out and back in as Alex. Look up
+   `EVENING1`: Garden table, still 19:00 and 2 guests, still policy 0 and 90 minutes.
+   The history adds one seating-reassignment event. Briefly show the responsive manager
+   view or explain the automated stale-plan, impossible-plan and lost-response checks.
+
+Optional recurring demonstration: from a confirmed future reservation's lookup, adopt
+three weekly visits, then open **Regular evenings**. Choose a starting visit and new
+local time. The amendment panel lists eligible and skipped visits. Submit once; all
+eligible changes commit together. If another edit changes the agreement revision,
+**Refresh agreement** loads current eligibility before a new attempt.
 
 For a focused resilience demonstration, run the automated browser cases below: they
 exercise a competing booking, delayed search, and deliberately lost committed responses
@@ -65,7 +68,7 @@ in the product or imply this is a production deployment.
 
 ## Reproduce the browser failure checks
 
-With Python and Playwright Chromium installed, from `stage-3`:
+With Python and Playwright Chromium installed, from `stage-4`:
 
 ```sh
 python -m unittest discover -s tests -p test_browser.py -v
@@ -90,10 +93,11 @@ displaying confirmation. Exported credentials remain in memory and are not writt
   after a page reload. Sessions are stored in this browser's local storage.
 - A changed form is a new booking request. An unchanged form retries its existing key
   and body. If the response is uncertain, retry unchanged before making another booking.
-- The UI does not expose individual or batch amendments. The required amendment APIs
-  remain available. Stage 3 adds policy publishing, accepted terms/history and recurring
-  adoption/list/detail. Closure planning and collective recurring amendments are not yet
-  available. A manager only sees restaurants assigned to that account.
+- The UI does not expose ordinary individual or batch reservation amendments. Those
+  required APIs remain available. Manager policies, guest history/terms, recurring
+  adoption/list/detail and recurring time amendments have screens. A manager only sees
+  restaurants assigned to that account. Closure planning supports the specified bounded
+  problem, not an unlimited restaurant optimizer.
 - All illustrations, styles and scripts are local; typography uses installed system
   Georgia and Arial fallbacks. There are no runtime font or asset downloads.
 

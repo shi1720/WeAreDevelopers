@@ -14,11 +14,14 @@ def overlaps(start: datetime, end: datetime, reservation: dict) -> bool:
     return start.astimezone(timezone.utc) < other_end and other_start < end.astimezone(timezone.utc)
 
 
-def get_availability(restaurant: dict, reservations: list[dict], date: str, party_size: int, *, policy=None, explain=False) -> dict:
+def get_availability(restaurant: dict, reservations: list[dict], date: str, party_size: int, *, policy=None, explain=False, closures=()) -> dict:
     if type(party_size) is not int or party_size < 1:
         raise APIError(422, "validation_failed", "Party size must be a positive integer")
     restaurant = effective_restaurant(restaurant, policy if policy is not None else base_terms(restaurant))
     occupied = {}
+    for closure in closures:
+        if closure["restaurant_id"] == restaurant["id"]:
+            occupied.setdefault(closure["table_id"], []).append({"starts_at": closure["from"], "ends_at": closure["to"]})
     for reservation in reservations:
         if reservation["restaurant_id"] == restaurant["id"] and reservation["status"] == "confirmed":
             for table_id in reservation.get("table_ids", [reservation.get("table_id")]):

@@ -108,6 +108,26 @@ class AvailabilityTests(unittest.TestCase):
         self.assertTrue(all(s['available_table_ids'] == ['a'] for s in response['slots']))
         self.assertEqual(before, selected)
 
+    def test_closure_blocks_singles_pairs_and_independent_explanations(self):
+        self.restaurant['combinable'] = [['z', 'a']]
+        closure = {'restaurant_id':'r','table_id':'z','from':'2026-09-24T17:00:00+00:00',
+                   'to':'2026-09-24T18:30:00+00:00','plan_id':'p'}
+        result = get_availability(self.restaurant, [], '2026-09-24', 2, closures=[closure], explain=True)
+        self.assertEqual(['a'], result['slots'][0]['available_table_ids'])
+        self.assertEqual([{'table_ids':['a'],'capacity':2}], result['slots'][0]['available_options'])
+        self.assertEqual([True,False], [rule['holds'] for rule in result['slots'][0]['explain'][0]['rules']])
+        self.assertEqual(['z','a'], result['slots'][-1]['available_table_ids'])
+        other = dict(closure,restaurant_id='elsewhere')
+        self.assertEqual(['z','a'], get_availability(self.restaurant, [], '2026-09-24', 2, closures=[other])['slots'][0]['available_table_ids'])
+
+    def test_closure_exact_boundary_does_not_overlap(self):
+        closure = {'restaurant_id':'r','table_id':'z','from':'2026-09-24T19:30:00+02:00',
+                   'to':'2026-09-24T20:30:00+02:00','plan_id':'p'}
+        result = get_availability(self.restaurant, [], '2026-09-24', 2, closures=[closure])
+        self.assertEqual(['z','a'], result['slots'][0]['available_table_ids'])
+        self.assertEqual(['a'], result['slots'][1]['available_table_ids'])
+        self.assertEqual(['z','a'], result['slots'][-1]['available_table_ids'])
+
 
 if __name__ == "__main__":
     unittest.main()

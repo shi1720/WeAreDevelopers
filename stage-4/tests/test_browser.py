@@ -276,6 +276,160 @@ class BrowserTests(unittest.TestCase):
         self.page.get_by_test_id('series-detail').wait_for()
         self.assertEqual(1, self.page.get_by_test_id('series-detail').count())
 
+    def test_closure_apply_lost_response_and_mobile(self):
+        self.login(); self.search()
+        self.page.get_by_test_id('slot-a-18:00').click()
+        self.page.get_by_test_id('booking-submit').click()
+        reference = self.page.get_by_test_id('confirmation-reference').inner_text()
+        self.page.goto(self.base + '/manager')
+        self.page.get_by_test_id('closure-from').fill('2035-06-14T18:00')
+        self.page.get_by_test_id('closure-preview').click()
+        self.page.get_by_test_id('replan-preview').wait_for()
+        self.assertEqual('1', self.page.get_by_test_id('replan-moved-count').inner_text())
+        self.assertIn(reference, self.page.get_by_test_id('replan-assignment').inner_text())
+        self.assertIn('90 minutes', self.page.get_by_test_id('replan-preserved').inner_text())
+        self.page.set_viewport_size({'width':375,'height':900})
+        self.assertLessEqual(self.page.evaluate('document.documentElement.scrollWidth'),375)
+        requests = []
+        def lose(route):
+            requests.append((route.request.post_data, route.request.headers['idempotency-key']))
+            self.assertEqual(201, route.fetch().status); route.abort('connectionreset')
+        self.page.route('**/replans/*/apply',lose,times=1)
+        self.page.get_by_test_id('replan-apply').click()
+        self.page.get_by_test_id('replan-uncertain').wait_for()
+        def retry(route):
+            self.assertEqual(requests[0],(route.request.post_data,route.request.headers['idempotency-key']))
+            route.continue_()
+        self.page.route('**/replans/*/apply',retry,times=1)
+        self.page.get_by_test_id('replan-apply').click()
+        self.page.get_by_test_id('replan-success').wait_for()
+        self.assertTrue(self.page.get_by_test_id('replan-apply').is_disabled())
+        self.assertEqual(0,self.page.get_by_test_id('replan-uncertain').count())
+
+    def test_deterministic_demo_and_accessible_preview(self):
+        from tablekeeper.demo import fixture
+        self.assertEqual(204,self.context.request.post(self.base+'/_test/reset',data=fixture()).status)
+        self.page.goto(self.base+'/login')
+        self.page.get_by_test_id('login-email').fill('manager@tablekeeper.test')
+        self.page.get_by_test_id('login-password').fill('a thoughtful service')
+        self.page.get_by_test_id('login-submit').click()
+        self.page.get_by_test_id('current-user').wait_for()
+        self.page.goto(self.base+'/manager')
+        self.page.get_by_test_id('closure-preview').click()
+        self.page.get_by_test_id('replan-preview').wait_for()
+        self.assertEqual('1',self.page.get_by_test_id('replan-moved-count').inner_text())
+        self.assertEqual(3,self.page.get_by_test_id('replan-assignment').count())
+        moved=self.page.locator('.assignment-moved')
+        self.assertIn('EVENING1',moved.inner_text())
+        self.assertIn('Window nook',moved.inner_text())
+        self.assertIn('Garden table',moved.inner_text())
+        self.assertTrue(all(self.page.locator('input:visible,select:visible').evaluate_all(
+            'els=>els.map(e=>Boolean(e.labels?.length || e.getAttribute("aria-label")))')))
+        self.page.get_by_test_id('replan-apply').focus()
+        self.assertTrue(self.page.get_by_test_id('replan-apply').evaluate('e=>e===document.activeElement'))
+        output=os.environ.get('TABLEKEEPER_SCREENSHOTS')
+        if output:
+            folder=Path(output);folder.mkdir(parents=True,exist_ok=True)
+            self.page.screenshot(path=str(folder/'stage4-manager-desktop.png'),full_page=True)
+        self.page.set_viewport_size({'width':375,'height':900})
+        self.assertLessEqual(self.page.evaluate('document.documentElement.scrollWidth'),375)
+        if output:self.page.screenshot(path=str(folder/'stage4-manager-mobile.png'),full_page=True)
+        self.page.get_by_test_id('replan-apply').click()
+        self.page.get_by_test_id('replan-success').wait_for()
+
+    def test_closure_stale_refresh_and_impossible(self):
+        self.login(); self.page.goto(self.base + '/manager')
+        self.page.get_by_test_id('closure-preview').click()
+        self.page.get_by_test_id('replan-preview').wait_for()
+        session=self.page.evaluate('JSON.parse(localStorage.getItem("tablekeeper.session"))')
+        self.assertEqual(201,self.context.request.post(self.base+'/reservations',data={
+            'restaurant_id':'r','table_id':'c','starts_at_local':'2035-06-14T19:00','party_size':6},
+            headers={'Authorization':'Bearer '+session['token'],'Idempotency-Key':'stale-repair'}).status)
+        self.page.get_by_test_id('replan-apply').click()
+        self.page.get_by_test_id('replan-refresh').wait_for()
+        self.page.get_by_test_id('replan-refresh').click()
+        self.page.get_by_test_id('replan-preview').wait_for()
+        self.page.get_by_test_id('closure-table').select_option('c')
+        self.page.get_by_test_id('closure-preview').click()
+        self.page.get_by_test_id('closure-error').wait_for()
+        self.assertIn('No safe seating plan',self.page.get_by_test_id('closure-error').inner_text())
+        self.assertEqual(0,self.page.get_by_test_id('replan-apply').count())
+
+    def test_closure_preview_retry_and_timezone_boundaries(self):
+        self.login(); self.page.goto(self.base+'/manager')
+        self.page.get_by_test_id('closure-preview').wait_for()
+        self.assertEqual('2035-06-14T17:00:00.000+00:00',self.page.evaluate(
+            'restaurantInstant("2035-06-14T19:00","Europe/Berlin")'))
+        self.assertEqual('2035-10-28T00:30:00.000+00:00',self.page.evaluate(
+            'restaurantInstant("2035-10-28T02:30","Europe/Berlin")'))
+        self.assertIn('does not exist',self.page.evaluate('''() => {
+            try { restaurantInstant("2035-03-25T02:30","Europe/Berlin"); return "bad"; }
+            catch(error) { return error.message; }
+        }'''))
+        requests=[]
+        def lose(route):
+            requests.append((route.request.post_data,route.request.headers['idempotency-key']))
+            self.assertEqual(201,route.fetch().status);route.abort('connectionreset')
+        self.page.route('**/restaurants/r/replans',lose,times=1)
+        self.page.get_by_test_id('closure-preview').click()
+        self.page.get_by_test_id('closure-uncertain').wait_for()
+        def retry(route):
+            self.assertEqual(requests[0],(route.request.post_data,route.request.headers['idempotency-key']))
+            route.continue_()
+        self.page.route('**/restaurants/r/replans',retry,times=1)
+        self.page.get_by_test_id('closure-preview').click()
+        self.page.get_by_test_id('replan-preview').wait_for()
+        self.assertEqual('0',self.page.get_by_test_id('replan-moved-count').inner_text())
+
+    def test_series_amend_lost_response_and_refresh(self):
+        self.login(); self.search()
+        self.page.get_by_test_id('slot-a-18:00').click()
+        self.page.get_by_test_id('booking-submit').click()
+        reference=self.page.get_by_test_id('confirmation-reference').inner_text()
+        self.page.goto(self.base+'/lookup?reference='+reference)
+        self.page.get_by_test_id('series-count').fill('3')
+        self.page.get_by_test_id('series-create').click()
+        self.page.get_by_role('link',name='View your regular evenings').click()
+        self.page.get_by_test_id('series-local-time').fill('19:00')
+        requests=[]
+        def lose(route):
+            requests.append((route.request.post_data,route.request.headers['idempotency-key']))
+            self.assertEqual(201,route.fetch().status);route.abort('connectionreset')
+        self.page.route('**/series/*/amend',lose,times=1)
+        self.page.get_by_test_id('series-amend-submit').click()
+        self.page.get_by_test_id('series-amend-uncertain').wait_for()
+        def retry(route):
+            self.assertEqual(requests[0],(route.request.post_data,route.request.headers['idempotency-key']))
+            route.continue_()
+        self.page.route('**/series/*/amend',retry,times=1)
+        self.page.get_by_test_id('series-amend-submit').click()
+        self.page.get_by_test_id('series-amend-success').wait_for()
+        self.page.get_by_test_id('series-refresh').click()
+        self.page.get_by_test_id('series-refreshed').wait_for()
+        self.assertIn('revision 2',self.page.get_by_test_id('series-eligibility').inner_text())
+
+    def test_series_stale_revision_and_cancelled_eligibility(self):
+        self.login(); self.search()
+        self.page.get_by_test_id('slot-a-18:00').click()
+        self.page.get_by_test_id('booking-submit').click()
+        reference=self.page.get_by_test_id('confirmation-reference').inner_text()
+        self.page.goto(self.base+'/lookup?reference='+reference)
+        self.page.get_by_test_id('series-count').fill('3')
+        self.page.get_by_test_id('series-create').click()
+        self.page.get_by_role('link',name='View your regular evenings').click()
+        self.page.get_by_test_id('series-local-time').fill('19:00')
+        session=self.page.evaluate('JSON.parse(localStorage.getItem("tablekeeper.session"))')
+        headers={'Authorization':'Bearer '+session['token']}
+        self.assertEqual(200,self.context.request.post(self.base+'/reservations/'+reference+'/cancel',data={},headers=headers).status)
+        self.page.get_by_test_id('series-amend-submit').click()
+        self.page.get_by_test_id('series-amend-error').wait_for()
+        self.assertIn('changed since',self.page.get_by_test_id('series-amend-error').inner_text())
+        self.page.get_by_test_id('series-refresh').click()
+        self.page.get_by_test_id('series-refreshed').wait_for()
+        self.assertIn('Skipped: cancelled',self.page.get_by_test_id('series-eligibility').inner_text())
+        self.page.get_by_test_id('series-amend-submit').click()
+        self.page.get_by_test_id('series-amend-success').wait_for()
+
     def test_policy_uncertain_retry_and_permission_screen(self):
         self.login(); self.page.goto(self.base + '/manager')
         self.page.get_by_test_id('policy-effective').fill('2036-02-20')

@@ -20,5 +20,15 @@ def fixture():
                        {"id": "alcove", "label": "Quiet alcove", "capacity": 6}],
             "combinable": [["window", "garden"], ["round", "alcove"]]
         }],
-        "reservations": []
+        "reservations": [
+            {"id": "demo_evening", "reference": "EVENING1", "user_id": "demo_guest",
+             "restaurant_id": "the_orangery", "table_id": "window",
+             "starts_at_local": "2035-06-14T19:00", "party_size": 2},
+            {"id": "demo_friends", "reference": "FRIENDS1", "user_id": "demo_guest",
+             "restaurant_id": "the_orangery", "table_id": "round",
+             "starts_at_local": "2035-06-14T19:00", "party_size": 4},
+            {"id": "demo_later", "reference": "LATER001", "user_id": "demo_guest",
+             "restaurant_id": "the_orangery", "table_id": "garden",
+             "starts_at_local": "2035-06-14T20:30", "party_size": 2}
+        ]
     }
