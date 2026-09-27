@@ -91,9 +91,46 @@ def inside(phase):
         assert 'private' in response.headers.get('Cache-Control', '') and 'no-store' in response.headers.get('Cache-Control', '')
         assert os.getuid() == 65534
         print('Non-root container and proxy oversized body/header private no-store errors: PASS')
+    elif phase == 'slow':
+        import socket
+        import select
+        saved = json.loads(saved_path.read_text())
+        client.cookies.update(saved['cookie'])
+        csrf = saved['csrf']
+        sockets = []
+        try:
+            for _ in range(4):
+                connection = socket.create_connection(('127.0.0.1', 8080), timeout=2)
+                connection.sendall(b'POST /auth/login HTTP/1.1\r\nHost: localhost\r\nContent-Length: 10000\r\nContent-Type: application/json\r\n\r\n{')
+                sockets.append(connection)
+            began = time.monotonic()
+            body = dict(saved['receipts'][0]['body'], table_id='table_3', starts_at_local='2032-06-18T19:00')
+            booking_start = time.monotonic()
+            call('POST', '/reservations', body, 'healthy-under-trickle', 201)
+            booking_duration = time.monotonic() - booking_start
+            alive = list(sockets)
+            for _ in range(6):
+                time.sleep(4)
+                for connection in list(alive):
+                    if select.select([connection], [], [], 0)[0]:
+                        connection.recv(65536)
+                        alive.remove(connection)
+                    else:
+                        try:
+                            connection.sendall(b' ')
+                        except OSError:
+                            alive.remove(connection)
+            elapsed = time.monotonic() - began
+            print(json.dumps({'trickling_clients': len(sockets), 'still_open_after_seconds': round(elapsed, 3),
+                              'still_open_count': len(alive), 'healthy_booking_seconds': round(booking_duration, 3)}), flush=True)
+            assert booking_duration < 5
+            assert not alive, 'proxy accepted body trickles beyond documented backend total connection deadline'
+        finally:
+            for connection in sockets:
+                connection.close()
 
 
-def host(image):
+def host(image, slow_only=False):
     docker = os.environ.get('ACCEPTANCE_DOCKER', '/opt/homebrew/bin/docker')
     suffix = uuid.uuid4().hex[:10]
     name, target = 'verifier-' + suffix, 'verifier-restore-' + suffix
@@ -116,6 +153,9 @@ def host(image):
         run('volume', 'create', volume)
         launch(name, volume)
         phase(name, 'seed')
+        if slow_only:
+            phase(name, 'slow')
+            return
         phase(name, 'proxy')
         run('restart', name)
         phase(name, 'verify')
@@ -138,7 +178,7 @@ def host(image):
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'host':
-        host(sys.argv[2])
+    if sys.argv[1] in ('host', 'host-slow'):
+        host(sys.argv[2], sys.argv[1] == 'host-slow')
     else:
         inside(sys.argv[1])
