@@ -311,6 +311,7 @@ class ExperienceBrowser(unittest.TestCase):
 
         self.page.get_by_test_id('series-local-time').fill('18:00')
         recover_lost('**/series/*/amend', self.page.get_by_test_id('series-amend-submit'), 'series-amend-uncertain')
+        self.page.locator('.occurrences h3').first.wait_for()
         self.assertEqual(2, self.page.locator('.occurrences h3').filter(has_text='18:00').count())
         self.page.goto(self.base + '/demo')
         self.page.locator('[data-demo="manager"]').click()
