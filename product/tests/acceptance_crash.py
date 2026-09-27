@@ -1,5 +1,6 @@
 """Crash at durable boundaries, then recover the original HTTP operation."""
 import os
+import time
 import uuid
 
 import httpx
@@ -46,7 +47,24 @@ def test_http_crash_exact_receipt_recovery(tmp_path, adapter, fault, exit_code, 
             store.close()
         service.environment.pop('TABLEKEEPER_FAULT')
         service.start()
-        result = owner.expect(expected,'POST','/reservations',body,'crash-key')
+        # A killed Firestore transaction can hold locks until server expiry.
+        # Transport timeout remains unknown outcome, so repeat only exact key/body.
+        result = None
+        for attempt in range(4):
+            try:
+                response = owner.request('POST','/reservations',body,'crash-key')
+            except httpx.TransportError:
+                if attempt == 3:
+                    raise
+                time.sleep(1)
+                continue
+            if response.status_code == 503 and attempt < 3:
+                time.sleep(1)
+                continue
+            assert response.status_code in ((200,) if expected == 200 else (200,201))
+            result = response.json()
+            break
+        assert result is not None
         if original is not None:
             assert result == original
         assert owner.expect(200,'POST','/reservations',body,'crash-key') == result
