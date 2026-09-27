@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import threading
 import uuid
 
 import pytest
@@ -247,6 +248,56 @@ def test_restore_into_separate_sqlite_store_preserves_snapshot(store, tmp_path):
         assert destination.snapshot('main')[1] == store.snapshot('main')[1]
     finally:
         destination.close()
+
+
+def test_sqlite_online_backup_cli_and_restore_ownership(tmp_path):
+    path = tmp_path / 'online.sqlite3'
+    owner = SQLiteStore(path)
+    owner.transact('main', lambda c: None, create=True)
+    stop = threading.Event()
+    started = threading.Event()
+    env = dict(os.environ, TABLEKEEPER_STORAGE='sqlite', TABLEKEEPER_DB=str(path))
+    env.pop('K_SERVICE', None)
+    env.pop('TABLEKEEPER_FAULT', None)
+    def write_continuously():
+        while not stop.is_set():
+            owner.transact('main', lambda c: c.update(acceptance_counter=c.get('acceptance_counter', 0) + 1))
+            started.set()
+            stop.wait(0.002)
+    try:
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            worker = pool.submit(write_continuously)
+            assert started.wait(5)
+            try:
+                previous = owner.snapshot('main')[0]
+                backup = tmp_path / 'online-backup.json'
+                result = subprocess.run([sys.executable, '-m', 'tablekeeper.operations', '--namespace', 'main',
+                                         'backup', str(backup)], env=env, capture_output=True, timeout=15)
+                assert result.returncode == 0, result.stderr.decode()[-1000:]
+                assert owner.snapshot('main')[0] > previous, 'writer did not progress during backup'
+                envelope = json.loads(backup.read_text())
+                restored = operations.read_backup(backup)
+                assert restored['acceptance_counter'] == envelope['revision'] - 1
+                assert backup.stat().st_mode & 0o777 == 0o600
+                # Restore must remain exclusive even when backup gains read-only access.
+                result = subprocess.run([sys.executable, '-m', 'tablekeeper.operations', '--namespace', 'main',
+                                         'restore', str(backup), '--expected-revision', str(envelope['revision'])],
+                                        env=env, capture_output=True, timeout=15)
+                assert result.returncode != 0
+            finally:
+                stop.set()
+                worker.result(timeout=10)
+        destination = SQLiteStore(tmp_path / 'restored.sqlite3')
+        try:
+            revision = operations.maintenance(destination, 'main', True)
+            operations.restore(destination, 'main', backup, revision)
+            operations.maintenance(destination, 'main', False)
+            assert destination.snapshot('main')[1] == restored
+        finally:
+            destination.close()
+    finally:
+        stop.set()
+        owner.close()
 
 
 @pytest.mark.parametrize('fault,exit_code,committed', [('before_commit', 86, False), ('after_commit', 87, True)])
