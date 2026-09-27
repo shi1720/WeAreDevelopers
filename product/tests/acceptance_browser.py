@@ -22,9 +22,11 @@ def ui(tmp_path):
         errors = []
         page.on('pageerror', lambda error: errors.append(str(error)))
         yield service, page
-        context.close()
-        browser.close()
-        service.close()
+        try:
+            context.close()
+            browser.close()
+        finally:
+            service.close()
         assert not errors, 'browser JavaScript errors'
 
 
@@ -99,8 +101,11 @@ def test_lost_committed_response_reload_restart_exact_retry(ui):
     observed = []
     def lose(route):
         request = route.request
-        response = route.fetch()
-        assert response.status == 201
+        # Let Playwright's forwarding client calculate framing. Reusing browser
+        # Content-Length can duplicate the header in the forwarded request.
+        headers = {k: v for k, v in request.all_headers().items() if k.lower() not in ('content-length', 'transfer-encoding')}
+        response = route.fetch(headers=headers)
+        assert response.status == 201, f'forwarded booking status={response.status}, error={response.json().get("error")}'
         observed.append((request.post_data_json, request.headers['idempotency-key'], response.json()))
         route.abort('failed')
     page.route('**/reservations', lose)
@@ -124,5 +129,6 @@ def test_lost_committed_response_reload_restart_exact_retry(ui):
     assert retried == [(observed[0][0], observed[0][1])]
     page.unroute('**/reservations', record)
     page.goto(service.url + '/bookings')
+    page.get_by_test_id('booking-list-item').wait_for()
     assert page.get_by_test_id('booking-list-item').count() == 1
     capture(page, 'recovered-booking')
