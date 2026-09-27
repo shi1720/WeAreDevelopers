@@ -1,0 +1,38 @@
+{
+  "started_at_utc": "2026-09-27T19:28:08.107675+00:00",
+  "finished_at_utc": "2026-09-27T19:28:08.492063+00:00",
+  "duration_seconds": 0.384,
+  "base_url": "https://proofline-tablekeeper-wh46bdeima-uc.a.run.app",
+  "request_origin": "https://tablekeeper-proofline.web.app",
+  "base_matches_origin": false,
+  "freeze_sha": "8f749427004a35e6ac25ed34abb7997515ec4354",
+  "operator_supplied_image_digest": "sha256:d22729b181ac9b8df69d743d52b260fbb11039d2b46affe40876b16a0fb2d0c2",
+  "passed": false,
+  "failure": {
+    "type": "assertion_failure",
+    "assertion": "/health: ready route HTTP 200 JSON"
+  },
+  "checks": [
+    {
+      "request": "/health",
+      "status": 502,
+      "duration_seconds": 0.34
+    },
+    {
+      "assertion": "/health: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "/health: ready route HTTP 200 JSON",
+      "passed": false
+    }
+  ],
+  "limitations": [
+    "Booking mutations affect only synthetic namespaces owned by this run; authentication preparation and rejection counters can update main metadata. Expiration/cleanup remain operator-managed.",
+    "GET-only judge-control probes: destructive reset/import verbs intentionally not invoked.",
+    "New HTTP client with retained cookie is not a Cloud Run revision restart test.",
+    "No browser/CSP execution, IAM privilege audit, backup/restore or cloud billing/abuse load test.",
+    "When base_matches_origin is false this is direct-backend verification, not proof of Firebase Hosting cookie forwarding.",
+    "Image digest is operator-supplied metadata, not remotely attested by this script."
+  ]
+}

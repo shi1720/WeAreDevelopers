@@ -1,0 +1,271 @@
+{
+  "measured_at": "2026-09-27T19:30:13.027960+00:00",
+  "room_id": "ce2cf88a-94cb-41ac-99e4-eb8940fd7b1f",
+  "status": "final after four seats stopped",
+  "source": "Last cumulative total_token_usage per independently verified production provider-session epoch",
+  "method": "Sum the listed zero-baseline epochs across four seats; duplicate cumulative notifications are not summed. No copied event signatures or within-epoch decreases/delta mismatches observed.",
+  "billing": "Runtime-reported counters, not provider-billed spend. Cached input is a subset of input; reasoning output is a subset of output. Original graded run, rehearsal, operator and presentation sessions excluded.",
+  "snapshot_limit": "Four explicitly identified seats were stopped before measurement. Counters include their complete companion sessions through stop; per-epoch timestamps show the last provider report.",
+  "seats": [
+    {
+      "seat": "coordinator",
+      "current_provider_session_id": "01a0e415-d7c2-74b1-bec7-21c1f701e1ea",
+      "epochs": [
+        {
+          "seat": "coordinator",
+          "provider_session_id": "01a0e415-d7c2-74b1-bec7-21c1f701e1ea",
+          "metadata": {
+            "id": "01a0e415-d7c2-74b1-bec7-21c1f701e1ea",
+            "timestamp": "2026-09-27T18:17:11.906Z",
+            "originator": "Codex Desktop",
+            "cli_version": "0.158.0-alpha.2.1"
+          },
+          "reported_models": [
+            "gpt-6-astra"
+          ],
+          "reported_efforts": [
+            "low"
+          ],
+          "counter_events": 205,
+          "duplicate_counter_events": 2,
+          "counter_decreases": 0,
+          "counter_delta_mismatches": 0,
+          "first_counter": {
+            "observed_at": "2026-09-27T18:17:22.969Z",
+            "usage": {
+              "input_tokens": 26463,
+              "cached_input_tokens": 0,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 220,
+              "reasoning_output_tokens": 0,
+              "total_tokens": 26683
+            }
+          },
+          "first_total_equals_last_usage": true,
+          "accounting": "independent zero-baseline cumulative epoch",
+          "observed_at": "2026-09-27T19:30:12.429Z",
+          "usage": {
+            "input_tokens": 27648988,
+            "cached_input_tokens": 27295872,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 55579,
+            "reasoning_output_tokens": 21684,
+            "total_tokens": 27704567
+          }
+        }
+      ],
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T19:30:12.429Z",
+      "usage": {
+        "input_tokens": 27648988,
+        "cached_input_tokens": 27295872,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 55579,
+        "reasoning_output_tokens": 21684,
+        "total_tokens": 27704567
+      }
+    },
+    {
+      "seat": "engineer",
+      "current_provider_session_id": "01a0e416-b37a-7aa0-98f6-252769193729",
+      "epochs": [
+        {
+          "seat": "engineer",
+          "provider_session_id": "01a0e416-b37a-7aa0-98f6-252769193729",
+          "metadata": {
+            "id": "01a0e416-b37a-7aa0-98f6-252769193729",
+            "timestamp": "2026-09-27T18:18:08.146Z",
+            "originator": "Codex Desktop",
+            "cli_version": "0.158.0-alpha.2.1"
+          },
+          "reported_models": [
+            "gpt-6-astra"
+          ],
+          "reported_efforts": [
+            "low"
+          ],
+          "counter_events": 196,
+          "duplicate_counter_events": 2,
+          "counter_decreases": 0,
+          "counter_delta_mismatches": 0,
+          "first_counter": {
+            "observed_at": "2026-09-27T18:18:17.604Z",
+            "usage": {
+              "input_tokens": 26636,
+              "cached_input_tokens": 0,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 176,
+              "reasoning_output_tokens": 0,
+              "total_tokens": 26812
+            }
+          },
+          "first_total_equals_last_usage": true,
+          "accounting": "independent zero-baseline cumulative epoch",
+          "observed_at": "2026-09-27T19:29:14.170Z",
+          "usage": {
+            "input_tokens": 28797284,
+            "cached_input_tokens": 28487936,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 80661,
+            "reasoning_output_tokens": 13159,
+            "total_tokens": 28877945
+          }
+        }
+      ],
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T19:29:14.170Z",
+      "usage": {
+        "input_tokens": 28797284,
+        "cached_input_tokens": 28487936,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 80661,
+        "reasoning_output_tokens": 13159,
+        "total_tokens": 28877945
+      }
+    },
+    {
+      "seat": "experience",
+      "current_provider_session_id": "01a0e416-b76b-7722-8081-e06f63bd84ab",
+      "epochs": [
+        {
+          "seat": "experience",
+          "provider_session_id": "01a0e416-b76b-7722-8081-e06f63bd84ab",
+          "metadata": {
+            "id": "01a0e416-b76b-7722-8081-e06f63bd84ab",
+            "timestamp": "2026-09-27T18:18:09.154Z",
+            "originator": "Codex Desktop",
+            "cli_version": "0.158.0-alpha.2.1"
+          },
+          "reported_models": [
+            "gpt-6-astra"
+          ],
+          "reported_efforts": [
+            "low"
+          ],
+          "counter_events": 106,
+          "duplicate_counter_events": 0,
+          "counter_decreases": 0,
+          "counter_delta_mismatches": 0,
+          "first_counter": {
+            "observed_at": "2026-09-27T18:18:18.674Z",
+            "usage": {
+              "input_tokens": 26621,
+              "cached_input_tokens": 0,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 138,
+              "reasoning_output_tokens": 0,
+              "total_tokens": 26759
+            }
+          },
+          "first_total_equals_last_usage": true,
+          "accounting": "independent zero-baseline cumulative epoch",
+          "observed_at": "2026-09-27T19:23:33.527Z",
+          "usage": {
+            "input_tokens": 12034704,
+            "cached_input_tokens": 11806336,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 44873,
+            "reasoning_output_tokens": 3943,
+            "total_tokens": 12079577
+          }
+        }
+      ],
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T19:23:33.527Z",
+      "usage": {
+        "input_tokens": 12034704,
+        "cached_input_tokens": 11806336,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 44873,
+        "reasoning_output_tokens": 3943,
+        "total_tokens": 12079577
+      }
+    },
+    {
+      "seat": "verifier",
+      "current_provider_session_id": "01a0e416-be09-7133-ac02-963dba30aab4",
+      "epochs": [
+        {
+          "seat": "verifier",
+          "provider_session_id": "01a0e416-be09-7133-ac02-963dba30aab4",
+          "metadata": {
+            "id": "01a0e416-be09-7133-ac02-963dba30aab4",
+            "timestamp": "2026-09-27T18:18:10.856Z",
+            "originator": "Codex Desktop",
+            "cli_version": "0.158.0-alpha.2.1"
+          },
+          "reported_models": [
+            "gpt-6-astra"
+          ],
+          "reported_efforts": [
+            "low"
+          ],
+          "counter_events": 252,
+          "duplicate_counter_events": 1,
+          "counter_decreases": 0,
+          "counter_delta_mismatches": 0,
+          "first_counter": {
+            "observed_at": "2026-09-27T18:18:21.277Z",
+            "usage": {
+              "input_tokens": 26649,
+              "cached_input_tokens": 0,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 206,
+              "reasoning_output_tokens": 0,
+              "total_tokens": 26855
+            }
+          },
+          "first_total_equals_last_usage": true,
+          "accounting": "independent zero-baseline cumulative epoch",
+          "observed_at": "2026-09-27T19:29:05.992Z",
+          "usage": {
+            "input_tokens": 31013653,
+            "cached_input_tokens": 30595584,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 92994,
+            "reasoning_output_tokens": 14575,
+            "total_tokens": 31106647
+          }
+        }
+      ],
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T19:29:05.992Z",
+      "usage": {
+        "input_tokens": 31013653,
+        "cached_input_tokens": 30595584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 92994,
+        "reasoning_output_tokens": 14575,
+        "total_tokens": 31106647
+      }
+    }
+  ],
+  "totals": {
+    "input_tokens": 99494629,
+    "cached_input_tokens": 98185728,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 274107,
+    "reasoning_output_tokens": 53361,
+    "total_tokens": 99768736
+  }
+}

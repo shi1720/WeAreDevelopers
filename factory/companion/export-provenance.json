@@ -1,0 +1,12 @@
+{
+  "room_id": "ce2cf88a-94cb-41ac-99e4-eb8940fd7b1f",
+  "source": "BAND web Download full session, after final accepted report and four seats stopped",
+  "exported_at": "2026-09-27T19:30:54.192Z",
+  "scope": "full",
+  "messages": 2684,
+  "bytes": 3234919,
+  "sha256": "17379ebbe6df3db3745c20426dfae2d00d055e87542fe03645935436d9c58e27",
+  "redacted": false,
+  "review": "Public export reviewed for credential-shaped values and actual versus synthetic test secrets; no actual credentials identified. Original export retained byte-for-byte.",
+  "boundary": "Separate post-graded companion run. Root room.json remains the original graded factory export."
+}

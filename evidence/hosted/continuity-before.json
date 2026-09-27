@@ -1,0 +1,154 @@
+{
+  "phase": "begin",
+  "started_at_utc": "2026-09-27T19:31:59.803172+00:00",
+  "finished_at_utc": "2026-09-27T19:32:02.324074+00:00",
+  "duration_seconds": 2.521,
+  "base_url": "https://proofline-tablekeeper-wh46bdeima-uc.a.run.app",
+  "request_origin": "https://tablekeeper-proofline.web.app",
+  "freeze_sha": "8f749427004a35e6ac25ed34abb7997515ec4354",
+  "operator_supplied_image_digest": "sha256:d22729b181ac9b8df69d743d52b260fbb11039d2b46affe40876b16a0fb2d0c2",
+  "operator_supplied_old_revision": "proofline-tablekeeper-00003-6th",
+  "operator_supplied_new_revision": null,
+  "passed": true,
+  "failure": null,
+  "checks": [
+    {
+      "request": "continuity own visitor anonymous preparation",
+      "status": 200,
+      "duration_seconds": 0.549
+    },
+    {
+      "assertion": "continuity own visitor anonymous preparation: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor anonymous preparation: HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor anonymous preparation: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor anonymous preparation: CSRF supplied",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor anonymous: one session cookie",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor anonymous: Secure HttpOnly SameSite=Lax Path=/",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor: demo enabled",
+      "passed": true
+    },
+    {
+      "request": "continuity own visitor start own isolated demo",
+      "status": 201,
+      "duration_seconds": 0.869
+    },
+    {
+      "assertion": "continuity own visitor start own isolated demo: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor: started",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor demo: one session cookie",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor demo: Secure HttpOnly SameSite=Lax Path=/",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "continuity own visitor: synthetic authenticated guest",
+      "passed": true
+    },
+    {
+      "request": "continuity venue discovery",
+      "status": 200,
+      "duration_seconds": 0.333
+    },
+    {
+      "assertion": "continuity venue discovery: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "venue discovery HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "venues: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "one synthetic venue",
+      "passed": true
+    },
+    {
+      "request": "continuity future availability",
+      "status": 200,
+      "duration_seconds": 0.358
+    },
+    {
+      "assertion": "continuity future availability: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "availability HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "availability: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "future synthetic seating available",
+      "passed": true
+    },
+    {
+      "request": "create continuity reservation",
+      "status": 201,
+      "duration_seconds": 0.389
+    },
+    {
+      "assertion": "create continuity reservation: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "continuity reservation created",
+      "passed": true
+    },
+    {
+      "assertion": "continuity receipt: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "owned demo cookie available privately",
+      "passed": true
+    },
+    {
+      "assertion": "private continuity state saved mode 0600",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Revision names, image digest and traffic switch are operator-supplied, not remotely attested by this script.",
+    "Operator must independently retain gcloud describe evidence of same image, new revision and 100 percent serving traffic.",
+    "Only this run own synthetic demo was mutated; no test reset/import or production setup was invoked.",
+    "Begin alone is not restart durability evidence. After must run after verified new revision routing.",
+    "Cookies, CSRF, request body, booking reference and original response exist only in the explicit private mode-0600 state file.",
+    "Session revocation occurs after successful checks; expired demo/session or failed checks yield honest failure evidence.",
+    "Direct Cloud Run testing does not prove Firebase Hosting behavior; final hosted/browser checks remain separate."
+  ]
+}

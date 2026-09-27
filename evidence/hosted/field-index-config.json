@@ -1,0 +1,44 @@
+{
+  "observed_at_utc": "2026-09-27T19:28:42.696048+00:00",
+  "method": "Read-only Firestore Admin v1 GET of two named-database field resources; parsed using google.cloud.firestore_admin_v1.types.Field protobuf defaults. No mutations. No credentials retained.",
+  "fields": [
+    {
+      "field": "data",
+      "resource": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/chunks/fields/data",
+      "raw_selected_response": {
+        "name": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/chunks/fields/data",
+        "indexConfig": {
+          "ancestorField": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/__default__/fields/*"
+        }
+      },
+      "normalized": {
+        "usesAncestorConfig": false,
+        "indexes_count": 0,
+        "reverting": false,
+        "ancestorField": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/__default__/fields/*"
+      },
+      "index_config_present": true,
+      "explicit_empty_indexes_verified": true
+    },
+    {
+      "field": "revision",
+      "resource": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/chunks/fields/revision",
+      "raw_selected_response": {
+        "name": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/chunks/fields/revision",
+        "indexConfig": {
+          "ancestorField": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/__default__/fields/*"
+        }
+      },
+      "normalized": {
+        "usesAncestorConfig": false,
+        "indexes_count": 0,
+        "reverting": false,
+        "ancestorField": "projects/gen-lang-client-0444960702/databases/proofline-tablekeeper/collectionGroups/__default__/fields/*"
+      },
+      "index_config_present": true,
+      "explicit_empty_indexes_verified": true
+    }
+  ],
+  "all_verified": true,
+  "reference": "https://docs.cloud.google.com/firestore/docs/reference/rest/v1/projects.databases.collectionGroups.fields"
+}

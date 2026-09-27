@@ -1,0 +1,150 @@
+{
+  "phase": "after",
+  "started_at_utc": "2026-09-27T19:33:00.371310+00:00",
+  "finished_at_utc": "2026-09-27T19:33:02.645330+00:00",
+  "duration_seconds": 2.274,
+  "base_url": "https://proofline-tablekeeper-wh46bdeima-uc.a.run.app",
+  "request_origin": "https://tablekeeper-proofline.web.app",
+  "freeze_sha": "8f749427004a35e6ac25ed34abb7997515ec4354",
+  "operator_supplied_image_digest": "sha256:d22729b181ac9b8df69d743d52b260fbb11039d2b46affe40876b16a0fb2d0c2",
+  "operator_supplied_old_revision": "proofline-tablekeeper-00003-6th",
+  "operator_supplied_new_revision": "proofline-tablekeeper-00004-gfq",
+  "passed": true,
+  "failure": null,
+  "checks": [
+    {
+      "assertion": "supported private state",
+      "passed": true
+    },
+    {
+      "assertion": "continuity metadata matches: base_url",
+      "passed": true
+    },
+    {
+      "assertion": "continuity metadata matches: origin",
+      "passed": true
+    },
+    {
+      "assertion": "continuity metadata matches: freeze_sha",
+      "passed": true
+    },
+    {
+      "assertion": "continuity metadata matches: image_digest",
+      "passed": true
+    },
+    {
+      "assertion": "continuity metadata matches: old_revision",
+      "passed": true
+    },
+    {
+      "assertion": "operator names different old and new revisions",
+      "passed": true
+    },
+    {
+      "assertion": "state belongs to a synthetic demo",
+      "passed": true
+    },
+    {
+      "request": "post-revision original booking lookup",
+      "status": 200,
+      "duration_seconds": 0.52
+    },
+    {
+      "assertion": "post-revision original booking lookup: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "original booking present after operator revision change",
+      "passed": true
+    },
+    {
+      "assertion": "post-revision lookup: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "original booking response unchanged",
+      "passed": true
+    },
+    {
+      "request": "post-revision original idempotency retry",
+      "status": 200,
+      "duration_seconds": 0.381
+    },
+    {
+      "assertion": "post-revision original idempotency retry: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "original retry returns receipt HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "post-revision receipt: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "exact original receipt after operator revision change",
+      "passed": true
+    },
+    {
+      "request": "post-revision own booking list",
+      "status": 200,
+      "duration_seconds": 0.58
+    },
+    {
+      "assertion": "post-revision own booking list: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "own booking list HTTP 200",
+      "passed": true
+    },
+    {
+      "assertion": "post-revision list: JSON object",
+      "passed": true
+    },
+    {
+      "assertion": "exactly one booking on private unique test day",
+      "passed": true
+    },
+    {
+      "assertion": "original reference appears exactly once",
+      "passed": true
+    },
+    {
+      "request": "logout continuity own session",
+      "status": 200,
+      "duration_seconds": 0.374
+    },
+    {
+      "assertion": "logout continuity own session: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "continuity logout succeeds",
+      "passed": true
+    },
+    {
+      "request": "post-logout retained cookie probe",
+      "status": 401,
+      "duration_seconds": 0.379
+    },
+    {
+      "assertion": "post-logout retained cookie probe: private no-store",
+      "passed": true
+    },
+    {
+      "assertion": "continuity session revoked server-side",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Revision names, image digest and traffic switch are operator-supplied, not remotely attested by this script.",
+    "Operator must independently retain gcloud describe evidence of same image, new revision and 100 percent serving traffic.",
+    "Only this run own synthetic demo was mutated; no test reset/import or production setup was invoked.",
+    "Begin alone is not restart durability evidence. After must run after verified new revision routing.",
+    "Cookies, CSRF, request body, booking reference and original response exist only in the explicit private mode-0600 state file.",
+    "Session revocation occurs after successful checks; expired demo/session or failed checks yield honest failure evidence.",
+    "Direct Cloud Run testing does not prove Firebase Hosting behavior; final hosted/browser checks remain separate."
+  ]
+}

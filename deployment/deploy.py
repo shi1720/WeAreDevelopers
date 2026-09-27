@@ -121,7 +121,13 @@ def main():
         target = run/'snapshot'/name
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(content)
-        target.chmod(0o700 if mode & 0o111 else 0o600)
+        target.chmod(0o755 if mode & 0o111 else 0o644)
+        # Archive permissions must survive COPY for the non-root runtime.
+        # The enclosing deployment record remains mode 0700.
+        for parent in target.parents:
+            if parent == run:
+                break
+            parent.chmod(0o755)
     product = run/'snapshot'/'product'
     for name in ('Dockerfile', 'requirements.txt', 'firestore.rules', 'firestore.indexes.json'):
         if not (product/name).is_file():
@@ -157,6 +163,7 @@ def main():
         'service': ['gcloud', 'run', 'deploy', args.service, *common, '--image', image, '--service-account', args.runtime_sa,
                     '--allow-unauthenticated', '--min', '0', '--max', '2', '--min-instances', '0', '--max-instances', '2',
                     '--cpu', '2', '--memory', '2Gi', '--concurrency', '16', '--timeout', '30', '--port', '8080',
+                    '--startup-probe=httpGet.path=/health/ready,httpGet.port=8080,timeoutSeconds=10,periodSeconds=10,failureThreshold=12',
                     '--env-vars-file', str(run/'runtime-env.yaml'), '--clear-secrets', '--quiet'],
         'cleanup-job': ['gcloud', 'run', 'jobs', 'deploy', job, *common, '--image', image, '--service-account', args.runtime_sa,
                         '--cpu', '2', '--memory', '2Gi', '--tasks', '1', '--parallelism', '1', '--max-retries', '0',
