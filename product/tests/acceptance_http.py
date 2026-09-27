@@ -257,6 +257,8 @@ def test_password_change_revokes_other_session(service):
     second.session()
     guest.expect(200, 'POST', '/auth/password', {'current_password': PASSWORD, 'new_password': PASSWORD + '-changed'})
     assert second.request('GET', '/reservations').status_code == 401
+    service.restart()
+    assert second.request('GET', '/reservations').status_code == 401
 
 
 @pytest.mark.parametrize('header_name', ['idempotency-key', 'IDEMPOTENCY-KEY', 'iDeMpOtEnCy-KeY'])
@@ -266,8 +268,6 @@ def test_idempotency_header_names_are_case_insensitive(service, header_name):
     body = {'restaurant_id': rid, 'table_id': 'table_1', 'starts_at_local': '2032-06-17T18:00', 'party_size': 2}
     first = owner.expect(201, 'POST', '/reservations', body, headers={header_name: 'case-insensitive-key'})
     assert owner.expect(200, 'POST', '/reservations', body, headers={header_name: 'case-insensitive-key'}) == first
-    service.restart()
-    assert second.request('GET', '/reservations').status_code == 401
 
 
 def test_demo_two_visitors_copied_reference_role_reset_isolation(tmp_path):
