@@ -24,8 +24,8 @@ Open `http://localhost:8080`. The initial startup loads `stage-4/tablekeeper/dem
 | Window nook / Garden table | 2 seats each; declared pair, 4 seats together |
 | The round table / Quiet alcove | 4 / 6 seats; declared pair, 10 together |
 | Demo guest | Alex, `guest@tablekeeper.test` |
-| Demo password | `a lovely evening` — deliberately public synthetic demo credential |
-| Demo manager | Sam, `manager@tablekeeper.test`, password `a thoughtful service` — also public and synthetic |
+| Demo password | `a lovely evening`: deliberately public synthetic demo credential |
+| Demo manager | Sam, `manager@tablekeeper.test`, password `a thoughtful service`: also public and synthetic |
 | Initial reservations, 2035-06-14 | `EVENING1`: Window nook, 19:00, 2 guests; `FRIENDS1`: The round table, 19:00, 4 guests; `LATER001`: Garden table, 20:30, 2 guests. All belong to demo guest Alex. |
 
 The fixture is deterministic. Use 2035-06-14 for the closure walkthrough; operator
@@ -36,21 +36,21 @@ restores the initial fixture. A test reset/import replaces it; it is not silentl
 
 ## Three-minute walkthrough
 
-1. **0:00–0:35 — A booking is a promise.** Sign in as the demo guest at `/login`.
+1. **0:00–0:35: A booking is a promise.** Sign in as the demo guest at `/login`.
    Open `/lookup`, enter `EVENING1`, and show Window nook, 19:00, 2 guests, policy 0
    and 90 minutes. The current guest history contains the original creation.
-2. **0:35–1:00 — The floor changes.** Sign out and sign in as the demo manager.
+2. **0:35–1:00: The floor changes.** Sign out and sign in as the demo manager.
    Open **For restaurants** (`/manager`). In the closure workspace, choose Window nook,
    2035-06-14 from 19:00 until 21:00. Times are Europe/London, not the browser's timezone.
-3. **1:00–1:45 — Review the smallest safe change.** Select **Preview seating repair**.
+3. **1:00–1:45: Review the smallest safe change.** Select **Preview seating repair**.
    Expect three considered bookings and exactly one move: `EVENING1` from Window nook
    to Garden table. `FRIENDS1` and `LATER001` stay put. The first Garden visit ends at
    20:30, exactly when `LATER001` begins. Unused seats total 0. Preview changes nothing.
-4. **1:45–2:15 — Keep the promise atomically.** Select **Apply seating repair**.
+4. **1:45–2:15: Keep the promise atomically.** Select **Apply seating repair**.
    The success state appears only after the server confirms. All guests keep their
    original references, arrival times, party sizes and accepted terms. The Window nook
    closure now prevents new overlapping reservations.
-5. **2:15–3:00 — Show the guest's truth.** Sign out and back in as Alex. Look up
+5. **2:15–3:00: Show the guest's truth.** Sign out and back in as Alex. Look up
    `EVENING1`: Garden table, still 19:00 and 2 guests, still policy 0 and 90 minutes.
    The history adds one seating-reassignment event. Briefly show the responsive manager
    view or explain the automated stale-plan, impossible-plan and lost-response checks.

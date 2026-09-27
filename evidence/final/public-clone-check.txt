@@ -1,0 +1,36 @@
+Unauthenticated public clone verification
+{
+  "checked_at_utc": "2026-09-27T18:27:40.805449+00:00",
+  "clone_path": "/Users/shivamgupta/.cache/proofline-github-public-twlsnccb/repo",
+  "clone_exit": 0,
+  "head": "fb76fd0487212119f5b0fa7e6f7722057b93ddd7",
+  "head_matches": true,
+  "stage_trees": {
+    "stage-1": {
+      "expected": "93744383122e819f760d2bf0a95dddf6fc791e13",
+      "actual": "93744383122e819f760d2bf0a95dddf6fc791e13",
+      "match": true
+    },
+    "stage-2": {
+      "expected": "3cff1d59fd5dbf0a625e5b223ce222dc87fcd0f4",
+      "actual": "3cff1d59fd5dbf0a625e5b223ce222dc87fcd0f4",
+      "match": true
+    },
+    "stage-3": {
+      "expected": "bc31c3a67f21957cc6b0fbf11e9455661d9df179",
+      "actual": "bc31c3a67f21957cc6b0fbf11e9455661d9df179",
+      "match": true
+    },
+    "stage-4": {
+      "expected": "53912d0263085f441225f962351d8876fef68ca1",
+      "actual": "53912d0263085f441225f962351d8876fef68ca1",
+      "match": true
+    }
+  },
+  "room_sha256": "5608a22b314bb25ddb46b8e1004581a3480c04f46bd3219f28483cf40eb22fbb",
+  "unauthenticated_api_http": 200,
+  "github_private": false,
+  "github_visibility": "public",
+  "harness_exit": 0,
+  "harness_output": "ok \u2014 gates 1, 2 and the mandate part of gate 4 pass. Not checked here: gate 3 (stage-1/ builds and serves /health). Run: python -m harness run --track tablekeeper --repo /Users/shivamgupta/.cache/proofline-github-public-twlsnccb/repo --stage 1 --mode isolated\n"
+}
