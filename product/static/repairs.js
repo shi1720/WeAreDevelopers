@@ -1,4 +1,5 @@
-/* Manager seating repairs and owner recurring amendments. */
+/* Manager seating repairs and owner recurring amendments.
+ * Applied-state polish below is an operator follow-up outside the accepted BAND run. */
 function restaurantInstant(local,zone) {
   if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(local)) throw new Error('Choose a complete local date and time.');
   const [year,month,day,hour,minute]=local.split(/[-T:]/).map(Number);
@@ -61,7 +62,15 @@ function renderClosureWorkspace(restaurant,managerMount) {
     try {
       const result=await api(`/restaurants/${encodeURIComponent(restaurant.id)}/replans/${encodeURIComponent(plan.plan_id)}/apply`,{method:'POST',body:{},key:applyKey});
       applied=true;previewMount.querySelector('.section-heading .status').textContent='Applied';
+      previewMount.querySelector('.section-heading .eyebrow').textContent=`Applied · Preview based on restaurant revision ${plan.restaurant_revision}`;
+      previewMount.querySelector('.section-heading h2').textContent='Seating repair saved.';
+      previewMount.querySelector('.map-closed > span:last-child').textContent='Closed for the selected interval';
+      previewMount.querySelector('.repair-metrics > div:first-child span').textContent=plan.moved_count===1?'booking moved':'bookings moved';
+      previewMount.querySelectorAll('.assignment .status').forEach((status,index)=>{status.textContent=plan.assignments[index].changed?'Moved':'Unchanged';});
+      previewMount.querySelector('.apply-bar .small-note').textContent='The closure and all seating changes are saved. This before-and-after record shows the applied repair.';
       feedback(applyMessages,'replan-success',`Seating repaired. ${result.reservations.length} bookings kept their promises. The closure and all table changes are saved together.`,'success');
+      // Read-only refresh is independent of the confirmed mutation and its retry receipt.
+      managerMount.querySelector('.roster-workspace')?.dispatchEvent(new Event('seating-repair-applied'));
     } catch(error) {
       stale=error instanceof Refusal && error.code==='stale_plan';
       const text=stale?'The restaurant changed after this preview. Nothing from this attempt was applied. Preview again to review a fresh safe plan.':error.code==='plan_already_applied'?'This plan has already been applied. Create a new preview for the current restaurant state.':error instanceof Refusal?friendly(error):'The apply response was lost. The repair may already be saved. Retry applying this unchanged plan to recover the original result safely.';

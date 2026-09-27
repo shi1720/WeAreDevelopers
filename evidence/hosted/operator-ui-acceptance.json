@@ -1,0 +1,28 @@
+{
+  "status": "operator UI follow-up accepted locally, cloud recheck pending",
+  "attribution": "Post-factory operator-led UI follow-up; not part of either frozen BAND acceptance run",
+  "observed_issue": "Successful seating repair left the displayed roster stale and retained preview wording",
+  "changes": [
+    "Refresh only the currently selected roster date after confirmed apply",
+    "Show saved/applied/closed labels",
+    "Keep read-only refresh failure separate from mutation success and exact retry"
+  ],
+  "validation": {
+    "command": "/tmp/proofline-official-spec/.venv/bin/python -m pytest product/tests/hosted_polish_browser.py -q",
+    "exit_code": 0,
+    "result": "3 passed in 5.23s",
+    "log": "operator-ui-tests.log",
+    "cases": [
+      "confirmed apply refreshes selected roster date",
+      "failed roster read leaves apply success intact",
+      "real committed response loss reuses exact body/key and survives durable restart"
+    ]
+  },
+  "source_sha256": {
+    "product/static/repairs.js": "716cfa27f2e987980e68078cef2f432c1acdcbbb6951aa6d68b3348f7dc4aaf0",
+    "product/static/operations.js": "bcbde2c8fea73f9af79953083db1c4a196ee564902c20c895492431d31fd19e7",
+    "product/tests/hosted_polish_browser.py": "bd05327a29633af25490320cd3e52fed9dbe3192a3bfcd8899dafc8495004a3f"
+  },
+  "backend_unchanged_from": "8f749427004a35e6ac25ed34abb7997515ec4354",
+  "created_at_utc": "2026-09-27T19:44:19.908729+00:00"
+}

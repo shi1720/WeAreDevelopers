@@ -217,19 +217,25 @@ function addRoster(restaurant,mount) {
   const section=document.createElement('section');section.className='roster-workspace';mount.prepend(section);
   section.innerHTML=`<div class="section-heading"><div><p class="eyebrow">The service at a glance</p><h2>Your date roster</h2><p>Operational booking details for ${escapeHTML(restaurant.name)} only. Times use ${escapeHTML(restaurant.timezone)}.</p></div></div><form class="compact-form"><div><label for="roster-date">Service date</label><input id="roster-date" type="date" value="${today()}" required></div><button class="secondary" data-testid="roster-load">Load roster</button></form><div class="roster-results" aria-live="polite"></div>`;
   let generation=0;
-  async function loadRoster(offset=0) {
+  async function loadRoster(offset=0,afterRepair=false) {
     const current=++generation,results=section.querySelector('.roster-results');results.innerHTML='<p class="loading">Loading this service…</p>';
     try {
       const data=await api(`/api/roster?${new URLSearchParams({restaurant_id:restaurant.id,date:section.querySelector('input').value,limit:'50',offset:String(offset)})}`);
-      if(current!==generation)return;
+      if(current!==generation || !section.isConnected)return;
       const rows=data.reservations || data.roster || [];
       results.innerHTML=rows.length?`<div class="roster-list">${rows.map(r=>`<article class="policy-card" data-testid="roster-row"><span class="status">${escapeHTML(r.status)}</span><h3>${escapeHTML(r.starts_at_local?.slice(11,16))} · ${r.party_size} guests</h3><p>${escapeHTML(r.display_name || r.guest_name || 'Guest')} · ${escapeHTML(tableLabels(restaurant,idsOf(r)))}</p><p class="small-note">Reference ${escapeHTML(r.reference)}</p></article>`).join('')}</div>`:'<div class="empty"><h3>A clear service book.</h3>No bookings for this date.</div>';
       const paging=document.createElement('div');paging.className='button-row';
       if(offset>0){const button=document.createElement('button');button.className='secondary';button.textContent='Previous 50';button.onclick=()=>loadRoster(Math.max(0,offset-50));paging.append(button);}
       if(data.next_offset!==null && data.next_offset!==undefined){const button=document.createElement('button');button.className='secondary';button.textContent='Next 50';button.onclick=()=>loadRoster(data.next_offset);paging.append(button);}
       results.append(paging);
-    }catch(error){results.replaceChildren();feedback(results,'roster-error',error instanceof Refusal?friendly(error):'The roster could not be loaded. Try again.');}
+    }catch(error){
+      if(current!==generation || !section.isConnected)return;
+      results.replaceChildren();
+      feedback(results,'roster-error',afterRepair?'The seating repair is saved, but the roster could not be refreshed. Choose Load roster to see the current seating.':error instanceof Refusal?friendly(error):'The roster could not be loaded. Try again.');
+    }
   };
+  // Operator follow-up outside the accepted BAND run: keep the selected service date.
+  section.addEventListener('seating-repair-applied',()=>{loadRoster(0,true);});
   section.querySelector('form').onsubmit=event=>{event.preventDefault();loadRoster();};
   section.querySelector('form').requestSubmit();
 }
