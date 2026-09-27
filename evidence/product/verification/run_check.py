@@ -32,6 +32,7 @@ def main():
     result = {
         "label": label, "started_utc": stamp, "command": command,
         "cwd": os.getcwd(), "source_revision": revision,
+        "test_driver_revision": os.environ.get('ACCEPTANCE_DRIVER_REVISION', revision),
         "working_tree_status": status, "exit_status": process.returncode,
         "duration_seconds": round(time.monotonic() - started, 6),
         "log": prefix.with_suffix(".log").name,

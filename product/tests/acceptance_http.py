@@ -18,7 +18,7 @@ import httpx
 import pytest
 
 PASSWORD = 'synthetic-acceptance-password'
-PRODUCT = Path(__file__).resolve().parents[1]
+PRODUCT = Path(os.environ.get('ACCEPTANCE_PRODUCT_ROOT', Path(__file__).resolve().parents[1])).resolve()
 
 
 def setup_body(secret):

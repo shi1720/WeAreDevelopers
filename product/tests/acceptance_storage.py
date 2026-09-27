@@ -329,10 +329,28 @@ def test_firestore_multiprocess_counter_and_revision():
     collection = 'verifier_' + uuid.uuid4().hex
     store = FirestoreStore(project, collection=collection)
     store.transact('main', lambda c: None, create=True)
-    code = ('from tablekeeper.storage import FirestoreStore; import sys; '
-            's=FirestoreStore(sys.argv[1],collection=sys.argv[2]); '
-            '[s.transact("main",lambda c:c.update(acceptance_counter=c.get("acceptance_counter",0)+1)) for _ in range(10)]; s.close()')
-    processes = [subprocess.Popen([sys.executable, '-c', code, project, collection], stdout=subprocess.PIPE, stderr=subprocess.PIPE) for _ in range(2)]
+    # The storage contract permits bounded contention errors. Retry a stable
+    # operation identity, never a blind increment after an unknown outcome.
+    code = '''from tablekeeper.storage import FirestoreStore,StoreError
+import sys,time
+s=FirestoreStore(sys.argv[1],collection=sys.argv[2])
+for index in range(10):
+    key=sys.argv[3]+':'+str(index)
+    def operation(c):
+        receipts=c.setdefault('acceptance_receipts',[])
+        if key not in receipts:
+            receipts.append(key)
+            c['acceptance_counter']=c.get('acceptance_counter',0)+1
+    for attempt in range(4):
+        try:
+            s.transact('main',operation)
+            break
+        except StoreError:
+            if attempt==3: raise
+            time.sleep(.1*(attempt+1))
+s.close()
+'''
+    processes = [subprocess.Popen([sys.executable, '-c', code, project, collection, str(index)], stdout=subprocess.PIPE, stderr=subprocess.PIPE) for index in range(2)]
     try:
         for process in processes:
             _, stderr = process.communicate(timeout=90)
@@ -340,6 +358,7 @@ def test_firestore_multiprocess_counter_and_revision():
         revision, value = store.snapshot('main')
         assert revision == 21
         assert value['acceptance_counter'] == 20
+        assert len(set(value['acceptance_receipts'])) == 20
     finally:
         for process in processes:
             if process.poll() is None:
