@@ -14,7 +14,7 @@ This repository is the Tablekeeper-track output of **Proofline**, a four-seat so
 - [Release ledger](docs/RELEASE-GATES.md): requirement families, accepted revisions and evidence status.
 - [Security boundaries](docs/SECURITY.md): judge controls, private exports and deployment limitations.
 
-The folders are sequential releases, each complete and independently buildable after acceptance. At this point the production run is underway and **no stage has been accepted**. A folder's presence during development is not an acceptance claim. The ledger will record exact reviewed revisions and commands as they pass.
+The folders are sequential releases, each complete and independently buildable after acceptance. **Stage 1 is accepted** at implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, with independent evidence at `3813508b5624b4ae89a346b68611a595f83cfde5`: official host/isolated checks 120/120 and independent HTTP/offline checks 23/23. Stage 2 is underway; stages 3–4 remain gated. A folder's presence during development is not an acceptance claim. The ledger records exact reviewed revisions and commands.
 
 ## Verification
 

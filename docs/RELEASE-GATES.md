@@ -29,7 +29,7 @@ Each accepted stage folder must contain its own Dockerfile, RUN.md, source, test
 
 ## Accepted revision chain
 
-No releases accepted yet.
+Stage 1 accepted: implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, package tree `2a5107fedec409dd152484de88ede68b861e008b`, complete folder/evidence revision `3813508b5624b4ae89a346b68611a595f83cfde5`. Official host and isolated suites both 120/120; expected stage-2 rejection is the absent search UI. Independent HTTP and network-none checks each 23/23; implementation tests independently rerun 24/24. Fresh-process transfer, 22 malformed-import variants and disabled test controls passed. See [exact commands and durations](../evidence/stage-1/verification.md). Stage-1 matrix rows above are satisfied by that report; later-stage rows remain pending. Hidden judging checks are unavailable.
 
 ## Evidence convention
 

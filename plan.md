@@ -14,6 +14,7 @@ The product uses a warm cream, ink and terracotta visual system, responsive acce
 
 ## Release status
 
-- Stage 1: dispatching clean-room implementation and independent verification.
-- Stages 2–4: pending predecessor acceptance.
+- Stage 1: accepted implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`; independent evidence `3813508b5624b4ae89a346b68611a595f83cfde5`. Official host and isolated 120/120; independent HTTP/offline 23/23; implementation tests 24/24. Folder frozen.
+- Stage 2: authorized complete copy-forward, then combinations, resilient browser experience and upgrade checks. Engineer copies first; Experience and Verifier proceed after copy-ready.
+- Stages 3–4: pending predecessor acceptance.
 - Final room-log eligibility check: pending authentic operator export after completion.
