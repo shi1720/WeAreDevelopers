@@ -1,0 +1,7 @@
+{
+  "NetworkMode": "none",
+  "NanoCpus": 2000000000,
+  "Memory": 2147483648,
+  "Image": "sha256:1a110ff78bba92684e71f4a5274ef6b7c1a187fd3e3fb977d6b269388121bbef",
+  "proxy_keys": []
+}

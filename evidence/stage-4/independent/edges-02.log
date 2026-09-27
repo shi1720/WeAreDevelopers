@@ -1,0 +1,10 @@
+test_other_restaurant_changes_do_not_stale_plan (independent_stage4_edges.IndependentStage4Edges.test_other_restaurant_changes_do_not_stale_plan) ... ok
+test_plan_series_revision_once_and_atomic_snapshot_reads (independent_stage4_edges.IndependentStage4Edges.test_plan_series_revision_once_and_atomic_snapshot_reads) ... ok
+test_amend_dst_gap_and_nonoccupancy_precedence (independent_stage4_edges.IndependentStage4Edges.test_amend_dst_gap_and_nonoccupancy_precedence) ... ok
+test_amend_old_cutoff_and_stale_precedence (independent_stage4_edges.IndependentStage4Edges.test_amend_old_cutoff_and_stale_precedence) ... ok
+test_unapplied_applied_and_history_corruption_is_atomic (independent_stage4_edges.IndependentStage4Edges.test_unapplied_applied_and_history_corruption_is_atomic) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.892s
+
+OK

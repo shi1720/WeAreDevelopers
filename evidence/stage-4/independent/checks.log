@@ -1,0 +1,18 @@
+test_optimum_preview_purity_apply_history_receipts_and_roundtrip (independent_replans.IndependentReplans.test_optimum_preview_purity_apply_history_receipts_and_roundtrip) ... ok
+test_impossible_plan_failure_is_atomic_and_key_reusable (independent_replans.IndependentReplans.test_impossible_plan_failure_is_atomic_and_key_reusable) ... ok
+test_fifty_concurrent_apply_exactly_once (independent_replans.IndependentReplans.test_fifty_concurrent_apply_exactly_once) ... ok
+test_stale_plan_after_real_change_but_not_noop (independent_replans.IndependentReplans.test_stale_plan_after_real_change_but_not_noop) ... ok
+test_generated_six_table_four_pair_six_booking_oracle (independent_replans.IndependentReplans.test_generated_six_table_four_pair_six_booking_oracle) ... ok
+test_closure_half_open_edges_and_explanations (independent_replans.IndependentReplans.test_closure_half_open_edges_and_explanations) ... ok
+test_prior_closure_and_historical_capacity_constrain_repair (independent_replans.IndependentReplans.test_prior_closure_and_historical_capacity_constrain_repair) ... ok
+test_repairs_ignore_guest_cutoff (independent_replans.IndependentReplans.test_repairs_ignore_guest_cutoff) ... ok
+test_preview_permissions_intervals_and_failed_key_reuse (independent_replans.IndependentReplans.test_preview_permissions_intervals_and_failed_key_reuse) ... ok
+test_collective_change_is_not_exception_and_roundtrips (independent_series_amend.IndependentSeriesAmend.test_collective_change_is_not_exception_and_roundtrips) ... ok
+test_skip_permanent_exception_and_cancelled_then_empty_noop (independent_series_amend.IndependentSeriesAmend.test_skip_permanent_exception_and_cancelled_then_empty_noop) ... ok
+test_conflict_rollback_and_same_key_retry (independent_series_amend.IndependentSeriesAmend.test_conflict_rollback_and_same_key_retry) ... ok
+test_validation_permissions_and_fifty_revision_contenders (independent_series_amend.IndependentSeriesAmend.test_validation_permissions_and_fifty_revision_contenders) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 5.080s
+
+OK

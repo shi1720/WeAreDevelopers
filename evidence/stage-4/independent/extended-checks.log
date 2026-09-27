@@ -1,0 +1,124 @@
+test_seeded_identity_past_dates_reset_and_descending_listing (independent_boundaries.IndependentBoundaries.test_seeded_identity_past_dates_reset_and_descending_listing) ... ok
+test_cross_restaurant_tables_and_collective_moves (independent_boundaries.IndependentBoundaries.test_cross_restaurant_tables_and_collective_moves) ... ok
+test_eight_item_batch_and_unlisted_occupancy_rollback (independent_boundaries.IndependentBoundaries.test_eight_item_batch_and_unlisted_occupancy_rollback) ... ok
+test_concurrent_amendments_cannot_share_target (independent_boundaries.IndependentBoundaries.test_concurrent_amendments_cannot_share_target) ... ok
+test_concurrent_signup_one_identity (independent_boundaries.IndependentBoundaries.test_concurrent_signup_one_identity) ... ok
+test_batch_input_error_precedes_occupancy_and_noop_occupies (independent_boundaries.IndependentBoundaries.test_batch_input_error_precedes_occupancy_and_noop_occupies) ... ok
+test_import_structural_relational_corruptions_roll_back (independent_boundaries.IndependentBoundaries.test_import_structural_relational_corruptions_roll_back) ... ok
+test_cutoff_surrounding_current_minute (independent_boundaries.IndependentBoundaries.test_cutoff_surrounding_current_minute) ... ok
+test_batch_reads_are_whole_snapshots (independent_boundaries.IndependentBoundaries.test_batch_reads_are_whole_snapshots) ... ok
+test_option_order_sums_no_transitivity_and_response_shapes (independent_combinations.IndependentCombinations.test_option_order_sums_no_transitivity_and_response_shapes) ... ok
+test_selection_errors_rollback_and_retry_reuse (independent_combinations.IndependentCombinations.test_selection_errors_rollback_and_retry_reuse) ... ok
+test_both_members_occupied_then_freed_and_original_receipt (independent_combinations.IndependentCombinations.test_both_members_occupied_then_freed_and_original_receipt) ... ok
+test_pair_amendment_identity_noop_and_failed_transition (independent_combinations.IndependentCombinations.test_pair_amendment_identity_noop_and_failed_transition) ... ok
+test_atomic_pair_single_swap_and_intra_batch_overlap (independent_combinations.IndependentCombinations.test_atomic_pair_single_swap_and_intra_batch_overlap) ... ok
+test_fifty_competing_overlapping_pairs_have_one_winner (independent_combinations.IndependentCombinations.test_fifty_competing_overlapping_pairs_have_one_winner) ... ok
+test_seeded_cancelled_pair_occupancy_and_import (independent_combinations.IndependentCombinations.test_seeded_cancelled_pair_occupancy_and_import) ... ok
+test_auth_validation_multiple_sessions_and_reset_revocation (independent_contract.IndependentContract.test_auth_validation_multiple_sessions_and_reset_revocation) ... ok
+test_batch_shape_owner_and_input_order (independent_contract.IndependentContract.test_batch_shape_owner_and_input_order) ... ok
+test_batch_swap_noop_receipt_and_atomic_failure (independent_contract.IndependentContract.test_batch_swap_noop_receipt_and_atomic_failure) ... ok
+test_concurrent_competing_50_no_double_booking (independent_contract.IndependentContract.test_concurrent_competing_50_no_double_booking) ... ok
+test_concurrent_identical_50_exactly_one_write (independent_contract.IndependentContract.test_concurrent_identical_50_exactly_one_write) ... ok
+test_dst_gaps_folds_absolute_durations_arbitrary_year (independent_contract.IndependentContract.test_dst_gaps_folds_absolute_durations_arbitrary_year) ... ok
+test_export_import_receipts_sessions_replacement_and_rejection (independent_contract.IndependentContract.test_export_import_receipts_sessions_replacement_and_rejection) ... ok
+test_half_open_intervals_grid_capacity_and_failed_patch (independent_contract.IndependentContract.test_half_open_intervals_grid_capacity_and_failed_patch) ... ok
+test_health_public_configuration_and_closed_day (independent_contract.IndependentContract.test_health_public_configuration_and_closed_day) ... ok
+test_idempotency_boundaries_value_equality_and_precedence (independent_contract.IndependentContract.test_idempotency_boundaries_value_equality_and_precedence) ... ok
+test_past_creation_and_current_cutoff (independent_contract.IndependentContract.test_past_creation_and_current_cutoff) ... ok
+test_receipts_survive_amend_cancel_and_owner_isolation (independent_contract.IndependentContract.test_receipts_survive_amend_cancel_and_owner_isolation) ... ok
+test_slots_from_opening_offset_and_full_empty_rows (independent_contract.IndependentContract.test_slots_from_opening_offset_and_full_empty_rows) ... ok
+test_strict_body_query_and_error_types (independent_contract.IndependentContract.test_strict_body_query_and_error_types) ... ok
+test_accepted_cutoff_survives_policy_replacement (independent_deep.IndependentDeep.test_accepted_cutoff_survives_policy_replacement) ... ok
+test_restaurant_and_multiple_series_counters_once (independent_deep.IndependentDeep.test_restaurant_and_multiple_series_counters_once) ... ok
+test_first_occurrence_failure_precedes_later_policy_failure (independent_deep.IndependentDeep.test_first_occurrence_failure_precedes_later_policy_failure) ... ok
+test_import_cannot_erase_permanent_series_exception (independent_import_relations.IndependentImportRelations.test_import_cannot_erase_permanent_series_exception) ... ok
+test_valid_pre_adoption_change_reversion_cancel_and_corrupt_relations (independent_import_relations.IndependentImportRelations.test_valid_pre_adoption_change_reversion_cancel_and_corrupt_relations) ... ok
+test_policy_permissions_and_invalid_values_leave_no_version (independent_policies.IndependentPolicies.test_policy_permissions_and_invalid_values_leave_no_version) ... ok
+test_effective_date_ties_publication_order_and_original_detail (independent_policies.IndependentPolicies.test_effective_date_ties_publication_order_and_original_detail) ... ok
+test_terms_history_noop_amend_cancel_and_original_receipt (independent_policies.IndependentPolicies.test_terms_history_noop_amend_cancel_and_original_receipt) ... ok
+test_private_history_decision_and_expected_revision_precedence (independent_policies.IndependentPolicies.test_private_history_decision_and_expected_revision_precedence) ... ok
+test_revision_compare_and_swap_fifty_real_changes (independent_policies.IndependentPolicies.test_revision_compare_and_swap_fifty_real_changes) ... ok
+test_explanations_independent_rules_shape_and_policy (independent_policies.IndependentPolicies.test_explanations_independent_rules_shape_and_policy) ... ok
+test_combination_history_canonical_noop_and_policy_capacity (independent_policies.IndependentPolicies.test_combination_history_canonical_noop_and_policy_capacity) ... ok
+test_optimum_preview_purity_apply_history_receipts_and_roundtrip (independent_replans.IndependentReplans.test_optimum_preview_purity_apply_history_receipts_and_roundtrip) ... ok
+test_impossible_plan_failure_is_atomic_and_key_reusable (independent_replans.IndependentReplans.test_impossible_plan_failure_is_atomic_and_key_reusable) ... ok
+test_fifty_concurrent_apply_exactly_once (independent_replans.IndependentReplans.test_fifty_concurrent_apply_exactly_once) ... ok
+test_stale_plan_after_real_change_but_not_noop (independent_replans.IndependentReplans.test_stale_plan_after_real_change_but_not_noop) ... ok
+test_generated_six_table_four_pair_six_booking_oracle (independent_replans.IndependentReplans.test_generated_six_table_four_pair_six_booking_oracle) ... ok
+test_closure_half_open_edges_and_explanations (independent_replans.IndependentReplans.test_closure_half_open_edges_and_explanations) ... ok
+test_prior_closure_and_historical_capacity_constrain_repair (independent_replans.IndependentReplans.test_prior_closure_and_historical_capacity_constrain_repair) ... ok
+test_repairs_ignore_guest_cutoff (independent_replans.IndependentReplans.test_repairs_ignore_guest_cutoff) ... ok
+test_preview_permissions_intervals_and_failed_key_reuse (independent_replans.IndependentReplans.test_preview_permissions_intervals_and_failed_key_reuse) ... ok
+test_selection_member_types_and_opaque_id_boundary (independent_review.IndependentReview.test_selection_member_types_and_opaque_id_boundary) ... ok
+test_pair_replay_body_order_is_distinct_from_table_set_order (independent_review.IndependentReview.test_pair_replay_body_order_is_distinct_from_table_set_order) ... ok
+test_anchor_identity_history_and_max_count_interval (independent_series.IndependentSeries.test_anchor_identity_history_and_max_count_interval) ... ok
+test_occurrence_exceptions_cancel_and_original_series_receipt (independent_series.IndependentSeries.test_occurrence_exceptions_cancel_and_original_series_receipt) ... ok
+test_adoption_validation_permissions_and_failed_keys (independent_series.IndependentSeries.test_adoption_validation_permissions_and_failed_keys) ... ok
+test_occurrence_policy_selection_and_full_failure_rollback (independent_series.IndependentSeries.test_occurrence_policy_selection_and_full_failure_rollback) ... ok
+test_recurring_gap_rollback_and_first_fold (independent_series.IndependentSeries.test_recurring_gap_rollback_and_first_fold) ... ok
+test_collective_moves_once_per_series_and_rollback (independent_series.IndependentSeries.test_collective_moves_once_per_series_and_rollback) ... ok
+test_collective_change_is_not_exception_and_roundtrips (independent_series_amend.IndependentSeriesAmend.test_collective_change_is_not_exception_and_roundtrips) ... ok
+test_skip_permanent_exception_and_cancelled_then_empty_noop (independent_series_amend.IndependentSeriesAmend.test_skip_permanent_exception_and_cancelled_then_empty_noop) ... ok
+test_conflict_rollback_and_same_key_retry (independent_series_amend.IndependentSeriesAmend.test_conflict_rollback_and_same_key_retry) ... ok
+test_validation_permissions_and_fifty_revision_contenders (independent_series_amend.IndependentSeriesAmend.test_validation_permissions_and_fifty_revision_contenders) ... ok
+test_other_restaurant_changes_do_not_stale_plan (independent_stage4_edges.IndependentStage4Edges.test_other_restaurant_changes_do_not_stale_plan) ... ok
+test_plan_series_revision_once_and_atomic_snapshot_reads (independent_stage4_edges.IndependentStage4Edges.test_plan_series_revision_once_and_atomic_snapshot_reads) ... ERROR
+test_amend_dst_gap_and_nonoccupancy_precedence (independent_stage4_edges.IndependentStage4Edges.test_amend_dst_gap_and_nonoccupancy_precedence) ... ok
+test_amend_old_cutoff_and_stale_precedence (independent_stage4_edges.IndependentStage4Edges.test_amend_old_cutoff_and_stale_precedence) ... FAIL
+test_unapplied_applied_and_history_corruption_is_atomic (independent_stage4_edges.IndependentStage4Edges.test_unapplied_applied_and_history_corruption_is_atomic) ... ok
+test_atomic_pair_single_swap_and_intra_batch_overlap (independent_policies.IndependentPolicies.test_atomic_pair_single_swap_and_intra_batch_overlap) ... ok
+test_auth_validation_multiple_sessions_and_reset_revocation (independent_policies.IndependentPolicies.test_auth_validation_multiple_sessions_and_reset_revocation) ... ok
+test_batch_shape_owner_and_input_order (independent_policies.IndependentPolicies.test_batch_shape_owner_and_input_order) ... ok
+test_batch_swap_noop_receipt_and_atomic_failure (independent_policies.IndependentPolicies.test_batch_swap_noop_receipt_and_atomic_failure) ... ok
+test_both_members_occupied_then_freed_and_original_receipt (independent_policies.IndependentPolicies.test_both_members_occupied_then_freed_and_original_receipt) ... ok
+test_combination_history_canonical_noop_and_policy_capacity (independent_policies.IndependentPolicies.test_combination_history_canonical_noop_and_policy_capacity) ... ok
+test_concurrent_competing_50_no_double_booking (independent_policies.IndependentPolicies.test_concurrent_competing_50_no_double_booking) ... ok
+test_concurrent_identical_50_exactly_one_write (independent_policies.IndependentPolicies.test_concurrent_identical_50_exactly_one_write) ... ok
+test_dst_gaps_folds_absolute_durations_arbitrary_year (independent_policies.IndependentPolicies.test_dst_gaps_folds_absolute_durations_arbitrary_year) ... ok
+test_effective_date_ties_publication_order_and_original_detail (independent_policies.IndependentPolicies.test_effective_date_ties_publication_order_and_original_detail) ... ok
+test_explanations_independent_rules_shape_and_policy (independent_policies.IndependentPolicies.test_explanations_independent_rules_shape_and_policy) ... ok
+test_export_import_receipts_sessions_replacement_and_rejection (independent_policies.IndependentPolicies.test_export_import_receipts_sessions_replacement_and_rejection) ... ok
+test_fifty_competing_overlapping_pairs_have_one_winner (independent_policies.IndependentPolicies.test_fifty_competing_overlapping_pairs_have_one_winner) ... ok
+test_half_open_intervals_grid_capacity_and_failed_patch (independent_policies.IndependentPolicies.test_half_open_intervals_grid_capacity_and_failed_patch) ... ok
+test_health_public_configuration_and_closed_day (independent_policies.IndependentPolicies.test_health_public_configuration_and_closed_day) ... ok
+test_idempotency_boundaries_value_equality_and_precedence (independent_policies.IndependentPolicies.test_idempotency_boundaries_value_equality_and_precedence) ... ok
+test_option_order_sums_no_transitivity_and_response_shapes (independent_policies.IndependentPolicies.test_option_order_sums_no_transitivity_and_response_shapes) ... ok
+test_pair_amendment_identity_noop_and_failed_transition (independent_policies.IndependentPolicies.test_pair_amendment_identity_noop_and_failed_transition) ... ok
+test_past_creation_and_current_cutoff (independent_policies.IndependentPolicies.test_past_creation_and_current_cutoff) ... ok
+test_policy_permissions_and_invalid_values_leave_no_version (independent_policies.IndependentPolicies.test_policy_permissions_and_invalid_values_leave_no_version) ... ok
+test_private_history_decision_and_expected_revision_precedence (independent_policies.IndependentPolicies.test_private_history_decision_and_expected_revision_precedence) ... ok
+test_receipts_survive_amend_cancel_and_owner_isolation (independent_policies.IndependentPolicies.test_receipts_survive_amend_cancel_and_owner_isolation) ... ok
+test_revision_compare_and_swap_fifty_real_changes (independent_policies.IndependentPolicies.test_revision_compare_and_swap_fifty_real_changes) ... ok
+test_seeded_cancelled_pair_occupancy_and_import (independent_policies.IndependentPolicies.test_seeded_cancelled_pair_occupancy_and_import) ... ok
+test_selection_errors_rollback_and_retry_reuse (independent_policies.IndependentPolicies.test_selection_errors_rollback_and_retry_reuse) ... ok
+test_slots_from_opening_offset_and_full_empty_rows (independent_policies.IndependentPolicies.test_slots_from_opening_offset_and_full_empty_rows) ... ok
+test_strict_body_query_and_error_types (independent_policies.IndependentPolicies.test_strict_body_query_and_error_types) ... ok
+test_terms_history_noop_amend_cancel_and_original_receipt (independent_policies.IndependentPolicies.test_terms_history_noop_amend_cancel_and_original_receipt) ... ok
+
+======================================================================
+ERROR: test_plan_series_revision_once_and_atomic_snapshot_reads (independent_stage4_edges.IndependentStage4Edges.test_plan_series_revision_once_and_atomic_snapshot_reads)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/vw/nb62dcpx661fyvd3p005p5jw0000gn/T/proofline-review-53617a3-t1c3935b/stage-4/tests/independent_stage4_edges.py", line 47, in test_plan_series_revision_once_and_atomic_snapshot_reads
+    self.assertEqual(old['scheduled_date'], new['scheduled_date'])
+                     ~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'scheduled_date'
+
+======================================================================
+FAIL: test_amend_old_cutoff_and_stale_precedence (independent_stage4_edges.IndependentStage4Edges.test_amend_old_cutoff_and_stale_precedence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/vw/nb62dcpx661fyvd3p005p5jw0000gn/T/proofline-review-53617a3-t1c3935b/stage-4/tests/independent_stage4_edges.py", line 64, in test_amend_old_cutoff_and_stale_precedence
+    series = self.adopt(self.create(local=day+'T18:00'))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/vw/nb62dcpx661fyvd3p005p5jw0000gn/T/proofline-review-53617a3-t1c3935b/stage-4/tests/independent_series.py", line 11, in adopt
+    return self.expect(201,'POST','/series',dict(anchor_reference=anchor['reference'],count=count,interval_weeks=interval),self.a,key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/vw/nb62dcpx661fyvd3p005p5jw0000gn/T/proofline-review-53617a3-t1c3935b/stage-4/tests/independent_contract.py", line 80, in expect
+    self.assertEqual(actual, status, f"{method} {path}: status {actual}; error={result.get('error') if isinstance(result, dict) else None}")
+AssertionError: 409 != 201 : POST /series: status 409; error={'code': 'cutoff_passed', 'message': 'cutoff passed'}
+
+----------------------------------------------------------------------
+Ran 96 tests in 16.569s
+
+FAILED (failures=1, errors=1)

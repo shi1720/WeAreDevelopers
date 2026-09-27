@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/private/var/folders/vw/nb62dcpx661fyvd3p005p5jw0000gn/T/proofline-review-53617a3-t1c3935b/stage-4/tests/independent_stage4_product.py", line 58, in <module>
+    asyncio.run(main())
+  File "/Users/shivamgupta/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/private/var/folders/vw/nb62dcpx661fyvd3p005p5jw0000gn/T/proofline-review-53617a3-t1c3935b/stage-4/tests/independent_stage4_product.py", line 43, in main
+    await page.get_by_test_id('series-from-index').select_option('1')
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/async_api/_generated.py", line 20216, in select_option
+    await self._impl_obj.select_option(
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 637, in select_option
+    return await self._frame.select_option(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 815, in select_option
+    return await self._channel.send("selectOption", self._timeout, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_test_id("series-from-index")
+

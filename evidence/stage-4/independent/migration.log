@@ -1,0 +1,3 @@
+PASS actual-stage-1 migration/amend/exceptions/cancellation/receipts/roundtrip seconds=0.259
+PASS actual-stage-2 migration/amend/exceptions/cancellation/receipts/roundtrip seconds=0.219
+PASS actual-stage-3 migration/amend/exceptions/cancellation/receipts/roundtrip seconds=0.203

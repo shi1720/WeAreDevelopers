@@ -1,0 +1,8 @@
+PASS routes-grid-mobile-desktop-assets duration_seconds=0.589
+PASS single-lost-response duration_seconds=0.695
+PASS pair-lost-response duration_seconds=0.681
+PASS single-conflict-refresh duration_seconds=0.567
+PASS pair-conflict-refresh duration_seconds=0.584
+PASS stale-search-result duration_seconds=0.535
+PASS live-stage1-upgrade-pending-retry duration_seconds=0.823
+scenarios=7 passed=7 failed=0
