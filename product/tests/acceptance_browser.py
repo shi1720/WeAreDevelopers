@@ -115,6 +115,21 @@ def test_lost_committed_response_reload_restart_exact_retry(ui):
     saved = page.evaluate("Object.entries(localStorage).filter(([k])=>k.startsWith('tablekeeper.pending.v1.')).map(([k,v])=>JSON.parse(v))")
     assert len(saved) == 1 and saved[0]['body'] == observed[0][0] and saved[0]['key'] == observed[0][1]
     page.unroute('**/reservations', lose)
+    page.get_by_test_id('logout-button').click()
+    page.wait_for_url('**/login')
+    page.goto(service.url + '/signup')
+    page.get_by_test_id('signup-display-name').fill('Different Synthetic Guest')
+    page.get_by_test_id('signup-email').fill('different@acceptance.test')
+    page.get_by_test_id('signup-password').fill(PASSWORD)
+    page.get_by_test_id('signup-submit').click()
+    page.get_by_test_id('current-user').wait_for()
+    assert page.get_by_test_id('recover-request').count() == 0
+    page.get_by_test_id('logout-button').click()
+    page.wait_for_url('**/login')
+    page.get_by_test_id('login-email').fill('owner@acceptance.test')
+    page.get_by_test_id('login-password').fill(PASSWORD)
+    page.get_by_test_id('login-submit').click()
+    page.get_by_test_id('recover-request').wait_for()
     service.restart()
     page.reload()
     page.get_by_test_id('recover-request').wait_for()
@@ -132,3 +147,76 @@ def test_lost_committed_response_reload_restart_exact_retry(ui):
     page.get_by_test_id('booking-list-item').wait_for()
     assert page.get_by_test_id('booking-list-item').count() == 1
     capture(page, 'recovered-booking')
+
+
+@pytest.mark.parametrize('action', ['patch','series','apply'])
+def test_material_action_lost_response_reload_and_restart(ui, action):
+    service, page = ui
+    setup(service, page)
+    search(service, page)
+    page.get_by_test_id('booking-submit').click()
+    reference = page.get_by_test_id('confirmation-reference').inner_text()
+    if action in ('patch','series'):
+        page.goto(service.url + '/lookup?reference=' + reference)
+        page.get_by_test_id('reservation-detail').wait_for()
+    if action == 'patch':
+        page.get_by_test_id('edit-search').click()
+        page.get_by_test_id('edit-choice').select_option(label='19:30 · Garden table')
+        page.get_by_test_id('edit-terms').wait_for()
+        pattern, button, expected = '**/reservations/' + reference, 'edit-confirm', 200
+    elif action == 'series':
+        page.get_by_test_id('series-count').fill('2')
+        page.get_by_test_id('series-create').click()
+        page.get_by_test_id('series-created').get_by_role('link').click()
+        page.get_by_test_id('series-local-time').fill('20:00')
+        pattern, button, expected = '**/series/*/amend', 'series-amend-submit', 201
+    else:
+        page.goto(service.url + '/manager')
+        page.get_by_test_id('closure-from').fill('2032-06-17T17:00')
+        page.get_by_test_id('closure-to').fill('2032-06-17T22:00')
+        page.get_by_test_id('closure-preview').click()
+        page.get_by_test_id('replan-preview').wait_for()
+        capture(page, 'closure-preview')
+        pattern, button, expected = '**/replans/*/apply', 'replan-apply', 201
+    observed = []
+    def lose(route):
+        request = route.request
+        if request.method == 'GET':
+            route.continue_()
+            return
+        headers = {k:v for k,v in request.all_headers().items() if k.lower() not in ('content-length','transfer-encoding')}
+        response = route.fetch(headers=headers)
+        assert response.status == expected
+        observed.append((request.post_data_json,request.headers['idempotency-key'],response.json()))
+        route.abort('failed')
+    page.route(pattern,lose)
+    page.get_by_test_id(button).click()
+    page.get_by_test_id('recover-request').wait_for(state='visible')
+    page.wait_for_function("!document.querySelector('[data-testid=recover-request]')?.disabled")
+    assert len(observed) == 1
+    page.unroute(pattern,lose)
+    service.restart()
+    page.reload()
+    page.get_by_test_id('recover-request').wait_for()
+    replays = []
+    def replay(route):
+        request=route.request
+        if request.method == 'GET':
+            route.continue_()
+            return
+        response=route.fetch(headers={k:v for k,v in request.all_headers().items() if k.lower() not in ('content-length','transfer-encoding')})
+        assert response.status == 200
+        replays.append((request.post_data_json,request.headers['idempotency-key'],response.json()))
+        route.fulfill(response=response)
+    page.route(pattern,replay)
+    page.get_by_test_id('recover-request').click()
+    page.get_by_text('Original result recovered.',exact=True).wait_for()
+    assert replays == observed
+    page.unroute(pattern,replay)
+    if action == 'series':
+        assert page.locator('.occurrences h3').filter(has_text='20:00').count() == 2
+        capture(page,'series-updated')
+    else:
+        result=page.request.get(service.url+'/reservations/'+reference).json()
+        assert result['reference'] == reference and result['revision'] == 2
+        assert (result['starts_at_local'].endswith('19:30') if action=='patch' else result['table_ids'] != ['table_1'])
