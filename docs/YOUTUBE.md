@@ -1,6 +1,6 @@
 # YouTube publication copy
 
-Status: copy prepared. The hosted companion and final video are not yet verified for publication. Replace the single final URL slot after the live deployment check, confirm narration credit against the exported audio, then publish the description block below.
+Status: final video and measured chapters prepared. Replace the single final URL slot after the live deployment check. Listening review remains a disclosed limitation; automatic transcription and objective audio checks do not establish naturalness.
 
 ## Title
 
@@ -17,6 +17,17 @@ This walkthrough follows the real BAND collaboration, a review that rejected a f
 Explore the hosted companion: [FINAL_VERIFIED_FIREBASE_URL]
 Source and evidence: https://github.com/shi1720/WeAreDevelopers
 
+Chapters:
+0:00 A reservation is a promise
+0:18 The four-seat factory
+0:42 The actual BAND production room
+0:59 Independent review catches a bug
+1:22 Recovery assistance disclosed
+1:37 Preview a safe seating repair
+2:00 Apply the repair and inspect history
+2:17 Verified results and limits
+2:36 The business hypothesis and scope
+
 Verified original hackathon results:
 - Four accepted, independently buildable stages.
 - Published checks passed in isolated and fresh-clone isolated runs: 120, 145, 152 and 158 per stage. These include inherited suites, not distinct requirements.
@@ -29,15 +40,15 @@ The original graded service uses ephemeral state and judge controls. The hosted 
 
 The proposed $79 monthly restaurant offer is a hypothesis, not revenue. We want to test whether small venues find direct bookings, recurring agreements and safe recovery useful enough to pay for.
 
-Credits: Shivam Gupta, product direction and factory configuration. Proofline's BAND coding-agent seats, implementation and verification. Restaurant illustration generated for this project. See the repository for asset provenance and software license.
+Credits: Shivam Gupta, product direction and factory configuration. Proofline's BAND coding-agent seats, implementation and verification. Restaurant illustration generated for this project. Narration uses the stock en-US-Chirp3-HD-Kore synthetic voice from Google Cloud Text-to-Speech. It does not imitate Shivam Gupta or any other real person. See the repository for asset provenance and software license.
 
 #BAND #WeAreDevelopers #AIAgents #Hackathon #RestaurantSoftware
 
 ## Editor notes
 
 - The URL slot belongs to the hosted companion only. Do not label it as the exact offline judge container.
-- Add accurate chapters after the final edit. Do not publish provisional timestamps.
-- If Google Cloud Text-to-Speech supplies the final voiceover, add: “Narration uses a stock synthetic voice from Google Cloud Text-to-Speech. It does not imitate Shivam Gupta or any other real person.”
-- Add the actual model and stock voice to asset provenance after synthesis. Do not describe a planned voice as already used.
+- Chapters match the final 177.227-second narration edit, rounded to the nearest whole second. Every chapter is at least ten seconds. Keep these timestamps only if the edit remains unchanged.
+- The produced narration uses en-US-Chirp3-HD-Kore. Confirm the exported video uses this master before retaining the narration credit. Audio provenance and measured timing are in output/video/final/.
+- A listening pass remains necessary because the asset agent could inspect waveform metrics but had no audio-input capability.
 - Verify the video includes a recording of the authentic BAND Desktop room. Slides or stills alone do not meet that requirement.
 - Captions must follow the final audio, with readable line lengths and no unexplained acronym substitutions.

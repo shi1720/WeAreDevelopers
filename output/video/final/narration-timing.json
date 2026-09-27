@@ -1,0 +1,418 @@
+{
+  "voice": "en-US-Chirp3-HD-Kore",
+  "rate": 24000,
+  "duration_seconds": 177.22666666666666,
+  "caption_timing": "Measured synthesized sentence boundaries. No word-level alignment claimed.",
+  "segments": [
+    {
+      "index": 1,
+      "paragraph": 1,
+      "text": "A reservation is a promise: a place, a time, and agreed terms.",
+      "start_seconds": 0.3,
+      "end_seconds": 5.573333333333333,
+      "raw_seconds": 5.573333333333333,
+      "trim_start_seconds": 0.3,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 2,
+      "paragraph": 1,
+      "text": "If a restaurant table becomes unusable before dinner, keeping that promise can mean changing several bookings together.",
+      "start_seconds": 5.8133333333333335,
+      "end_seconds": 12.733333333333333,
+      "raw_seconds": 7.373333333333333,
+      "trim_start_seconds": 0.38,
+      "trim_end_seconds": 0.07333333333333333
+    },
+    {
+      "index": 3,
+      "paragraph": 1,
+      "text": "This is Tablekeeper: keep the promise, even when the floor changes.",
+      "start_seconds": 12.973333333333333,
+      "end_seconds": 17.343333333333334,
+      "raw_seconds": 4.733333333333333,
+      "trim_start_seconds": 0.26,
+      "trim_end_seconds": 0.10333333333333333
+    },
+    {
+      "index": 4,
+      "paragraph": 2,
+      "text": "Behind it is Proofline, a software factory in BAND Desktop.",
+      "start_seconds": 17.823333333333334,
+      "end_seconds": 22.126666666666665,
+      "raw_seconds": 4.553333333333334,
+      "trim_start_seconds": 0.25,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 5,
+      "paragraph": 2,
+      "text": "Shivam Gupta directed the product and configured four coding-agent seats: Coordinator, Engineer, Experience and Verifier.",
+      "start_seconds": 22.366666666666667,
+      "end_seconds": 32.74,
+      "raw_seconds": 10.493333333333334,
+      "trim_start_seconds": 0.12,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 6,
+      "paragraph": 2,
+      "text": "The agents wrote and checked the implementation.",
+      "start_seconds": 32.98,
+      "end_seconds": 35.06333333333333,
+      "raw_seconds": 2.2733333333333334,
+      "trim_start_seconds": 0.19,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 7,
+      "paragraph": 2,
+      "text": "Their standing mandates describe reusable responsibilities.",
+      "start_seconds": 35.303333333333335,
+      "end_seconds": 38.873333333333335,
+      "raw_seconds": 3.8333333333333335,
+      "trim_start_seconds": 0.17,
+      "trim_end_seconds": 0.09333333333333334
+    },
+    {
+      "index": 8,
+      "paragraph": 2,
+      "text": "Restaurant requirements belong in the task.",
+      "start_seconds": 39.11333333333334,
+      "end_seconds": 41.60333333333333,
+      "raw_seconds": 2.7533333333333334,
+      "trim_start_seconds": 0.24,
+      "trim_end_seconds": 0.023333333333333334
+    },
+    {
+      "index": 9,
+      "paragraph": 3,
+      "text": "This is the real production room.",
+      "start_seconds": 42.083333333333336,
+      "end_seconds": 43.86666666666667,
+      "raw_seconds": 2.033333333333333,
+      "trim_start_seconds": 0.25,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 10,
+      "paragraph": 3,
+      "text": "One dispatch covered four stages.",
+      "start_seconds": 44.10666666666667,
+      "end_seconds": 46.876666666666665,
+      "raw_seconds": 3.1733333333333333,
+      "trim_start_seconds": 0.32,
+      "trim_end_seconds": 0.08333333333333333
+    },
+    {
+      "index": 11,
+      "paragraph": 3,
+      "text": "Engineer and Experience shared implementation work, while Verifier checked committed revisions independently.",
+      "start_seconds": 47.11666666666667,
+      "end_seconds": 54.07666666666667,
+      "raw_seconds": 7.553333333333334,
+      "trim_start_seconds": 0.53,
+      "trim_end_seconds": 0.06333333333333334
+    },
+    {
+      "index": 12,
+      "paragraph": 3,
+      "text": "The handoffs connect decisions to the code and evidence they produced.",
+      "start_seconds": 54.31666666666667,
+      "end_seconds": 58.45666666666666,
+      "raw_seconds": 4.613333333333333,
+      "trim_start_seconds": 0.33,
+      "trim_end_seconds": 0.14333333333333334
+    },
+    {
+      "index": 13,
+      "paragraph": 4,
+      "text": "That separation caught something the published checks missed.",
+      "start_seconds": 58.93666666666667,
+      "end_seconds": 61.98,
+      "raw_seconds": 3.2933333333333334,
+      "trim_start_seconds": 0.25,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 14,
+      "paragraph": 4,
+      "text": "In stage three, a corrupted restore could erase the permanent exception on an individually changed recurring booking.",
+      "start_seconds": 62.22,
+      "end_seconds": 68.32,
+      "raw_seconds": 6.293333333333333,
+      "trim_start_seconds": 0.14,
+      "trim_end_seconds": 0.05333333333333334
+    },
+    {
+      "index": 15,
+      "paragraph": 4,
+      "text": "Verifier rejected the candidate.",
+      "start_seconds": 68.56,
+      "end_seconds": 70.62,
+      "raw_seconds": 2.3933333333333335,
+      "trim_start_seconds": 0.32,
+      "trim_end_seconds": 0.013333333333333334
+    },
+    {
+      "index": 16,
+      "paragraph": 4,
+      "text": "The Engineer seat fixed the history validation.",
+      "start_seconds": 70.86,
+      "end_seconds": 73.60333333333334,
+      "raw_seconds": 2.993333333333333,
+      "trim_start_seconds": 0.25,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 17,
+      "paragraph": 4,
+      "text": "Independent checks then passed, including the original regression.",
+      "start_seconds": 73.84333333333333,
+      "end_seconds": 78.03333333333333,
+      "raw_seconds": 4.8533333333333335,
+      "trim_start_seconds": 0.48,
+      "trim_end_seconds": 0.18333333333333332
+    },
+    {
+      "index": 18,
+      "paragraph": 4,
+      "text": "The failed review and fix remain inspectable.",
+      "start_seconds": 78.27333333333333,
+      "end_seconds": 81.18666666666667,
+      "raw_seconds": 3.1133333333333333,
+      "trim_start_seconds": 0.2,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 19,
+      "paragraph": 5,
+      "text": "The run also needed operator help after a daemon interruption.",
+      "start_seconds": 81.66666666666667,
+      "end_seconds": 85.30666666666667,
+      "raw_seconds": 4.013333333333334,
+      "trim_start_seconds": 0.31,
+      "trim_end_seconds": 0.06333333333333334
+    },
+    {
+      "index": 20,
+      "paragraph": 5,
+      "text": "The same BAND seats restarted in the same room and acquired new provider sessions.",
+      "start_seconds": 85.54666666666667,
+      "end_seconds": 90.27,
+      "raw_seconds": 5.093333333333334,
+      "trim_start_seconds": 0.37,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 21,
+      "paragraph": 5,
+      "text": "No new task or implementation hints were sent.",
+      "start_seconds": 90.51,
+      "end_seconds": 93.18333333333334,
+      "raw_seconds": 2.6933333333333334,
+      "trim_start_seconds": 0.02,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 22,
+      "paragraph": 5,
+      "text": "This was a single-dispatch run, with recovery assistance.",
+      "start_seconds": 93.42333333333333,
+      "end_seconds": 96.76666666666667,
+      "raw_seconds": 3.5933333333333333,
+      "trim_start_seconds": 0.25,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 23,
+      "paragraph": 6,
+      "text": "Now look at the manager preview.",
+      "start_seconds": 97.24666666666667,
+      "end_seconds": 99.17,
+      "raw_seconds": 2.1533333333333333,
+      "trim_start_seconds": 0.23,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 24,
+      "paragraph": 6,
+      "text": "These are three synthetic bookings at The Orangery.",
+      "start_seconds": 99.41,
+      "end_seconds": 102.67333333333333,
+      "raw_seconds": 3.533333333333333,
+      "trim_start_seconds": 0.27,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 25,
+      "paragraph": 6,
+      "text": "Closing Window nook proposes one move to Garden table, with zero unused seats.",
+      "start_seconds": 102.91333333333333,
+      "end_seconds": 107.91666666666667,
+      "raw_seconds": 5.273333333333333,
+      "trim_start_seconds": 0.27,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 26,
+      "paragraph": 6,
+      "text": "The other bookings stay put.",
+      "start_seconds": 108.15666666666667,
+      "end_seconds": 109.88,
+      "raw_seconds": 2.033333333333333,
+      "trim_start_seconds": 0.31,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 27,
+      "paragraph": 6,
+      "text": "Guests keep their arrival times, party sizes and accepted terms.",
+      "start_seconds": 110.12,
+      "end_seconds": 114.97,
+      "raw_seconds": 5.273333333333333,
+      "trim_start_seconds": 0.27,
+      "trim_end_seconds": 0.15333333333333332
+    },
+    {
+      "index": 28,
+      "paragraph": 6,
+      "text": "Nothing has moved yet.",
+      "start_seconds": 115.21,
+      "end_seconds": 116.71333333333334,
+      "raw_seconds": 1.7333333333333334,
+      "trim_start_seconds": 0.23,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 29,
+      "paragraph": 6,
+      "text": "The manager reviews before applying the plan.",
+      "start_seconds": 116.95333333333333,
+      "end_seconds": 119.70333333333333,
+      "raw_seconds": 3.1733333333333333,
+      "trim_start_seconds": 0.28,
+      "trim_end_seconds": 0.14333333333333334
+    },
+    {
+      "index": 30,
+      "paragraph": 7,
+      "text": "The planner supports up to six tables, four declared pairs and six considered bookings.",
+      "start_seconds": 120.18333333333334,
+      "end_seconds": 126.03333333333333,
+      "raw_seconds": 6.713333333333333,
+      "trim_start_seconds": 0.6,
+      "trim_end_seconds": 0.2633333333333333
+    },
+    {
+      "index": 31,
+      "paragraph": 7,
+      "text": "Every confirmed booking overlapping the closure interval counts.",
+      "start_seconds": 126.27333333333333,
+      "end_seconds": 130.00333333333333,
+      "raw_seconds": 4.253333333333333,
+      "trim_start_seconds": 0.27,
+      "trim_end_seconds": 0.25333333333333335
+    },
+    {
+      "index": 32,
+      "paragraph": 7,
+      "text": "A stale preview must fail safely, and an impossible plan cannot silently cancel a guest.",
+      "start_seconds": 130.24333333333334,
+      "end_seconds": 136.28333333333333,
+      "raw_seconds": 6.413333333333333,
+      "trim_start_seconds": 0.2,
+      "trim_end_seconds": 0.17333333333333334
+    },
+    {
+      "index": 33,
+      "paragraph": 8,
+      "text": "All four original stages passed their required published checks in both isolated and fresh-clone isolated runs.",
+      "start_seconds": 136.76333333333332,
+      "end_seconds": 143.31333333333333,
+      "raw_seconds": 7.433333333333334,
+      "trim_start_seconds": 0.7,
+      "trim_end_seconds": 0.18333333333333332
+    },
+    {
+      "index": 34,
+      "paragraph": 8,
+      "text": "Stage four passed one hundred and fifty-eight checks.",
+      "start_seconds": 143.55333333333334,
+      "end_seconds": 146.65333333333334,
+      "raw_seconds": 3.1733333333333333,
+      "trim_start_seconds": 0.07,
+      "trim_end_seconds": 0.0033333333333333335
+    },
+    {
+      "index": 35,
+      "paragraph": 8,
+      "text": "Independent verification also passed sixty-nine HTTP checks.",
+      "start_seconds": 146.89333333333335,
+      "end_seconds": 152.00333333333333,
+      "raw_seconds": 5.453333333333333,
+      "trim_start_seconds": 0.25,
+      "trim_end_seconds": 0.09333333333333334
+    },
+    {
+      "index": 36,
+      "paragraph": 8,
+      "text": "These are finite tests, not production certification.",
+      "start_seconds": 152.24333333333334,
+      "end_seconds": 155.64333333333335,
+      "raw_seconds": 3.6533333333333333,
+      "trim_start_seconds": 0.24,
+      "trim_end_seconds": 0.013333333333333334
+    },
+    {
+      "index": 37,
+      "paragraph": 9,
+      "text": "The hosted companion is separate work from that graded run.",
+      "start_seconds": 156.12333333333333,
+      "end_seconds": 159.62333333333333,
+      "raw_seconds": 3.7733333333333334,
+      "trim_start_seconds": 0.27,
+      "trim_end_seconds": 0.0033333333333333335
+    },
+    {
+      "index": 38,
+      "paragraph": 9,
+      "text": "The first customer hypothesis is small venues with direct or recurring groups.",
+      "start_seconds": 159.86333333333334,
+      "end_seconds": 165.44333333333333,
+      "raw_seconds": 6.173333333333333,
+      "trim_start_seconds": 0.49,
+      "trim_end_seconds": 0.10333333333333333
+    },
+    {
+      "index": 39,
+      "paragraph": 9,
+      "text": "Seventy-nine dollars per location per month is a price to test, not revenue.",
+      "start_seconds": 165.68333333333334,
+      "end_seconds": 170.34333333333333,
+      "raw_seconds": 4.913333333333333,
+      "trim_start_seconds": 0.16,
+      "trim_end_seconds": 0.09333333333333334
+    },
+    {
+      "index": 40,
+      "paragraph": 9,
+      "text": "Tablekeeper keeps guest promises.",
+      "start_seconds": 170.58333333333334,
+      "end_seconds": 172.94666666666666,
+      "raw_seconds": 2.8133333333333335,
+      "trim_start_seconds": 0.45,
+      "trim_end_seconds": 0.0
+    },
+    {
+      "index": 41,
+      "paragraph": 9,
+      "text": "Proofline makes the work behind those promises inspectable.",
+      "start_seconds": 173.18666666666667,
+      "end_seconds": 176.74666666666667,
+      "raw_seconds": 3.953333333333333,
+      "trim_start_seconds": 0.25,
+      "trim_end_seconds": 0.14333333333333334
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "duration_seconds": 177.22666666666666,
+  "captions": 41,
+  "caption_max_line_pixels_at_44pt": 1321.0,
+  "sample_clips": 0,
+  "tts_requests": 44,
+  "synthesis_characters": 3054,
+  "estimated_list_price_usd_before_allowance_and_tax": 0.09162,
+  "files": {
+    "proofline-narration.ass": "dd80d53600a6a11e9d008d430a50d181e529bbcc292cef1d00d4cbb58ff9967f",
+    "proofline-narration.mp3": "05e205281df447820a7f21e99134cbc016f2ffdc3e61e87daab128db68101f01",
+    "narration-timing.json": "348072e167659b5c8bbcd55457cc0954ee7212afc2842989902d186992801835",
+    "proofline-narration.txt": "f33a635d6e6d35ef28b9a8f5ae6016e6ca182d42b8fc11427e5b2b10d1352d6a",
+    "proofline-narration.wav": "c217d16779e23c0c14e34ba0d22dec4545805809223869701b60296b3ec48180",
+    "proofline-narration.srt": "b6c7a5c925b3469aea2bb27938b2b828d901a9d3e524ce958dd55ee853e7a38e"
+  }
+}

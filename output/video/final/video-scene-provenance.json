@@ -1,0 +1,1436 @@
+{
+  "narration_duration_seconds": 177.22666666666666,
+  "fps": 30,
+  "frames": 5317,
+  "scenes": [
+    {
+      "start": 0,
+      "end": 5.813,
+      "kind": "title",
+      "name": "Keep the promise.",
+      "sub": "Proofline + Tablekeeper"
+    },
+    {
+      "start": 5.813,
+      "end": 12.973,
+      "kind": "app",
+      "name": "original-booking",
+      "sub": "A guest promise, before the disruption"
+    },
+    {
+      "start": 12.973,
+      "end": 17.823,
+      "kind": "app",
+      "name": "home",
+      "sub": "Tablekeeper \u2022 the restaurant experience"
+    },
+    {
+      "start": 17.823,
+      "end": 32.98,
+      "kind": "roomhold",
+      "name": "Factory in BAND Desktop",
+      "sub": "Four distinct seats \u2022 shared work \u2022 independent review",
+      "frame": 12
+    },
+    {
+      "start": 32.98,
+      "end": 41.553,
+      "kind": "roomhold",
+      "name": "Reusable mandates",
+      "sub": "Requirements live in the task, not the standing instructions",
+      "frame": 57
+    },
+    {
+      "start": 41.553,
+      "end": 58.937,
+      "kind": "roommotion",
+      "name": "The actual production room",
+      "sub": "One dispatch \u2022 four incremental stages"
+    },
+    {
+      "start": 58.937,
+      "end": 68.56,
+      "kind": "review",
+      "name": "Passing checks were not enough.",
+      "sub": "Stage 3 \u2022 independent review",
+      "phase": "finding"
+    },
+    {
+      "start": 68.56,
+      "end": 73.84333333333333,
+      "kind": "review",
+      "name": "Rejected. Repaired. Retested.",
+      "sub": "Stage 3 \u2022 evidence preserved",
+      "phase": "repair"
+    },
+    {
+      "start": 73.84333333333333,
+      "end": 81.66633333333333,
+      "kind": "review",
+      "name": "The original regression passed.",
+      "sub": "Stage 3 \u2022 independent acceptance",
+      "phase": "verified"
+    },
+    {
+      "start": 81.66633333333333,
+      "end": 96.99633333333333,
+      "kind": "roomhold",
+      "name": "Recovery assistance disclosed",
+      "sub": "Same room and seats \u2022 new provider sessions \u2022 no new implementation hints",
+      "frame": 156
+    },
+    {
+      "start": 96.99633333333333,
+      "end": 99.40933333333334,
+      "kind": "app",
+      "name": "closure-form",
+      "sub": "Manager \u2022 choose the affected table and closure interval"
+    },
+    {
+      "start": 99.40933333333334,
+      "end": 102.91333333333333,
+      "kind": "app",
+      "name": "preview-top",
+      "sub": "Manager \u2022 preview before applying"
+    },
+    {
+      "start": 102.91333333333333,
+      "end": 110.11933333333333,
+      "kind": "app",
+      "name": "preview-map",
+      "sub": "Preview only \u2022 one move \u2022 three considered \u2022 zero unused seats"
+    },
+    {
+      "start": 110.11933333333333,
+      "end": 120.18333333333334,
+      "kind": "app",
+      "name": "preview-map",
+      "sub": "Preview only \u2022 arrival time, party size and accepted terms preserved"
+    },
+    {
+      "start": 120.18333333333334,
+      "end": 126.66333333333333,
+      "kind": "app",
+      "name": "repair-applied",
+      "sub": "After review \u2022 apply the plan and inspect the result"
+    },
+    {
+      "start": 126.66333333333333,
+      "end": 131.62333333333333,
+      "kind": "app",
+      "name": "repaired-booking",
+      "sub": "Guest \u2022 Garden table, same 19:00 arrival and two guests"
+    },
+    {
+      "start": 131.62333333333333,
+      "end": 136.76333333333332,
+      "kind": "app",
+      "name": "repaired-history",
+      "sub": "Guest \u2022 reassignment retained in booking history"
+    },
+    {
+      "start": 136.76333333333332,
+      "end": 147.13333333333333,
+      "kind": "results",
+      "name": "Four accepted stages.",
+      "sub": "Original graded run \u2022 isolated and fresh-clone isolated"
+    },
+    {
+      "start": 147.13333333333333,
+      "end": 155.98333333333332,
+      "kind": "mobile",
+      "name": "mobile-history",
+      "sub": "Responsive guest history",
+      "panel": "Verified, with limits.",
+      "body": [
+        "69 independent HTTP checks",
+        "24 generated planner fixtures",
+        "Finite tests, not certification"
+      ]
+    },
+    {
+      "start": 155.98333333333332,
+      "end": 161.12333333333333,
+      "kind": "mobile",
+      "name": "mobile-terms",
+      "sub": "Original local demonstration \u2022 hosted companion is separate work",
+      "panel": "Two clear boundaries.",
+      "body": [
+        "Original stages: verified offline",
+        "Hosted companion: separate work",
+        "No hosted functionality claimed here"
+      ]
+    },
+    {
+      "start": 161.12333333333333,
+      "end": 172.80333333333334,
+      "kind": "mobile",
+      "name": "mobile-terms",
+      "sub": "Commercial hypothesis \u2022 no claimed customers or revenue",
+      "panel": "Built for small venues.",
+      "body": [
+        "Direct bookings and recurring groups",
+        "$79 per location per month",
+        "A price to test with customers"
+      ]
+    },
+    {
+      "start": 172.80333333333334,
+      "end": 177.22666666666666,
+      "kind": "title",
+      "name": "Keep guest promises.",
+      "sub": "Make the work behind them inspectable."
+    }
+  ],
+  "recording_note": "Authentic CUA captures. Operator gaps cut; holds added. No generated intermediate UI frames.",
+  "frame_changes": [
+    {
+      "frame": 0,
+      "seconds": 0.0,
+      "scene": 0,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 9,
+      "seconds": 0.3,
+      "scene": 0,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 1
+    },
+    {
+      "frame": 168,
+      "seconds": 5.6,
+      "scene": 0,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 175,
+      "seconds": 5.833333333333333,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00061.png",
+      "source_sha256": "98eb0bc94067d859b3458980dc701d54cde9cd21a4ef3911d7de20003fad8f0c",
+      "caption_index": 2
+    },
+    {
+      "frame": 181,
+      "seconds": 6.033333333333333,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00075.png",
+      "source_sha256": "d3ff3254cc1d255c6b5db7d83ddb3a8abaff201c19cb3775e14c311fdd57a7d6",
+      "caption_index": 2
+    },
+    {
+      "frame": 182,
+      "seconds": 6.066666666666666,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00077.png",
+      "source_sha256": "e90e09ba63034a4c65b73c774bfeaa2b8408f5e3dceaf937e1cb7b8c5a74cc93",
+      "caption_index": 2
+    },
+    {
+      "frame": 184,
+      "seconds": 6.133333333333334,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00080.png",
+      "source_sha256": "d8e04db0ff19eece8027879650111c1dba00b6f5cd0a79554fc78c6b378cbd00",
+      "caption_index": 2
+    },
+    {
+      "frame": 185,
+      "seconds": 6.166666666666667,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00083.png",
+      "source_sha256": "cab0eb5a4132a47323a349fab0123a27d04f98aef4c20c8a5cb89ba120a5c419",
+      "caption_index": 2
+    },
+    {
+      "frame": 186,
+      "seconds": 6.2,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00084.png",
+      "source_sha256": "f07903b6d018fd8b827c6741e422cbb88d4ec18c1a80ec9dd12e064aca7eba3d",
+      "caption_index": 2
+    },
+    {
+      "frame": 187,
+      "seconds": 6.233333333333333,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00086.png",
+      "source_sha256": "0f8df89d4b1babf9a997dee015a238510d3f5fe56f1475f2a5e104e4d110f701",
+      "caption_index": 2
+    },
+    {
+      "frame": 188,
+      "seconds": 6.266666666666667,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00089.png",
+      "source_sha256": "bdc2ec4bc84b14af6bfa972f4c20d1f0661433d88630922e9ea4f6e018231c95",
+      "caption_index": 2
+    },
+    {
+      "frame": 382,
+      "seconds": 12.733333333333333,
+      "scene": 1,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00099.png",
+      "source_sha256": "bdc2ec4bc84b14af6bfa972f4c20d1f0661433d88630922e9ea4f6e018231c95",
+      "caption_index": 0
+    },
+    {
+      "frame": 390,
+      "seconds": 13.0,
+      "scene": 2,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00000.png",
+      "source_sha256": "07e49e2927ca538ac1eb3396b8d5f761322af82b511b21be0ed6f8bae090a24f",
+      "caption_index": 3
+    },
+    {
+      "frame": 521,
+      "seconds": 17.366666666666667,
+      "scene": 2,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00039.png",
+      "source_sha256": "07e49e2927ca538ac1eb3396b8d5f761322af82b511b21be0ed6f8bae090a24f",
+      "caption_index": 0
+    },
+    {
+      "frame": 535,
+      "seconds": 17.833333333333332,
+      "scene": 3,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00012.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 4
+    },
+    {
+      "frame": 664,
+      "seconds": 22.133333333333333,
+      "scene": 3,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00012.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 0
+    },
+    {
+      "frame": 671,
+      "seconds": 22.366666666666667,
+      "scene": 3,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00012.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 5
+    },
+    {
+      "frame": 983,
+      "seconds": 32.766666666666666,
+      "scene": 3,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00012.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 0
+    },
+    {
+      "frame": 990,
+      "seconds": 33.0,
+      "scene": 4,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00057.png",
+      "source_sha256": "ded21ffc9aeee5c80981ba06cefde590c0e102daea8278cbc04542987ed039b3",
+      "caption_index": 6
+    },
+    {
+      "frame": 1052,
+      "seconds": 35.06666666666667,
+      "scene": 4,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00057.png",
+      "source_sha256": "ded21ffc9aeee5c80981ba06cefde590c0e102daea8278cbc04542987ed039b3",
+      "caption_index": 0
+    },
+    {
+      "frame": 1060,
+      "seconds": 35.333333333333336,
+      "scene": 4,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00057.png",
+      "source_sha256": "ded21ffc9aeee5c80981ba06cefde590c0e102daea8278cbc04542987ed039b3",
+      "caption_index": 7
+    },
+    {
+      "frame": 1167,
+      "seconds": 38.9,
+      "scene": 4,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00057.png",
+      "source_sha256": "ded21ffc9aeee5c80981ba06cefde590c0e102daea8278cbc04542987ed039b3",
+      "caption_index": 0
+    },
+    {
+      "frame": 1174,
+      "seconds": 39.13333333333333,
+      "scene": 4,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00057.png",
+      "source_sha256": "ded21ffc9aeee5c80981ba06cefde590c0e102daea8278cbc04542987ed039b3",
+      "caption_index": 8
+    },
+    {
+      "frame": 1247,
+      "seconds": 41.56666666666667,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00000.png",
+      "source_sha256": "20b1137520236dd552465d63620fcbb759cdc10638b61d9d3bafbc583cc8bc71",
+      "caption_index": 8
+    },
+    {
+      "frame": 1249,
+      "seconds": 41.63333333333333,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00000.png",
+      "source_sha256": "20b1137520236dd552465d63620fcbb759cdc10638b61d9d3bafbc583cc8bc71",
+      "caption_index": 0
+    },
+    {
+      "frame": 1263,
+      "seconds": 42.1,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00005.png",
+      "source_sha256": "20b1137520236dd552465d63620fcbb759cdc10638b61d9d3bafbc583cc8bc71",
+      "caption_index": 9
+    },
+    {
+      "frame": 1289,
+      "seconds": 42.96666666666667,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00012.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 9
+    },
+    {
+      "frame": 1316,
+      "seconds": 43.86666666666667,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00018.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 0
+    },
+    {
+      "frame": 1324,
+      "seconds": 44.13333333333333,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00019.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 10
+    },
+    {
+      "frame": 1407,
+      "seconds": 46.9,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00039.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 0
+    },
+    {
+      "frame": 1414,
+      "seconds": 47.13333333333333,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00041.png",
+      "source_sha256": "f914213a793948012dfb14b2a8dd650efacbfce0eccd5de2223b6349eb1e2836",
+      "caption_index": 11
+    },
+    {
+      "frame": 1484,
+      "seconds": 49.46666666666667,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00057.png",
+      "source_sha256": "ded21ffc9aeee5c80981ba06cefde590c0e102daea8278cbc04542987ed039b3",
+      "caption_index": 11
+    },
+    {
+      "frame": 1494,
+      "seconds": 49.8,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00061.png",
+      "source_sha256": "dc9fb45702557804286fd9764d0e910e391b75553c6f0a8f49f283b929e66e74",
+      "caption_index": 11
+    },
+    {
+      "frame": 1497,
+      "seconds": 49.9,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00062.png",
+      "source_sha256": "3e6a651a7fb0a30252c2368f69b9354e46df685c61714f2b9ad450962cc4b2db",
+      "caption_index": 11
+    },
+    {
+      "frame": 1500,
+      "seconds": 50.0,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00063.png",
+      "source_sha256": "d24c482022bdef7607d575c1e0bb0d494495f6320a5f503725191b8a0e708488",
+      "caption_index": 11
+    },
+    {
+      "frame": 1503,
+      "seconds": 50.1,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00064.png",
+      "source_sha256": "15d8d16173078ed6f4276ab23dfe4e1382901aa2d087064d687c1e2411a5a182",
+      "caption_index": 11
+    },
+    {
+      "frame": 1612,
+      "seconds": 53.733333333333334,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00102.png",
+      "source_sha256": "4c70013c15230d9898b19e4d0d090954e5d6714e4b90b2eb98f618bd1b3616c5",
+      "caption_index": 11
+    },
+    {
+      "frame": 1617,
+      "seconds": 53.9,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00104.png",
+      "source_sha256": "416eda2889925c30f7f58b20b0d8181eb3424f258c0a384506ca4b8a28a4e36e",
+      "caption_index": 11
+    },
+    {
+      "frame": 1621,
+      "seconds": 54.03333333333333,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00105.png",
+      "source_sha256": "c7c20b3d654acac7bcdbe16f2ce0c5a8770c911216bf500988a47aaa8df2cbc9",
+      "caption_index": 11
+    },
+    {
+      "frame": 1623,
+      "seconds": 54.1,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00106.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 0
+    },
+    {
+      "frame": 1630,
+      "seconds": 54.333333333333336,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00108.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 12
+    },
+    {
+      "frame": 1754,
+      "seconds": 58.46666666666667,
+      "scene": 5,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00151.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 0
+    },
+    {
+      "frame": 1769,
+      "seconds": 58.96666666666667,
+      "scene": 6,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 13
+    },
+    {
+      "frame": 1860,
+      "seconds": 62.0,
+      "scene": 6,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 1867,
+      "seconds": 62.233333333333334,
+      "scene": 6,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 14
+    },
+    {
+      "frame": 2050,
+      "seconds": 68.33333333333333,
+      "scene": 6,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 2057,
+      "seconds": 68.56666666666666,
+      "scene": 7,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 15
+    },
+    {
+      "frame": 2119,
+      "seconds": 70.63333333333334,
+      "scene": 7,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 2126,
+      "seconds": 70.86666666666666,
+      "scene": 7,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 16
+    },
+    {
+      "frame": 2209,
+      "seconds": 73.63333333333334,
+      "scene": 7,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 2216,
+      "seconds": 73.86666666666666,
+      "scene": 8,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 17
+    },
+    {
+      "frame": 2341,
+      "seconds": 78.03333333333333,
+      "scene": 8,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 2349,
+      "seconds": 78.3,
+      "scene": 8,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 18
+    },
+    {
+      "frame": 2436,
+      "seconds": 81.2,
+      "scene": 8,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 2450,
+      "seconds": 81.66666666666667,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 19
+    },
+    {
+      "frame": 2560,
+      "seconds": 85.33333333333333,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 0
+    },
+    {
+      "frame": 2567,
+      "seconds": 85.56666666666666,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 20
+    },
+    {
+      "frame": 2709,
+      "seconds": 90.3,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 0
+    },
+    {
+      "frame": 2716,
+      "seconds": 90.53333333333333,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 21
+    },
+    {
+      "frame": 2796,
+      "seconds": 93.2,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 0
+    },
+    {
+      "frame": 2803,
+      "seconds": 93.43333333333334,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 22
+    },
+    {
+      "frame": 2903,
+      "seconds": 96.76666666666667,
+      "scene": 9,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-room/frame-00156.png",
+      "source_sha256": "ee2d35a1f99885df27b9dde0817beb6377f459c8da508cc0f6a5fc63d35e7ab2",
+      "caption_index": 0
+    },
+    {
+      "frame": 2910,
+      "seconds": 97.0,
+      "scene": 10,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00135.png",
+      "source_sha256": "e757689f8838243584cc27fe9338a3dd4983448a6d1a946a8b62f38c8b8873ef",
+      "caption_index": 0
+    },
+    {
+      "frame": 2918,
+      "seconds": 97.26666666666667,
+      "scene": 10,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00153.png",
+      "source_sha256": "e757689f8838243584cc27fe9338a3dd4983448a6d1a946a8b62f38c8b8873ef",
+      "caption_index": 23
+    },
+    {
+      "frame": 2976,
+      "seconds": 99.2,
+      "scene": 10,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00164.png",
+      "source_sha256": "e757689f8838243584cc27fe9338a3dd4983448a6d1a946a8b62f38c8b8873ef",
+      "caption_index": 0
+    },
+    {
+      "frame": 2983,
+      "seconds": 99.43333333333334,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00166.png",
+      "source_sha256": "6ce3c95ec06b952fe7eae2864dda4aeb59d76150e717c82589c32267b3038465",
+      "caption_index": 24
+    },
+    {
+      "frame": 2988,
+      "seconds": 99.6,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00178.png",
+      "source_sha256": "4f7616c7180ad266cc8077708cb760c35bf9efe5dca826a8e4ea7c5371103ba9",
+      "caption_index": 24
+    },
+    {
+      "frame": 2989,
+      "seconds": 99.63333333333334,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00180.png",
+      "source_sha256": "e09c76d9c023ff736325c2775cdecf246410f42a51da30c98bbd40d96e341238",
+      "caption_index": 24
+    },
+    {
+      "frame": 2990,
+      "seconds": 99.66666666666667,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00182.png",
+      "source_sha256": "a750c390d56a3eea73850b853b5b206752d3e49be9154d05bb12f9cec93d7ce9",
+      "caption_index": 24
+    },
+    {
+      "frame": 2991,
+      "seconds": 99.7,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00184.png",
+      "source_sha256": "5d04d3d2404a72a2970beef42c5b75647c138c9e575480f5471fbbee7485d570",
+      "caption_index": 24
+    },
+    {
+      "frame": 2992,
+      "seconds": 99.73333333333333,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00186.png",
+      "source_sha256": "fbe78edb614e3730ada44a82b1992acba10a0223c20d9cc37cde8447f51e17c6",
+      "caption_index": 24
+    },
+    {
+      "frame": 2993,
+      "seconds": 99.76666666666667,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00188.png",
+      "source_sha256": "2a6eb0bab82da7bab763677d3536f8d1ff23cb224411e4904f13bfebaedde4a2",
+      "caption_index": 24
+    },
+    {
+      "frame": 2994,
+      "seconds": 99.8,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00191.png",
+      "source_sha256": "9e5d2162f422688110db5386732094fd36845fbc72244a2dbec9f65f2556b485",
+      "caption_index": 24
+    },
+    {
+      "frame": 2995,
+      "seconds": 99.83333333333333,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00192.png",
+      "source_sha256": "db228142b8f127b3b9deffcee6e328775fcacd53119104ca9aac6e9185a518e8",
+      "caption_index": 24
+    },
+    {
+      "frame": 3081,
+      "seconds": 102.7,
+      "scene": 11,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00194.png",
+      "source_sha256": "db228142b8f127b3b9deffcee6e328775fcacd53119104ca9aac6e9185a518e8",
+      "caption_index": 0
+    },
+    {
+      "frame": 3088,
+      "seconds": 102.93333333333334,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00196.png",
+      "source_sha256": "7ad0a60e915beaa2a171e0c1996385495109a1155d0cbefd3d4008800c327419",
+      "caption_index": 25
+    },
+    {
+      "frame": 3097,
+      "seconds": 103.23333333333333,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00216.png",
+      "source_sha256": "c07f3e944ab2a6a6ff0193091b2a4d455d63c347a6397c51352d475f74b128b8",
+      "caption_index": 25
+    },
+    {
+      "frame": 3098,
+      "seconds": 103.26666666666667,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00218.png",
+      "source_sha256": "03197490e81aa293d299d64d93309c7c31556ba420e739e8be465f6fea38cfa1",
+      "caption_index": 25
+    },
+    {
+      "frame": 3099,
+      "seconds": 103.3,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00220.png",
+      "source_sha256": "1a53242447c83d337be788cf51d627e59f0de767aa056fbe14c0469f2961c838",
+      "caption_index": 25
+    },
+    {
+      "frame": 3100,
+      "seconds": 103.33333333333333,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00222.png",
+      "source_sha256": "359c2f699f8843e739ac87966a63799dc60d7f25c793985a562f8f38058f7113",
+      "caption_index": 25
+    },
+    {
+      "frame": 3101,
+      "seconds": 103.36666666666666,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00224.png",
+      "source_sha256": "ec48ca4389723930f0ba9316ce99872984b6289a11b88410e3add52a55542739",
+      "caption_index": 25
+    },
+    {
+      "frame": 3102,
+      "seconds": 103.4,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00226.png",
+      "source_sha256": "57a75edff0fd4b15f37b5be8bda9a556be05b837adb0cd6171f7b06998460b27",
+      "caption_index": 25
+    },
+    {
+      "frame": 3103,
+      "seconds": 103.43333333333334,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00228.png",
+      "source_sha256": "dbb66dba5effa15b115d847bb91f3239b32708a6faa19c141d7ea1a9185eae07",
+      "caption_index": 25
+    },
+    {
+      "frame": 3104,
+      "seconds": 103.46666666666667,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00230.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 25
+    },
+    {
+      "frame": 3238,
+      "seconds": 107.93333333333334,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 0
+    },
+    {
+      "frame": 3245,
+      "seconds": 108.16666666666667,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 26
+    },
+    {
+      "frame": 3297,
+      "seconds": 109.9,
+      "scene": 12,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 0
+    },
+    {
+      "frame": 3304,
+      "seconds": 110.13333333333334,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00195.png",
+      "source_sha256": "7ad0a60e915beaa2a171e0c1996385495109a1155d0cbefd3d4008800c327419",
+      "caption_index": 27
+    },
+    {
+      "frame": 3313,
+      "seconds": 110.43333333333334,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00216.png",
+      "source_sha256": "c07f3e944ab2a6a6ff0193091b2a4d455d63c347a6397c51352d475f74b128b8",
+      "caption_index": 27
+    },
+    {
+      "frame": 3314,
+      "seconds": 110.46666666666667,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00217.png",
+      "source_sha256": "03197490e81aa293d299d64d93309c7c31556ba420e739e8be465f6fea38cfa1",
+      "caption_index": 27
+    },
+    {
+      "frame": 3315,
+      "seconds": 110.5,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00220.png",
+      "source_sha256": "1a53242447c83d337be788cf51d627e59f0de767aa056fbe14c0469f2961c838",
+      "caption_index": 27
+    },
+    {
+      "frame": 3316,
+      "seconds": 110.53333333333333,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00222.png",
+      "source_sha256": "359c2f699f8843e739ac87966a63799dc60d7f25c793985a562f8f38058f7113",
+      "caption_index": 27
+    },
+    {
+      "frame": 3318,
+      "seconds": 110.6,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00226.png",
+      "source_sha256": "57a75edff0fd4b15f37b5be8bda9a556be05b837adb0cd6171f7b06998460b27",
+      "caption_index": 27
+    },
+    {
+      "frame": 3319,
+      "seconds": 110.63333333333334,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00227.png",
+      "source_sha256": "84364fc116864ca87dedeebaa263a510a85118c2199c001437939201e38de63a",
+      "caption_index": 27
+    },
+    {
+      "frame": 3320,
+      "seconds": 110.66666666666667,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00229.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 27
+    },
+    {
+      "frame": 3450,
+      "seconds": 115.0,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 0
+    },
+    {
+      "frame": 3457,
+      "seconds": 115.23333333333333,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 28
+    },
+    {
+      "frame": 3502,
+      "seconds": 116.73333333333333,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 0
+    },
+    {
+      "frame": 3509,
+      "seconds": 116.96666666666667,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 29
+    },
+    {
+      "frame": 3592,
+      "seconds": 119.73333333333333,
+      "scene": 13,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00239.png",
+      "source_sha256": "0f05c19c6dd3cdd6054a1d419cabba1c0eb46327d60362f680e08b69d02d887e",
+      "caption_index": 0
+    },
+    {
+      "frame": 3606,
+      "seconds": 120.2,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00240.png",
+      "source_sha256": "6deba22589aa769eec323f6da542390c063ea8d3b946d112b1594862ce1c46bb",
+      "caption_index": 30
+    },
+    {
+      "frame": 3612,
+      "seconds": 120.4,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00254.png",
+      "source_sha256": "d75ec873ee2b235022b481c73a8bec62d5e5761ed7857b838ed1fe704c496e03",
+      "caption_index": 30
+    },
+    {
+      "frame": 3613,
+      "seconds": 120.43333333333334,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00256.png",
+      "source_sha256": "ee70fd6bd90be4ceaeba21223078f67d1dd853204f4d6a1e82a1e0297e8544d1",
+      "caption_index": 30
+    },
+    {
+      "frame": 3614,
+      "seconds": 120.46666666666667,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00258.png",
+      "source_sha256": "d645ae74ee073a74e3f2e3a403874ff171fe8cc2bbf152bdb63df41a6d5554cc",
+      "caption_index": 30
+    },
+    {
+      "frame": 3615,
+      "seconds": 120.5,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00260.png",
+      "source_sha256": "dfd6fde9933ad19c09c975d9b8a74a70f9e5f7c10aafc012f61e105e714ad27e",
+      "caption_index": 30
+    },
+    {
+      "frame": 3616,
+      "seconds": 120.53333333333333,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00262.png",
+      "source_sha256": "38135888a5aed67a50a9d62e759aca09196ccca0e2b13fc41964ed5598e2a15d",
+      "caption_index": 30
+    },
+    {
+      "frame": 3617,
+      "seconds": 120.56666666666666,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00264.png",
+      "source_sha256": "f0841aaf31cb1cebf41dc1d553911649e3e8b77aaa03d16c1060aa75e297c5c1",
+      "caption_index": 30
+    },
+    {
+      "frame": 3618,
+      "seconds": 120.6,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00265.png",
+      "source_sha256": "3096a8362976db4d9a99876f156bea62258efa194ef84028c3efa84ed1d8f0f3",
+      "caption_index": 30
+    },
+    {
+      "frame": 3619,
+      "seconds": 120.63333333333334,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00268.png",
+      "source_sha256": "b7bb3f56b5089ffa8850bd9c8a46839700b308bfdc24b5deee928b3468a97330",
+      "caption_index": 30
+    },
+    {
+      "frame": 3781,
+      "seconds": 126.03333333333333,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00269.png",
+      "source_sha256": "b7bb3f56b5089ffa8850bd9c8a46839700b308bfdc24b5deee928b3468a97330",
+      "caption_index": 0
+    },
+    {
+      "frame": 3789,
+      "seconds": 126.3,
+      "scene": 14,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00269.png",
+      "source_sha256": "b7bb3f56b5089ffa8850bd9c8a46839700b308bfdc24b5deee928b3468a97330",
+      "caption_index": 31
+    },
+    {
+      "frame": 3800,
+      "seconds": 126.66666666666667,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00270.png",
+      "source_sha256": "6e54f9226fa43bd93055c35cf15c59bd51b743aafca1bf770ab14b7174d34cfb",
+      "caption_index": 31
+    },
+    {
+      "frame": 3807,
+      "seconds": 126.9,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00285.png",
+      "source_sha256": "2d57e54d0441692abc7ea145873c128d1c9ebb638b14176a2b227951cf620161",
+      "caption_index": 31
+    },
+    {
+      "frame": 3808,
+      "seconds": 126.93333333333334,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00287.png",
+      "source_sha256": "480caf40d4595b6cc4c676403c0c8e86ba9ac87656d294e34259384d15d518dd",
+      "caption_index": 31
+    },
+    {
+      "frame": 3809,
+      "seconds": 126.96666666666667,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00288.png",
+      "source_sha256": "aa89286f829be1601282413acc196de7df1c66a244d6fef9bced339e208721ea",
+      "caption_index": 31
+    },
+    {
+      "frame": 3810,
+      "seconds": 127.0,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00290.png",
+      "source_sha256": "4197bfc737710a6a0d0c8cdc69c5ee4b42e2d9f8d2789226f1f5553e6afcf197",
+      "caption_index": 31
+    },
+    {
+      "frame": 3811,
+      "seconds": 127.03333333333333,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00293.png",
+      "source_sha256": "fafc7950ced8d1e676c76ee33c5dc0f3e1bcfd3855d5c4289fb4625f81cb9e2e",
+      "caption_index": 31
+    },
+    {
+      "frame": 3812,
+      "seconds": 127.06666666666666,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00294.png",
+      "source_sha256": "8dd89442fbe646c26dc19154936b687ea52fddfa66cb6a81a257902223e66545",
+      "caption_index": 31
+    },
+    {
+      "frame": 3813,
+      "seconds": 127.1,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00296.png",
+      "source_sha256": "63b5fe7ac86052efa8db4384b48f25f39cd522ae75791464629669609b7539e2",
+      "caption_index": 31
+    },
+    {
+      "frame": 3814,
+      "seconds": 127.13333333333334,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00299.png",
+      "source_sha256": "d91ca9cef2c72533c9bc40f43a03a9b58802cffe778c5b98052b9acfcfb6bbf0",
+      "caption_index": 31
+    },
+    {
+      "frame": 3901,
+      "seconds": 130.03333333333333,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00304.png",
+      "source_sha256": "d91ca9cef2c72533c9bc40f43a03a9b58802cffe778c5b98052b9acfcfb6bbf0",
+      "caption_index": 0
+    },
+    {
+      "frame": 3908,
+      "seconds": 130.26666666666668,
+      "scene": 15,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00304.png",
+      "source_sha256": "d91ca9cef2c72533c9bc40f43a03a9b58802cffe778c5b98052b9acfcfb6bbf0",
+      "caption_index": 32
+    },
+    {
+      "frame": 3949,
+      "seconds": 131.63333333333333,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00305.png",
+      "source_sha256": "6354befc3901ba28aed26c1c9acb8981d03b7961826ba3adf31d13c8b89e43d7",
+      "caption_index": 32
+    },
+    {
+      "frame": 3960,
+      "seconds": 132.0,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00330.png",
+      "source_sha256": "bfc780a26d4411d5807654b3b0c5271cd44a2324c1287b1dc2354fd0f81d116e",
+      "caption_index": 32
+    },
+    {
+      "frame": 3961,
+      "seconds": 132.03333333333333,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00333.png",
+      "source_sha256": "d5b8e4f8b1735eb87cfd0a9afaa577f23de29b7d4eddf2872a6119ea316a9811",
+      "caption_index": 32
+    },
+    {
+      "frame": 3962,
+      "seconds": 132.06666666666666,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00334.png",
+      "source_sha256": "6c97f31c53361bc026f8d7bef5442b9952de38e2dc2ad785c53edab5b407ea20",
+      "caption_index": 32
+    },
+    {
+      "frame": 3963,
+      "seconds": 132.1,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00337.png",
+      "source_sha256": "803f835ed63174824001e9bf63ade3422e83eba84fef357326eae0edc4edce45",
+      "caption_index": 32
+    },
+    {
+      "frame": 3964,
+      "seconds": 132.13333333333333,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00338.png",
+      "source_sha256": "8418721bc332e71b3883e2ae057a4ed8d5b86b3e4460d436f2446adab5b50c94",
+      "caption_index": 32
+    },
+    {
+      "frame": 3965,
+      "seconds": 132.16666666666666,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00339.png",
+      "source_sha256": "71867f395739e3013b729d70ddd5ea4c803eef4298c4bd6ae8cf994e75889a00",
+      "caption_index": 32
+    },
+    {
+      "frame": 4089,
+      "seconds": 136.3,
+      "scene": 16,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00339.png",
+      "source_sha256": "71867f395739e3013b729d70ddd5ea4c803eef4298c4bd6ae8cf994e75889a00",
+      "caption_index": 0
+    },
+    {
+      "frame": 4103,
+      "seconds": 136.76666666666668,
+      "scene": 17,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 33
+    },
+    {
+      "frame": 4300,
+      "seconds": 143.33333333333334,
+      "scene": 17,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 4307,
+      "seconds": 143.56666666666666,
+      "scene": 17,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 34
+    },
+    {
+      "frame": 4400,
+      "seconds": 146.66666666666666,
+      "scene": 17,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 4407,
+      "seconds": 146.9,
+      "scene": 17,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 35
+    },
+    {
+      "frame": 4414,
+      "seconds": 147.13333333333333,
+      "scene": 18,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00340.png",
+      "source_sha256": "352be5d854cff802fc4217a0331e733e5c13e21c7a72b9df242e30f9d33f5c24",
+      "caption_index": 35
+    },
+    {
+      "frame": 4415,
+      "seconds": 147.16666666666666,
+      "scene": 18,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00342.png",
+      "source_sha256": "dae49b6faa9801b566203889a45147d8732898ab5082e5f85a8982b95273461f",
+      "caption_index": 35
+    },
+    {
+      "frame": 4561,
+      "seconds": 152.03333333333333,
+      "scene": 18,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00369.png",
+      "source_sha256": "dae49b6faa9801b566203889a45147d8732898ab5082e5f85a8982b95273461f",
+      "caption_index": 0
+    },
+    {
+      "frame": 4568,
+      "seconds": 152.26666666666668,
+      "scene": 18,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00369.png",
+      "source_sha256": "dae49b6faa9801b566203889a45147d8732898ab5082e5f85a8982b95273461f",
+      "caption_index": 36
+    },
+    {
+      "frame": 4670,
+      "seconds": 155.66666666666666,
+      "scene": 18,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00369.png",
+      "source_sha256": "dae49b6faa9801b566203889a45147d8732898ab5082e5f85a8982b95273461f",
+      "caption_index": 0
+    },
+    {
+      "frame": 4680,
+      "seconds": 156.0,
+      "scene": 19,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00371.png",
+      "source_sha256": "e136cb5bd24b45843413eaaa66c878abb2de154c94cdfcd93baf5b8e65062cf4",
+      "caption_index": 0
+    },
+    {
+      "frame": 4684,
+      "seconds": 156.13333333333333,
+      "scene": 19,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00380.png",
+      "source_sha256": "e136cb5bd24b45843413eaaa66c878abb2de154c94cdfcd93baf5b8e65062cf4",
+      "caption_index": 37
+    },
+    {
+      "frame": 4691,
+      "seconds": 156.36666666666667,
+      "scene": 19,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 37
+    },
+    {
+      "frame": 4789,
+      "seconds": 159.63333333333333,
+      "scene": 19,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 0
+    },
+    {
+      "frame": 4796,
+      "seconds": 159.86666666666667,
+      "scene": 19,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 38
+    },
+    {
+      "frame": 4834,
+      "seconds": 161.13333333333333,
+      "scene": 20,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00370.png",
+      "source_sha256": "e136cb5bd24b45843413eaaa66c878abb2de154c94cdfcd93baf5b8e65062cf4",
+      "caption_index": 38
+    },
+    {
+      "frame": 4845,
+      "seconds": 161.5,
+      "scene": 20,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00398.png",
+      "source_sha256": "fedd7977ff090576b5be2aa244a6bf9ee3137b2910b5a747daf64d2a522bef56",
+      "caption_index": 38
+    },
+    {
+      "frame": 4846,
+      "seconds": 161.53333333333333,
+      "scene": 20,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 38
+    },
+    {
+      "frame": 4964,
+      "seconds": 165.46666666666667,
+      "scene": 20,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 0
+    },
+    {
+      "frame": 4971,
+      "seconds": 165.7,
+      "scene": 20,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 39
+    },
+    {
+      "frame": 5111,
+      "seconds": 170.36666666666667,
+      "scene": 20,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 0
+    },
+    {
+      "frame": 5118,
+      "seconds": 170.6,
+      "scene": 20,
+      "source": "/Users/shivamgupta/Downloads/we-are-developers/.private/video-app/frame-00399.png",
+      "source_sha256": "9ee0d6a6cafb57df5f9fa616e161ce9afc54975d0a7408ba1b0624c82f390ec3",
+      "caption_index": 40
+    },
+    {
+      "frame": 5185,
+      "seconds": 172.83333333333334,
+      "scene": 21,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 40
+    },
+    {
+      "frame": 5189,
+      "seconds": 172.96666666666667,
+      "scene": 21,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    },
+    {
+      "frame": 5196,
+      "seconds": 173.2,
+      "scene": 21,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 41
+    },
+    {
+      "frame": 5303,
+      "seconds": 176.76666666666668,
+      "scene": 21,
+      "source": "",
+      "source_sha256": "",
+      "caption_index": 0
+    }
+  ]
+}

@@ -1,8 +1,12 @@
 # Tablekeeper
 
+![Proofline Tablekeeper: keep the promise, even when the floor changes](assets/submission-cover.png)
+
 **Keep the promise, even when the floor changes.** A reservation is a promise to a guest. Tablekeeper helps a restaurant keep that promise through booking changes, evolving policies and table closures.
 
 This repository is the Tablekeeper-track output of **Proofline**, a four-seat software factory. Shivam Gupta supplied product direction and factory configuration; Proofline's coding-agent seats implement and independently verify the software. See [FACTORY.md](FACTORY.md) for setup, responsibilities and release gates.
+
+Start with the [three-minute evidence guide](docs/JUDGE-GUIDE.md), [captioned demo video](output/video/final/proofline-tablekeeper-demo.mp4), or [presentation PDF](output/pdf/proofline-tablekeeper.pdf). The video includes an authentic BAND Desktop room recording and a working reservation-repair walkthrough.
 
 ## Read the repository
 
@@ -27,7 +31,7 @@ The official contracts are from kickoff revision `803560d2a678ace1414465c098eb0a
 .venv/bin/python -m harness check /absolute/path/to/this/repository --track tablekeeper
 ```
 
-Every run needs a new output directory. Published checks are partial; independent specification-derived checks and source review are also required. Final isolated execution passed 120, 145, 152 and 158 required checks for stages 1 through 4 respectively, both in the workspace and a fresh local clone: 575 check executions per run, not 575 distinct requirements. The published suites are partial. Historical submission-check logs predate the final room export; final post-export packaging validation remains a separate gate.
+Every run needs a new output directory. Published checks are partial; independent specification-derived checks and source review are also required. Final isolated execution passed 120, 145, 152 and 158 required checks for stages 1 through 4 respectively, both in the workspace and a fresh local clone: 575 check executions per run, not 575 distinct requirements. The published suites are partial. Historical submission-check logs predate the final room export. The [post-export public-clone check](evidence/final/public-clone-check.md) passed from an unauthenticated GitHub clone, with matching stage trees and room hash.
 
 Run the accepted browser product locally:
 

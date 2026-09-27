@@ -6,7 +6,7 @@ Final eight-slide presentation for the Dark Factory hackathon. All four stages h
 
 ### 1. Tablekeeper
 
-“I’m Shivam Gupta. I set the product direction and configured Proofline, a reusable software factory in BAND. The agent seats are building Tablekeeper, a reservation service with one clear promise: keep the guest’s agreement intact, even when the floor changes.”
+“I’m Shivam Gupta. I set the product direction and configured Proofline, a reusable software factory in BAND. The agent seats built Tablekeeper, a reservation service with one clear promise: keep the guest’s agreement intact, even when the floor changes.”
 
 ### 2. A booking is a promise to a guest
 

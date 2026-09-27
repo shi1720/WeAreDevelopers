@@ -1,3 +1,11 @@
+# Current operator status
+
+Supplement added after the original run; the historical coordinator ledger below is preserved unchanged. All four stages have acceptance evidence. The authentic full [room export](../room.json) is present. The [post-export package check](../evidence/final/package-check.md) passed, and the [unauthenticated public-clone check](../evidence/final/public-clone-check.txt) at `fb76fd0487212119f5b0fa7e6f7722057b93ddd7` confirmed public access, matching stage trees/room fingerprint and checker exit 0. Earlier statements about missing export or pending stage gates describe their historical observation, not current status.
+
+These package checks do not replace the [isolated service evidence](../evidence/final/verification.md). The mandatory recorded video and separate hosted companion remain pending until their own verified results are published. Start with the [three-minute judge guide](JUDGE-GUIDE.md) for the evidence trail and disclosed runtime restart.
+
+---
+
 # Requirement and release ledger
 
 This is the coordinator's cross-stage gate map. Detailed clause tests belong to the independently authored stage coverage reports. Status is pending until a reviewer names the exact committed revision and evidence. Published samples alone do not establish conformance.

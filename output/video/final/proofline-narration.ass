@@ -1,0 +1,54 @@
+[Script Info]
+Title: Proofline + Tablekeeper narration
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,44,&H00FFFFFF,&H00FFFFFF,&H0015221B,&H80201710,0,0,0,0,100,100,0,0,3,10,0,2,150,150,70,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.30,0:00:05.57,Default,,0,0,0,,A reservation is a promise: a place, a time, and agreed terms.
+Dialogue: 0,0:00:05.81,0:00:12.73,Default,,0,0,0,,If a restaurant table becomes unusable before dinner, keeping\Nthat promise can mean changing several bookings together.
+Dialogue: 0,0:00:12.97,0:00:17.34,Default,,0,0,0,,This is Tablekeeper: keep the\Npromise, even when the floor changes.
+Dialogue: 0,0:00:17.82,0:00:22.13,Default,,0,0,0,,Behind it is Proofline, a software factory in BAND Desktop.
+Dialogue: 0,0:00:22.37,0:00:32.74,Default,,0,0,0,,Shivam Gupta directed the product and configured four coding-agent\Nseats: Coordinator, Engineer, Experience and Verifier.
+Dialogue: 0,0:00:32.98,0:00:35.06,Default,,0,0,0,,The agents wrote and checked the implementation.
+Dialogue: 0,0:00:35.30,0:00:38.87,Default,,0,0,0,,Their standing mandates describe reusable responsibilities.
+Dialogue: 0,0:00:39.11,0:00:41.60,Default,,0,0,0,,Restaurant requirements belong in the task.
+Dialogue: 0,0:00:42.08,0:00:43.87,Default,,0,0,0,,This is the real production room.
+Dialogue: 0,0:00:44.11,0:00:46.88,Default,,0,0,0,,One dispatch covered four stages.
+Dialogue: 0,0:00:47.12,0:00:54.08,Default,,0,0,0,,Engineer and Experience shared implementation work,\Nwhile Verifier checked committed revisions independently.
+Dialogue: 0,0:00:54.32,0:00:58.46,Default,,0,0,0,,The handoffs connect decisions to\Nthe code and evidence they produced.
+Dialogue: 0,0:00:58.94,0:01:01.98,Default,,0,0,0,,That separation caught something the published checks missed.
+Dialogue: 0,0:01:02.22,0:01:08.32,Default,,0,0,0,,In stage three, a corrupted restore could erase the permanent\Nexception on an individually changed recurring booking.
+Dialogue: 0,0:01:08.56,0:01:10.62,Default,,0,0,0,,Verifier rejected the candidate.
+Dialogue: 0,0:01:10.86,0:01:13.60,Default,,0,0,0,,The Engineer seat fixed the history validation.
+Dialogue: 0,0:01:13.84,0:01:18.03,Default,,0,0,0,,Independent checks then passed,\Nincluding the original regression.
+Dialogue: 0,0:01:18.27,0:01:21.19,Default,,0,0,0,,The failed review and fix remain inspectable.
+Dialogue: 0,0:01:21.67,0:01:25.31,Default,,0,0,0,,The run also needed operator help after a daemon interruption.
+Dialogue: 0,0:01:25.55,0:01:30.27,Default,,0,0,0,,The same BAND seats restarted in the same\Nroom and acquired new provider sessions.
+Dialogue: 0,0:01:30.51,0:01:33.18,Default,,0,0,0,,No new task or implementation hints were sent.
+Dialogue: 0,0:01:33.42,0:01:36.77,Default,,0,0,0,,This was a single-dispatch run, with recovery assistance.
+Dialogue: 0,0:01:37.25,0:01:39.17,Default,,0,0,0,,Now look at the manager preview.
+Dialogue: 0,0:01:39.41,0:01:42.67,Default,,0,0,0,,These are three synthetic bookings at The Orangery.
+Dialogue: 0,0:01:42.91,0:01:47.92,Default,,0,0,0,,Closing Window nook proposes one move\Nto Garden table, with zero unused seats.
+Dialogue: 0,0:01:48.16,0:01:49.88,Default,,0,0,0,,The other bookings stay put.
+Dialogue: 0,0:01:50.12,0:01:54.97,Default,,0,0,0,,Guests keep their arrival times, party sizes and accepted terms.
+Dialogue: 0,0:01:55.21,0:01:56.71,Default,,0,0,0,,Nothing has moved yet.
+Dialogue: 0,0:01:56.95,0:01:59.70,Default,,0,0,0,,The manager reviews before applying the plan.
+Dialogue: 0,0:02:00.18,0:02:06.03,Default,,0,0,0,,The planner supports up to six tables, four\Ndeclared pairs and six considered bookings.
+Dialogue: 0,0:02:06.27,0:02:10.00,Default,,0,0,0,,Every confirmed booking overlapping the closure interval counts.
+Dialogue: 0,0:02:10.24,0:02:16.28,Default,,0,0,0,,A stale preview must fail safely, and an\Nimpossible plan cannot silently cancel a guest.
+Dialogue: 0,0:02:16.76,0:02:23.31,Default,,0,0,0,,All four original stages passed their required published\Nchecks in both isolated and fresh-clone isolated runs.
+Dialogue: 0,0:02:23.55,0:02:26.65,Default,,0,0,0,,Stage four passed one hundred and fifty-eight checks.
+Dialogue: 0,0:02:26.89,0:02:32.00,Default,,0,0,0,,Independent verification also passed sixty-nine HTTP checks.
+Dialogue: 0,0:02:32.24,0:02:35.64,Default,,0,0,0,,These are finite tests, not production certification.
+Dialogue: 0,0:02:36.12,0:02:39.62,Default,,0,0,0,,The hosted companion is separate work from that graded run.
+Dialogue: 0,0:02:39.86,0:02:45.44,Default,,0,0,0,,The first customer hypothesis is small\Nvenues with direct or recurring groups.
+Dialogue: 0,0:02:45.68,0:02:50.34,Default,,0,0,0,,Seventy-nine dollars per location per\Nmonth is a price to test, not revenue.
+Dialogue: 0,0:02:50.58,0:02:52.95,Default,,0,0,0,,Tablekeeper keeps guest promises.
+Dialogue: 0,0:02:53.19,0:02:56.75,Default,,0,0,0,,Proofline makes the work behind those promises inspectable.

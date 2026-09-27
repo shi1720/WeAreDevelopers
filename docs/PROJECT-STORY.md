@@ -22,13 +22,13 @@ Their standing mandates describe reusable responsibilities. The restaurant contr
 
 The graded service uses Python, a standard-library HTTP server, local browser assets and an in-memory state model. Mutations operate on a copy under a lock and publish only on success. Docker makes the runtime reproducible without outbound network access. The repository preserves the original seat commits, handoffs, failures and test evidence.
 
-## Challenges
+## Challenges we ran into
 
 The strongest review finding came after the published checks passed. A corrupted import could remove a permanent exception from a manually changed recurring booking. Verifier rejected the candidate and preserved the failing regression. Engineer repaired the history validation, and independent verification confirmed the fix.
 
 Infrastructure also needed recovery. Registry access through the local VM failed, and the runtime later suffered a daemon interruption. The operator restarted the same BAND seats in the same room. They received new provider sessions, with no new task or implementation hints. We disclose these interventions instead of calling the run uninterrupted.
 
-## Accomplishments
+## Accomplishments that we're proud of
 
 All four service stages are accepted. Both the final isolated run and a fresh-clone isolated run passed the required published checks: 120, 145, 152 and 158 for stages one through four. These counts include inherited suites and are not distinct requirements.
 
@@ -40,7 +40,7 @@ A public test pass is useful evidence, but independent review still matters. Sta
 
 We also learned to separate a working challenge service from an operational business. The graded stages use ephemeral state and enable judge controls by default. They should not be exposed publicly as a production system.
 
-## Next
+## What's next for the project
 
 A separate cloud companion is underway for a hosted demonstration. It is outside the original graded run and does not inherit the graded test results automatically. Its live URL, storage behavior and deployment checks will be reported only after verification.
 

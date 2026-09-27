@@ -1,0 +1,177 @@
+1
+00:00:00,300 --> 00:00:05,573
+A reservation is a promise: a place, a time, and agreed terms.
+
+2
+00:00:05,813 --> 00:00:12,733
+If a restaurant table becomes unusable before dinner, keeping
+that promise can mean changing several bookings together.
+
+3
+00:00:12,973 --> 00:00:17,343
+This is Tablekeeper: keep the
+promise, even when the floor changes.
+
+4
+00:00:17,823 --> 00:00:22,127
+Behind it is Proofline, a software factory in BAND Desktop.
+
+5
+00:00:22,367 --> 00:00:32,740
+Shivam Gupta directed the product and configured four coding-agent
+seats: Coordinator, Engineer, Experience and Verifier.
+
+6
+00:00:32,980 --> 00:00:35,063
+The agents wrote and checked the implementation.
+
+7
+00:00:35,303 --> 00:00:38,873
+Their standing mandates describe reusable responsibilities.
+
+8
+00:00:39,113 --> 00:00:41,603
+Restaurant requirements belong in the task.
+
+9
+00:00:42,083 --> 00:00:43,867
+This is the real production room.
+
+10
+00:00:44,107 --> 00:00:46,877
+One dispatch covered four stages.
+
+11
+00:00:47,117 --> 00:00:54,077
+Engineer and Experience shared implementation work,
+while Verifier checked committed revisions independently.
+
+12
+00:00:54,317 --> 00:00:58,457
+The handoffs connect decisions to
+the code and evidence they produced.
+
+13
+00:00:58,937 --> 00:01:01,980
+That separation caught something the published checks missed.
+
+14
+00:01:02,220 --> 00:01:08,320
+In stage three, a corrupted restore could erase the permanent
+exception on an individually changed recurring booking.
+
+15
+00:01:08,560 --> 00:01:10,620
+Verifier rejected the candidate.
+
+16
+00:01:10,860 --> 00:01:13,603
+The Engineer seat fixed the history validation.
+
+17
+00:01:13,843 --> 00:01:18,033
+Independent checks then passed,
+including the original regression.
+
+18
+00:01:18,273 --> 00:01:21,187
+The failed review and fix remain inspectable.
+
+19
+00:01:21,667 --> 00:01:25,307
+The run also needed operator help after a daemon interruption.
+
+20
+00:01:25,547 --> 00:01:30,270
+The same BAND seats restarted in the same
+room and acquired new provider sessions.
+
+21
+00:01:30,510 --> 00:01:33,183
+No new task or implementation hints were sent.
+
+22
+00:01:33,423 --> 00:01:36,767
+This was a single-dispatch run, with recovery assistance.
+
+23
+00:01:37,247 --> 00:01:39,170
+Now look at the manager preview.
+
+24
+00:01:39,410 --> 00:01:42,673
+These are three synthetic bookings at The Orangery.
+
+25
+00:01:42,913 --> 00:01:47,917
+Closing Window nook proposes one move
+to Garden table, with zero unused seats.
+
+26
+00:01:48,157 --> 00:01:49,880
+The other bookings stay put.
+
+27
+00:01:50,120 --> 00:01:54,970
+Guests keep their arrival times, party sizes and accepted terms.
+
+28
+00:01:55,210 --> 00:01:56,713
+Nothing has moved yet.
+
+29
+00:01:56,953 --> 00:01:59,703
+The manager reviews before applying the plan.
+
+30
+00:02:00,183 --> 00:02:06,033
+The planner supports up to six tables, four
+declared pairs and six considered bookings.
+
+31
+00:02:06,273 --> 00:02:10,003
+Every confirmed booking overlapping the closure interval counts.
+
+32
+00:02:10,243 --> 00:02:16,283
+A stale preview must fail safely, and an
+impossible plan cannot silently cancel a guest.
+
+33
+00:02:16,763 --> 00:02:23,313
+All four original stages passed their required published
+checks in both isolated and fresh-clone isolated runs.
+
+34
+00:02:23,553 --> 00:02:26,653
+Stage four passed one hundred and fifty-eight checks.
+
+35
+00:02:26,893 --> 00:02:32,003
+Independent verification also passed sixty-nine HTTP checks.
+
+36
+00:02:32,243 --> 00:02:35,643
+These are finite tests, not production certification.
+
+37
+00:02:36,123 --> 00:02:39,623
+The hosted companion is separate work from that graded run.
+
+38
+00:02:39,863 --> 00:02:45,443
+The first customer hypothesis is small
+venues with direct or recurring groups.
+
+39
+00:02:45,683 --> 00:02:50,343
+Seventy-nine dollars per location per
+month is a price to test, not revenue.
+
+40
+00:02:50,583 --> 00:02:52,947
+Tablekeeper keeps guest promises.
+
+41
+00:02:53,187 --> 00:02:56,747
+Proofline makes the work behind those promises inspectable.

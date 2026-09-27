@@ -1,0 +1,13 @@
+{
+  "bytes": 8238882,
+  "sha256": "1dd3bff30cc4a8c1eb05ee195c34decb3628100b54a937c0f1144b516f171379",
+  "video_duration": "177.233333",
+  "audio_duration": "177.226667",
+  "frames": "5317",
+  "fps": "30/1",
+  "resolution": "1920x1080",
+  "codec": "H.264 + AAC",
+  "auditory_review": "Unavailable in agent context; objective metrics only",
+  "visual_review": "Extracted midpoint frame from every scene; contact sheet plus full-resolution inspection.",
+  "articulation_revision": "Only sentence16 regenerated. Targeted independent ASR recovered all intended words; punctuation/case differed. No listening review claimed."
+}
