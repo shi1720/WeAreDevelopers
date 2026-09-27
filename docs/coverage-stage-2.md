@@ -2,11 +2,11 @@
 
 Governing contracts: complete stages 1 and 2 at official `803560d2a678ace1414465c098eb0ab5380ffade`. Accepted stage-1 folder at `3813508b5624b4ae89a346b68611a595f83cfde5` was copied unchanged in `21c841ea17505669e909566a9b7cdf2945c91d57`; both folder trees are `93744383122e819f760d2bf0a95dddf6fc791e13`. Stage 1 stays frozen.
 
-This matrix and new tests are derived before stage-2 implementation review. Status is preparation, not service acceptance.
+This matrix and new tests are derived before stage-2 implementation review. Preparation was followed by independent acceptance at frozen `e4fc1c5bf52769927b50e139be1d380b1c044aeb`; see `../evidence/stage-2/verification.md` for measured results and limits.
 
-Prepared checks: unittest discovery reports **30 HTTP cases** (23 inherited plus 7 new combination cases). The separate Playwright program defines **7 browser scenarios**: responsive routes/grid/assets, single/pair lost responses, single/pair confirmed conflicts, stale search, and genuine stage-1 pending-retry migration into stage 2. Python compilation and discovery passed; no stage-2 runtime pass is claimed.
+Prepared checks: unittest discovery reports **30 HTTP cases** (23 inherited plus 7 new combination cases). The separate Playwright program defines **7 browser scenarios**: responsive routes/grid/assets, single/pair lost responses, single/pair confirmed conflicts, stale search, and genuine stage-1 pending-retry migration into stage 2. All 30 HTTP cases and all 7 browser scenarios passed. Two source-review HTTP cases also passed separately. Both official host and isolated runs passed all 145 inherited/current checks, with expected stage-3 rejection. Reviewer recommendation: PASS.
 
-| Requirement | Independent check | Acceptance evidence still needed |
+| Requirement | Independent check | Review completion / evidence |
 |---|---|---|
 | All inherited stage-1 semantics | Copied 23 HTTP checks; official inherited suite | Frozen source review, inherited host/isolated execution |
 | Declared pairs, sums and no transitivity | Nonlexical table/declaration order; singleton then pair ordering; undeclared end-pair rejection | Execute new combination tests |
@@ -24,3 +24,5 @@ Prepared checks: unittest discovery reports **30 HTTP cases** (23 inherited plus
 | Offline/deployment/overshoot | Official suites 1+2, expected suite-3 rejection, final isolated run | New shared output directory, runtime/network inspection |
 
 Reviewer owns only `stage-2/tests/independent_*.py`, this matrix and `evidence/stage-2/`. Raw exports and sessions remain private/in memory. Engineer/Experience own repairs. Complete acceptance requires a coordinator-frozen revision and independent runtime results; passing compilation/discovery is not service evidence.
+
+All matrix rows were exercised through independent execution, official suites and source review. Visual review covered recorded 375px and desktop views. Source-derived cases additionally verify null/boolean/object table selections and members, ID length, and that reversed JSON arrays are a different idempotent body even though they name the same seating set. Remaining limits are documented in the verification report.
