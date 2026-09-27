@@ -1,0 +1,34 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____ test_idempotency_header_names_are_case_insensitive[idempotency-key] ______
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py:269: in test_idempotency_header_names_are_case_insensitive
+    first = owner.expect(201, 'POST', '/reservations', body, headers={header_name: 'case-insensitive-key'})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py:109: in expect
+    assert response.status_code == status, f'{method} {path}: expected {status}, got {response.status_code}'
+E   AssertionError: POST /reservations: expected 201, got 400
+E   assert 400 == 201
+E    +  where 400 = <Response [400 Bad Request]>.status_code
+_____ test_idempotency_header_names_are_case_insensitive[IDEMPOTENCY-KEY] ______
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py:269: in test_idempotency_header_names_are_case_insensitive
+    first = owner.expect(201, 'POST', '/reservations', body, headers={header_name: 'case-insensitive-key'})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py:109: in expect
+    assert response.status_code == status, f'{method} {path}: expected {status}, got {response.status_code}'
+E   AssertionError: POST /reservations: expected 201, got 400
+E   assert 400 == 201
+E    +  where 400 = <Response [400 Bad Request]>.status_code
+_____ test_idempotency_header_names_are_case_insensitive[iDeMpOtEnCy-KeY] ______
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py:269: in test_idempotency_header_names_are_case_insensitive
+    first = owner.expect(201, 'POST', '/reservations', body, headers={header_name: 'case-insensitive-key'})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py:109: in expect
+    assert response.status_code == status, f'{method} {path}: expected {status}, got {response.status_code}'
+E   AssertionError: POST /reservations: expected 201, got 400
+E   assert 400 == 201
+E    +  where 400 = <Response [400 Bad Request]>.status_code
+=========================== short test summary info ============================
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py::test_idempotency_header_names_are_case_insensitive[idempotency-key]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py::test_idempotency_header_names_are_case_insensitive[IDEMPOTENCY-KEY]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py::test_idempotency_header_names_are_case_insensitive[iDeMpOtEnCy-KeY]
+3 failed, 8 deselected in 1.15s

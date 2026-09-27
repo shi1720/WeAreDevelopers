@@ -1,0 +1,41 @@
+.......................F...........F.....                                [100%]
+=================================== FAILURES ===================================
+_______ test_operational_schema_corruption_rejected[maintenance-locked] ________
+tests/acceptance_storage.py:188: in test_operational_schema_corruption_rejected
+    with pytest.raises(StoreError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE StoreError
+_______________ test_firestore_multiprocess_counter_and_revision _______________
+tests/acceptance_storage.py:339: in test_firestore_multiprocess_counter_and_revision
+    assert process.returncode == 0, stderr.decode()[-1500:]
+E   AssertionError: .cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+E         return func(*args, **kwargs)
+E                ^^^^^^^^^^^^^^^^^^^^^
+E       File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/grpc_helpers.py", line 78, in error_remapped_callable
+E         raise exceptions.from_grpc_error(exc) from exc
+E     google.api_core.exceptions.Aborted: 409 Transaction lock timeout.
+E     
+E     The above exception was the direct cause of the following exception:
+E     
+E     Traceback (most recent call last):
+E       File "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-70cf83c/product/tablekeeper/storage.py", line 283, in transact
+E         result = execute(transaction)
+E                  ^^^^^^^^^^^^^^^^^^^^
+E       File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/cloud/firestore_v1/transaction.py", line 309, in __call__
+E         raise ValueError(msg) from last_exc
+E     ValueError: Failed to commit transaction in 5 attempts.
+E     
+E     The above exception was the direct cause of the following exception:
+E     
+E     Traceback (most recent call last):
+E       File "<string>", line 1, in <module>
+E       File "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-70cf83c/product/tablekeeper/storage.py", line 287, in transact
+E         raise StoreError('Firestore transaction unavailable; retry the unchanged request') from exc
+E     tablekeeper.storage.StoreError: Firestore transaction unavailable; retry the unchanged request
+E     
+E   assert 1 == 0
+E    +  where 1 = <Popen: returncode: 1 args: ['/Users/shivamgupta/.cache/proofline-pilot-veri...>.returncode
+=========================== short test summary info ============================
+FAILED tests/acceptance_storage.py::test_operational_schema_corruption_rejected[maintenance-locked]
+FAILED tests/acceptance_storage.py::test_firestore_multiprocess_counter_and_revision
+2 failed, 39 passed in 21.64s

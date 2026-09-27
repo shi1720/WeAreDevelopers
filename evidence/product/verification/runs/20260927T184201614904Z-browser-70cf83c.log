@@ -1,0 +1,85 @@
+.FE                                                                      [100%]
+==================================== ERRORS ====================================
+_ ERROR at teardown of test_lost_committed_response_reload_restart_exact_retry _
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py:25: in ui
+    context.close()
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:15470: in close
+    return mapping.from_maybe_impl(self._sync(self._impl_obj.close(reason=reason)))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_browser_context.py:588: in close
+    await self.request.dispose(reason=reason)
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_fetch.py:128: in dispose
+    await self._channel.send("dispose", None, {"reason": reason})
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:76: in send
+    return await self._connection.wrap_api_call(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:632: in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E   AssertionError: BrowserContext.close: assert 400 == 201
+E    +  where 400 = <APIResponse url='http://127.0.0.1:61280/reservations' status=400 status_text='Bad Request'>.status
+----------------------------- Captured stderr call -----------------------------
+Error occurred in event listener
+Traceback (most recent call last):
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 310, in _on_route
+    handled = await route_handler.handle(route)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 455, in handle
+    raise e
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 442, in handle
+    return await self._handle_internal(route)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 478, in _handle_internal
+    await handler_finished_future
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 469, in _handler
+    self.handler(route, route.request)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_impl_to_api_mapping.py", line 139, in wrapper_func
+    return handler(
+           ^^^^^^^^
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py", line 103, in lose
+    assert response.status == 201
+AssertionError: assert 400 == 201
+ +  where 400 = <APIResponse url='http://127.0.0.1:61280/reservations' status=400 status_text='Bad Request'>.status
+=================================== FAILURES ===================================
+___________ test_lost_committed_response_reload_restart_exact_retry ____________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py:108: in test_lost_committed_response_reload_restart_exact_retry
+    page.get_by_test_id('booking-uncertain').wait_for()
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:20696: in wait_for
+    self._sync(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_locator.py:752: in wait_for
+    await self._frame.wait_for_selector(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py:395: in wait_for_selector
+    await self._channel.send(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:76: in send
+    return await self._connection.wrap_api_call(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:632: in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E   playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 8000ms exceeded.
+E   Call log:
+E     - waiting for get_by_test_id("booking-uncertain") to be visible
+----------------------------- Captured stderr call -----------------------------
+Error occurred in event listener
+Traceback (most recent call last):
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 310, in _on_route
+    handled = await route_handler.handle(route)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 455, in handle
+    raise e
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 442, in handle
+    return await self._handle_internal(route)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 478, in _handle_internal
+    await handler_finished_future
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 469, in _handler
+    self.handler(route, route.request)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_impl_to_api_mapping.py", line 139, in wrapper_func
+    return handler(
+           ^^^^^^^^
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py", line 103, in lose
+    assert response.status == 201
+AssertionError: assert 400 == 201
+ +  where 400 = <APIResponse url='http://127.0.0.1:61280/reservations' status=400 status_text='Bad Request'>.status
+=========================== short test summary info ============================
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py::test_lost_committed_response_reload_restart_exact_retry
+ERROR ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py::test_lost_committed_response_reload_restart_exact_retry
+1 failed, 1 passed, 1 error in 11.48s

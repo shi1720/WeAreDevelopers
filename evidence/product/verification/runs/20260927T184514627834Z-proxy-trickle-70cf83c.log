@@ -1,0 +1,21 @@
+Seed setup/booking/policy/series adoption+amendment/closure apply: PASS
+{"trickling_clients": 4, "still_open_after_seconds": 24.036, "still_open_count": 4, "healthy_booking_seconds": 0.015}
+Traceback (most recent call last):
+  File "/tmp/acceptance_container.py", line 184, in <module>
+    inside(sys.argv[1])
+  File "/tmp/acceptance_container.py", line 127, in inside
+    assert not alive, 'proxy accepted body trickles beyond documented backend total connection deadline'
+           ^^^^^^^^^
+AssertionError: proxy accepted body trickles beyond documented backend total connection deadline
+
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_container.py", line 182, in <module>
+    host(sys.argv[2], sys.argv[1] == 'host-slow')
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_container.py", line 157, in host
+    phase(name, 'slow')
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_container.py", line 151, in phase
+    print(run('exec', container, 'python', '/tmp/acceptance_container.py', action))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_container.py", line 143, in run
+    raise AssertionError(f'Docker command {args[0]} failed with {result.returncode}')
+AssertionError: Docker command exec failed with 1

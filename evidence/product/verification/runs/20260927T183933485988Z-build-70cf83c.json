@@ -1,0 +1,17 @@
+{
+  "label": "build-70cf83c",
+  "started_utc": "20260927T183933485988Z",
+  "command": [
+    "/opt/homebrew/bin/docker",
+    "build",
+    "-t",
+    "tablekeeper-verifier:70cf83c",
+    "."
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-70cf83c/product",
+  "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 2.721141,
+  "log": "20260927T183933485988Z-build-70cf83c.log"
+}
