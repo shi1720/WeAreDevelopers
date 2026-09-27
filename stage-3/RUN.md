@@ -1,10 +1,10 @@
-# Tablekeeper stage 2
+# Tablekeeper stage 3
 
 From this folder:
 
 ```sh
-docker build -t tablekeeper-stage-2 .
-docker run --rm -e PORT=8080 -p 127.0.0.1:8080:8080 tablekeeper-stage-2
+docker build -t tablekeeper-stage-3 .
+docker run --rm -e PORT=8080 -p 127.0.0.1:8080:8080 tablekeeper-stage-3
 ```
 
 The image includes Python and IANA timezone data and needs no outbound network at runtime.
@@ -67,3 +67,30 @@ All browser assets ship in `static/` and are served locally; screen URLs `/`, `/
 for the synthetic account and demo walkthrough. Tests include canonical pair ordering,
 non-transitivity, selected-member contention, pair/single batch swaps, cancelled pair seeds,
 failure rollback, snapshot round trips and stage-1 receipt/session compatibility.
+
+## Stage-3 contracts
+
+Policies are immutable, manager-published and chosen by local booking date, then version
+for same-date ties. Each booking keeps complete accepted terms. A real amendment checks
+the old cutoff, adopts the resulting date's policy and appends exactly one history entry.
+No-op edits preserve accepted terms, duration, history and revision. Optional revision
+checks prevent stale concurrent changes. Public policy listing does not grant access to
+other diners' private history or decision endpoints.
+
+Recurring adoption keeps the anchor unchanged and generates each later occurrence under
+its own date's policy and IANA timezone rules. A failure rolls back all generated records,
+histories and retry claims. Individual changes permanently mark exceptions; cancellation
+retains a member without cancelling its siblings. Collective moves increment each affected
+series and the restaurant once per operation.
+
+Stage-1 and stage-2 imports retain original receipts and sessions exactly. Since those
+stages had no history/accepted-term contract, their live records receive policy-zero terms,
+revision one and a baseline created history reflecting the imported record. No past
+amendment times are invented. Existing creation timestamps and reservation identities remain
+unchanged. Native stage-3 exports retain policies, immutable historical snapshots, revisions,
+series identities, original scheduled dates and exception flags; import validates these
+relationships before the atomic state swap.
+
+The manager policy screen is `/manager`; guest history, terms and recurring adoption are
+available through lookup, with agreement details at `/series`. Replanning and collective
+recurring amendments belong to stage 4 and are not implemented in this folder.

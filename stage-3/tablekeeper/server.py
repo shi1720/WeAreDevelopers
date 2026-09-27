@@ -8,7 +8,7 @@ import mimetypes
 from pathlib import Path
 import re
 from urllib.parse import parse_qs, unquote, urlsplit
-from . import auth, reservations
+from . import auth, reservations, policies, series
 from .availability import get_availability
 from .state import Store, from_fixture, import_envelope
 from .validation import APIError, calendar_date, invalid, object_body, party_size
@@ -52,6 +52,10 @@ class Application:
             return 200, auth.login(state, body)
         if method == 'GET' and path == '/restaurants':
             return 200, {'restaurants': [{k: r[k] for k in ('id', 'name', 'timezone')} for r in state['restaurants']]}
+        policy_route = re.fullmatch(r'/restaurants/([^/]+)/policies', path)
+        if method == 'GET' and policy_route:
+            restaurant = reservations.restaurant_for(state, unquote(policy_route[1]))
+            return 200, {'policies': deepcopy(state['policies'][restaurant['id']])}
         match = re.fullmatch(r'/restaurants/([^/]+)', path)
         if method == 'GET' and match:
             return 200, deepcopy(reservations.restaurant_for(state, unquote(match[1])))
@@ -70,8 +74,30 @@ class Application:
             except ValueError:
                 invalid('Invalid party size')
             restaurant = reservations.restaurant_for(state, rid)
-            return 200, get_availability(restaurant, list(state['reservations'].values()), day, size)
+            if 'explain' in query and query['explain'] != ['true']:
+                invalid('explain accepts only true')
+            return 200, get_availability(restaurant, list(state['reservations'].values()), day, size,
+                                        policy=policies.select_terms(state, restaurant, day), explain='explain' in query)
+        private_detail = re.fullmatch(r'/reservations/([^/]+)/(history|decision)', path)
+        series_detail = re.fullmatch(r'/series/([^/]+)', path)
+        if method == 'GET' and (private_detail or series_detail):
+            try:
+                user = auth.authenticate(state, headers.get('Authorization'))
+            except APIError:
+                raise APIError(404, 'not_found') from None
+            if series_detail:
+                return 200, series.response(state, series.owned(state, user, unquote(series_detail[1])))
+            record = reservations.owned(state, user, unquote(private_detail[1]))
+            if private_detail[2] == 'history':
+                return 200, {'reference': record['reference'], 'entries': deepcopy(state['histories'][record['reference']])}
+            return 200, {k: deepcopy(record[k]) for k in ('reference', 'revision', 'accepted_terms')}
         user = auth.authenticate(state, headers.get('Authorization'))
+        if method == 'POST' and policy_route:
+            return reservations.idempotent(state, user, method, path, headers.get('Idempotency-Key'), body,
+                lambda: policies.publish(state, user, reservations.restaurant_for(state, unquote(policy_route[1])), body))
+        if method == 'POST' and path == '/series':
+            return reservations.idempotent(state, user, method, path, headers.get('Idempotency-Key'), body,
+                lambda: series.adopt(state, user, body))
         if method == 'GET' and path == '/reservations':
             records = [r for r in state['reservations'].values() if r['user_id'] == user]
             records.sort(key=lambda r: datetime.fromisoformat(r['starts_at']).astimezone(timezone.utc), reverse=True)
@@ -102,9 +128,9 @@ class Handler(BaseHTTPRequestHandler):
     def handle_request(self):
         try:
             parts = urlsplit(self.path)
-            if self.command == 'GET' and (parts.path in ('/', '/signup', '/login', '/lookup') or parts.path.startswith('/static/')):
+            if self.command == 'GET' and (parts.path in ('/', '/signup', '/login', '/lookup', '/manager', '/series') or parts.path.startswith('/static/')):
                 root = Path(__file__).resolve().parent.parent / 'static'
-                relative = 'index.html' if parts.path in ('/', '/signup', '/login', '/lookup') else unquote(parts.path[len('/static/'):])
+                relative = 'index.html' if parts.path in ('/', '/signup', '/login', '/lookup', '/manager', '/series') else unquote(parts.path[len('/static/'):])
                 target = (root / relative).resolve()
                 if not target.is_relative_to(root) or not target.is_file():
                     raise APIError(404, 'not_found')

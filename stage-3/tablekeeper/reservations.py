@@ -5,6 +5,7 @@ import secrets
 from .validation import APIError, field, identifier, invalid, party_size, canonical
 from .temporal import booking_interval
 from .availability import overlaps
+from . import history, policies
 
 
 def now():
@@ -29,7 +30,13 @@ def owned(state, user, reference):
     return record
 
 
-def editable(record, restaurant):
+def editable(record, restaurant, body=None):
+    if body is not None and 'expected_revision' in body:
+        expected = body['expected_revision']
+        if type(expected) is not int or expected < 1:
+            invalid('expected_revision must be a positive integer')
+        if expected != record['revision']:
+            raise APIError(409, 'stale_revision')
     if record['status'] == 'cancelled':
         raise APIError(409, 'reservation_cancelled')
     cutoff(record, restaurant)
@@ -37,7 +44,8 @@ def editable(record, restaurant):
 
 def cutoff(record, restaurant):
     start = datetime.fromisoformat(record['starts_at']).astimezone(timezone.utc)
-    if now() >= start - timedelta(minutes=restaurant['cancellation_cutoff_minutes']):
+    cutoff_minutes = record.get('accepted_terms', restaurant)['cancellation_cutoff_minutes']
+    if now() >= start - timedelta(minutes=cutoff_minutes):
         raise APIError(409, 'cutoff_passed')
 
 
@@ -79,25 +87,29 @@ def selection(restaurant, body, current=None):
     return list(ids), sum(tables[tid]['capacity'] for tid in ids)
 
 
-def candidate(state, body, current=None):
+def candidate(state, body, current=None, terms=None):
     rid = current['restaurant_id'] if current else identifier(body, 'restaurant_id')
     restaurant = restaurant_for(state, rid)
-    ids, capacity = selection(restaurant, body, current)
+    ids, _ = selection(restaurant, body, current)
     if current is None and 'party_size' not in body:
         invalid('Missing party_size')
     size = party_size(body['party_size'] if 'party_size' in body else current['party_size'])
     local = field(body, 'starts_at_local') if current is None or 'starts_at_local' in body else current['starts_at_local']
-    start, end = booking_interval(restaurant, local)
-    if size > capacity:
-        raise APIError(422, 'party_exceeds_capacity')
     if current is not None and (ids, size, local) == (table_ids(current), current['party_size'], current['starts_at_local']):
         return deepcopy(current)
+    accepted = deepcopy(terms) if terms is not None else policies.select_terms(state, restaurant, local[:10])
+    effective = policies.effective_restaurant(restaurant, accepted)
+    start, end = booking_interval(effective, local)
+    capacity = sum(accepted['capacities'][tid] for tid in ids)
+    if size > capacity:
+        raise APIError(422, 'party_exceeds_capacity')
     result = deepcopy(current) if current else {}
     result.pop('table_id', None)
     result.update(restaurant_id=rid, table_ids=ids, party_size=size,
                   starts_at_local=local, starts_at=start.isoformat(), ends_at=end.isoformat())
     if len(ids) == 1:
         result['table_id'] = ids[0]
+    result['accepted_terms'] = accepted
     return result
 
 
@@ -112,24 +124,33 @@ def check_occupancy(state, candidates, excluded=()):
         others.append(record)
 
 
-def create(state, user, body):
+def create(state, user, body, *, bump=True):
     record = candidate(state, body)
     check_occupancy(state, [record])
     reference = secrets.token_hex(5).upper()
     while reference in state['reservations']:
         reference = secrets.token_hex(5).upper()
     record.update(reservation_id='res_' + secrets.token_hex(16), reference=reference,
-                  user_id=user, status='confirmed', created_at=now().isoformat())
+                  user_id=user, status='confirmed', created_at=now().isoformat(), revision=1)
     state['reservations'][reference] = record
+    history.initialize(state, record)
+    if bump:
+        state['restaurant_revisions'][record['restaurant_id']] += 1
     return public(record)
 
 
 def amend(state, user, reference, body):
     old = owned(state, user, reference)
-    editable(old, restaurant_for(state, old['restaurant_id']))
+    editable(old, restaurant_for(state, old['restaurant_id']), body)
     changed = candidate(state, body, old)
     check_occupancy(state, [changed], [reference])
-    state['reservations'][reference] = changed
+    if history.changes(old, changed):
+        changed['revision'] += 1
+        state['reservations'][reference] = changed
+        history.append(state, changed, 'changed', old)
+        state['restaurant_revisions'][changed['restaurant_id']] += 1
+        from .series import touch
+        touch(state, [reference], exception=True)
     return public(changed)
 
 
@@ -138,6 +159,11 @@ def cancel(state, user, reference):
     if record['status'] != 'cancelled':
         cutoff(record, restaurant_for(state, record['restaurant_id']))
         record['status'] = 'cancelled'
+        record['revision'] += 1
+        history.append(state, record, 'cancelled')
+        state['restaurant_revisions'][record['restaurant_id']] += 1
+        from .series import touch
+        touch(state, [reference])
     return public(record)
 
 
@@ -160,11 +186,21 @@ def moves(state, user, body):
         if rid is not None and old['restaurant_id'] != rid:
             invalid('All moves must share a restaurant')
         rid = old['restaurant_id']
-        editable(old, restaurant_for(state, rid))
+        editable(old, restaurant_for(state, rid), item)
         candidates.append(candidate(state, item, old))
     check_occupancy(state, candidates, refs)
+    changed_refs = []
     for record in candidates:
-        state['reservations'][record['reference']] = record
+        old = state['reservations'][record['reference']]
+        if history.changes(old, record):
+            record['revision'] += 1
+            history.append(state, record, 'changed', old)
+            state['reservations'][record['reference']] = record
+            changed_refs.append(record['reference'])
+    if changed_refs:
+        state['restaurant_revisions'][rid] += 1
+        from .series import touch
+        touch(state, changed_refs, exception=True)
     return {'reservations': [public(r) for r in candidates]}
 
 
