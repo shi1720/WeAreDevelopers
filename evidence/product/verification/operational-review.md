@@ -1,6 +1,6 @@
 # Operational review additions
 
-These are unexecuted acceptance cases until a committed candidate is available.
+This pre-execution case design is preserved. Final execution and honest coverage limits are recorded in coverage.md and final-report.md; this design alone is not a pass claim.
 
 | Matrix link | Additional independent case |
 |---|---|

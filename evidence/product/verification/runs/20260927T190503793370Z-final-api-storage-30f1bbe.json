@@ -1,0 +1,24 @@
+{
+  "label": "final-api-storage-30f1bbe",
+  "started_utc": "20260927T190503793370Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/acceptance_storage.py",
+    "tests/acceptance_http.py",
+    "tests/acceptance_domain.py",
+    "tests/acceptance_security.py",
+    "tests/acceptance_multiprocess.py",
+    "tests/acceptance_crash.py",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-30f1bbe/product",
+  "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 112.723767,
+  "log": "20260927T190503793370Z-final-api-storage-30f1bbe.log"
+}

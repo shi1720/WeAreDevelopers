@@ -1,0 +1,20 @@
+{
+  "label": "security-crash-recovery-70cf83c",
+  "started_utc": "20260927T185258029932Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_security.py",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_crash.py",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-70cf83c/product",
+  "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+  "test_driver_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "working_tree_status": "",
+  "exit_status": 1,
+  "duration_seconds": 54.906522,
+  "log": "20260927T185258029932Z-security-crash-recovery-70cf83c.log"
+}

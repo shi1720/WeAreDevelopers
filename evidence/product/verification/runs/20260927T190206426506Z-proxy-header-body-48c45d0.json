@@ -1,0 +1,17 @@
+{
+  "label": "proxy-header-body-48c45d0",
+  "started_utc": "20260927T190206426506Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_container.py",
+    "host-slow",
+    "tablekeeper-verifier:clean48c45d0"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/clean-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "e6334e60629bd103e6878b5c42bdf92ecf682629",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 24.860701,
+  "log": "20260927T190206426506Z-proxy-header-body-48c45d0.log"
+}

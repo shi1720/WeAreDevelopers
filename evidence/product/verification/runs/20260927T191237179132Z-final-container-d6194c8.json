@@ -1,0 +1,17 @@
+{
+  "label": "final-container-d6194c8",
+  "started_utc": "20260927T191237179132Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "tests/acceptance_container.py",
+    "host",
+    "tablekeeper-verifier:d6194c8"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-d6194c8/product",
+  "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 2.41041,
+  "log": "20260927T191237179132Z-final-container-d6194c8.log"
+}

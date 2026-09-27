@@ -1,0 +1,55 @@
+.FFF                                                                     [100%]
+=================================== FAILURES ===================================
+_________ test_material_action_lost_response_reload_and_restart[patch] _________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py:195: in test_material_action_lost_response_reload_and_restart
+    page.wait_for_function("!document.querySelector('[data-testid=recover-request]')?.disabled")
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:12809: in wait_for_function
+    self._sync(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py:1153: in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py:941: in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:76: in send
+    return await self._connection.wrap_api_call(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:632: in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E   playwright._impl._errors.Error: Page.wait_for_function: EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'".
+E   
+E       at eval (<anonymous>)
+E       at predicate (eval at evaluate (:311:30), <anonymous>:4:60)
+E       at next (eval at evaluate (:311:30), <anonymous>:29:33)
+________ test_material_action_lost_response_reload_and_restart[series] _________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py:217: in test_material_action_lost_response_reload_and_restart
+    assert page.locator('.occurrences h3').filter(has_text='20:00').count() == 2
+E   assert 0 == 2
+E    +  where 0 = count()
+E    +    where count = <Locator frame=<Frame name= url='http://127.0.0.1:63610/series?series_id=series_d65ba9d95dacf72c2d026568cc38a6c6'> selector='.occurrences h3 >> internal:has-text="20:00"i'>.count
+E    +      where <Locator frame=<Frame name= url='http://127.0.0.1:63610/series?series_id=series_d65ba9d95dacf72c2d026568cc38a6c6'> selector='.occurrences h3 >> internal:has-text="20:00"i'> = filter(has_text='20:00')
+E    +        where filter = <Locator frame=<Frame name= url='http://127.0.0.1:63610/series?series_id=series_d65ba9d95dacf72c2d026568cc38a6c6'> selector='.occurrences h3'>.filter
+E    +          where <Locator frame=<Frame name= url='http://127.0.0.1:63610/series?series_id=series_d65ba9d95dacf72c2d026568cc38a6c6'> selector='.occurrences h3'> = locator('.occurrences h3')
+E    +            where locator = <Page url='http://127.0.0.1:63610/series?series_id=series_d65ba9d95dacf72c2d026568cc38a6c6'>.locator
+_________ test_material_action_lost_response_reload_and_restart[apply] _________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py:195: in test_material_action_lost_response_reload_and_restart
+    page.wait_for_function("!document.querySelector('[data-testid=recover-request]')?.disabled")
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:12809: in wait_for_function
+    self._sync(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py:1153: in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py:941: in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:76: in send
+    return await self._connection.wrap_api_call(
+/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:632: in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E   playwright._impl._errors.Error: Page.wait_for_function: EvalError: Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'".
+E   
+E       at eval (<anonymous>)
+E       at predicate (eval at evaluate (:311:30), <anonymous>:4:60)
+E       at next (eval at evaluate (:311:30), <anonymous>:29:33)
+=========================== short test summary info ============================
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py::test_material_action_lost_response_reload_and_restart[patch]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py::test_material_action_lost_response_reload_and_restart[series]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py::test_material_action_lost_response_reload_and_restart[apply]
+3 failed, 1 passed, 1 deselected in 7.88s

@@ -1,0 +1,2 @@
+Seed setup/booking/policy/series adoption+amendment/closure apply: PASS
+{"trickling_clients": 8, "body_clients": 4, "header_clients": 4, "still_open_after_seconds": 24.067, "still_open_count": 0, "healthy_booking_seconds": 0.014}

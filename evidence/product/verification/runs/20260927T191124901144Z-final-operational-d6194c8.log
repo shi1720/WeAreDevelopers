@@ -1,0 +1,13 @@
+........................................................................ [ 81%]
+........F.......                                                         [100%]
+=================================== FAILURES ===================================
+_______________ test_two_live_processes_same_key_and_competition _______________
+tests/acceptance_multiprocess.py:49: in test_two_live_processes_same_key_and_competition
+    assert sorted(response.status_code for response in responses) == [200, 201]
+E   assert [200, 200] == [200, 201]
+E     
+E     At index 1 diff: 200 != 201
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/acceptance_multiprocess.py::test_two_live_processes_same_key_and_competition
+1 failed, 87 passed in 104.96s (0:01:44)

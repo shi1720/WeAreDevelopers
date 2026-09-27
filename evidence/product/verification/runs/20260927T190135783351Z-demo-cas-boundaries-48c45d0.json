@@ -1,0 +1,23 @@
+{
+  "label": "demo-cas-boundaries-48c45d0",
+  "started_utc": "20260927T190135783351Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_security.py",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_domain.py",
+    "-q",
+    "-k",
+    "demo or competing_amendment",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "a829ace55f217a76a07cf6442152ec0344b1fb23",
+  "working_tree_status": "",
+  "exit_status": 1,
+  "duration_seconds": 2.271084,
+  "log": "20260927T190135783351Z-demo-cas-boundaries-48c45d0.log"
+}

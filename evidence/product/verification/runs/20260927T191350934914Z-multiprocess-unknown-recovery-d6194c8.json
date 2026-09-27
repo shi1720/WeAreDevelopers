@@ -1,0 +1,20 @@
+{
+  "label": "multiprocess-unknown-recovery-d6194c8",
+  "started_utc": "20260927T191350934914Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_multiprocess.py",
+    "-q",
+    "-s",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-d6194c8/product",
+  "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "test_driver_revision": "6e74d8e42294dd85ea724729c7e68b322593ca1f",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 18.875995,
+  "log": "20260927T191350934914Z-multiprocess-unknown-recovery-d6194c8.log"
+}

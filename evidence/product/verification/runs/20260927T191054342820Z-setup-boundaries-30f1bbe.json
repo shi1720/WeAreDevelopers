@@ -1,0 +1,21 @@
+{
+  "label": "setup-boundaries-30f1bbe",
+  "started_utc": "20260927T191054342820Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_http.py",
+    "-k",
+    "invalid_setup",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-30f1bbe/product",
+  "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "working_tree_status": "",
+  "exit_status": 1,
+  "duration_seconds": 2.828572,
+  "log": "20260927T191054342820Z-setup-boundaries-30f1bbe.log"
+}

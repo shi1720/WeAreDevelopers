@@ -1,0 +1,47 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  358.4kB
+Step 1/13 : FROM python:3.12-slim
+ ---> cf9ba7e57be0
+Step 2/13 : WORKDIR /app
+ ---> Using cache
+ ---> 5bd53c76a290
+Step 3/13 : RUN apt-get update && apt-get install -y --no-install-recommends nginx-light && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 8e6b36e5479f
+Step 4/13 : COPY requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 54c9d330dbd4
+Step 5/13 : RUN pip install --no-cache-dir --require-hashes -r requirements.txt
+ ---> Using cache
+ ---> 1607f12668c1
+Step 6/13 : COPY tablekeeper /app/tablekeeper
+ ---> 6e16db2f2098
+Step 7/13 : COPY static /app/static
+ ---> 223b32cf4d35
+Step 8/13 : COPY deploy /app/deploy
+ ---> 275bffa857bb
+Step 9/13 : RUN mkdir /data && chown 65534:65534 /data
+ ---> Running in 11e8f4fabe21
+ ---> Removed intermediate container 11e8f4fabe21
+ ---> a817989bcc10
+Step 10/13 : ENV PORT=8080 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 TABLEKEEPER_DB=/data/tablekeeper.sqlite3
+ ---> Running in 72f53f6c4376
+ ---> Removed intermediate container 72f53f6c4376
+ ---> ca5b40dab04a
+Step 11/13 : USER 65534:65534
+ ---> Running in 8c138d9f19c6
+ ---> Removed intermediate container 8c138d9f19c6
+ ---> 419bdb2f06c0
+Step 12/13 : EXPOSE 8080
+ ---> Running in 308ec9c29378
+ ---> Removed intermediate container 308ec9c29378
+ ---> ac8fdb25cab7
+Step 13/13 : CMD ["python", "-m", "tablekeeper.launch"]
+ ---> Running in 5d9eafdbaf76
+ ---> Removed intermediate container 5d9eafdbaf76
+ ---> ec291bc7eee6
+Successfully built ec291bc7eee6
+Successfully tagged tablekeeper-verifier:30f1bbe

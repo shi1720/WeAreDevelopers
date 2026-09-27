@@ -1,0 +1,21 @@
+{
+  "label": "demo-cleanup-corrected-48c45d0",
+  "started_utc": "20260927T190228835355Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_security.py",
+    "-q",
+    "-k",
+    "demo_cookie",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "ab39b854e30b5f1257b4b38bc50be75f511a02af",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 1.54719,
+  "log": "20260927T190228835355Z-demo-cleanup-corrected-48c45d0.log"
+}
