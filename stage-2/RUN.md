@@ -1,23 +1,25 @@
-# Tablekeeper stage 1
+# Tablekeeper stage 2
 
 From this folder:
 
 ```sh
-docker build -t tablekeeper-stage-1 .
-docker run --rm -e PORT=8080 -p 127.0.0.1:8080:8080 tablekeeper-stage-1
+docker build -t tablekeeper-stage-2 .
+docker run --rm -e PORT=8080 -p 127.0.0.1:8080:8080 tablekeeper-stage-2
 ```
 
 The image includes Python and IANA timezone data and needs no outbound network at runtime.
-`GET /health` reports readiness. The initial database is empty. Supply a specification
-fixture to `POST /_test/reset` to configure restaurants and synthetic accounts.
+Open http://localhost:8080 for the restaurant experience. `GET /health` reports readiness.
+The initial database contains deterministic synthetic demo data. Set `TABLEKEEPER_DEMO=0`
+for an empty start. Supply a specification fixture to `POST /_test/reset` to replace all
+state. Reset and import never silently restore demo data.
 State is in memory; restarting the container clears it. Export/import transfers all
 state, including password hashes and bearer sessions, between independent processes.
 Keep export files private: they contain authentication material.
 
 The judge image enables unauthenticated `/_test/reset`, `/_test/export` and `/_test/import`.
-For a hardened deployment mode, seed the application in a trusted environment and use
-`TABLEKEEPER_TEST_CONTROLS=0` to disable every `/_test/` route. This stage has no persistent
-configuration bootstrap, so an ordinary fresh container in that mode has an empty database.
+For a hardened deployment mode use `TABLEKEEPER_TEST_CONTROLS=0` to disable every
+`/_test/` route. This works with the built-in synthetic demo bootstrap; it is not a
+production account-provisioning system.
 Do not expose the judge image publicly. This hackathon service is not certified for
 internet production; production needs durable storage, operational authentication controls
 and a trusted initialization process.
@@ -48,3 +50,20 @@ publishes it only on success. Reads also hold the lock, so they see a complete v
 This favors simple, auditable failure atomicity over high-volume database scalability.
 Export contains a versioned JSON state; no disk paths or source-process dependencies occur.
 The independent reviewer owns the acceptance matrix and official harness evidence.
+
+## Stage-2 contracts
+
+Declared pairs use fixture order in all current responses, even if submitted in reverse.
+Every selected member is occupied for the entire absolute interval. Single-table requests
+remain supported; current singleton responses expose both `table_id` and `table_ids`.
+Atomic moves validate every resulting selection before committing any change.
+
+Stage-1 exports migrate live records to the table-list shape without changing identities,
+credentials, timestamps or original receipts. Replaying an imported stage-1 request returns
+its exact original JSON value, which can legitimately lack `table_ids`.
+
+All browser assets ship in `static/` and are served locally; screen URLs `/`, `/signup`,
+`/login` and `/lookup` work directly. See `docs/DEMO-RUNBOOK.md` at the repository root
+for the synthetic account and demo walkthrough. Tests include canonical pair ordering,
+non-transitivity, selected-member contention, pair/single batch swaps, cancelled pair seeds,
+failure rollback, snapshot round trips and stage-1 receipt/session compatibility.

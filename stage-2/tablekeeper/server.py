@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
+import mimetypes
+from pathlib import Path
 import re
 from urllib.parse import parse_qs, unquote, urlsplit
 from . import auth, reservations
@@ -15,6 +17,9 @@ from .validation import APIError, calendar_date, invalid, object_body, party_siz
 class Application:
     def __init__(self):
         self.store = Store()
+        if os.environ.get('TABLEKEEPER_DEMO', '1') != '0':
+            from .demo import fixture
+            self.store.data = from_fixture(fixture())
 
     def dispatch(self, method, path, query, headers, body):
         with self.store.lock:
@@ -97,6 +102,22 @@ class Handler(BaseHTTPRequestHandler):
     def handle_request(self):
         try:
             parts = urlsplit(self.path)
+            if self.command == 'GET' and (parts.path in ('/', '/signup', '/login', '/lookup') or parts.path.startswith('/static/')):
+                root = Path(__file__).resolve().parent.parent / 'static'
+                relative = 'index.html' if parts.path in ('/', '/signup', '/login', '/lookup') else unquote(parts.path[len('/static/'):])
+                target = (root / relative).resolve()
+                if not target.is_relative_to(root) or not target.is_file():
+                    raise APIError(404, 'not_found')
+                content = target.read_bytes()
+                self.send_response(200)
+                kind = mimetypes.guess_type(target.name)[0] or 'application/octet-stream'
+                self.send_header('Content-Type', kind + ('; charset=utf-8' if kind.startswith('text/') or kind in ('application/javascript',) else ''))
+                self.send_header('Content-Length', str(len(content)))
+                self.send_header('Cache-Control', 'no-store')
+                self.send_header('X-Content-Type-Options', 'nosniff')
+                self.end_headers()
+                self.wfile.write(content)
+                return
             body = None
             if self.command in ('POST', 'PATCH', 'PUT'):
                 try:

@@ -9,7 +9,7 @@ from .validation import APIError, invalid
 
 
 def empty():
-    return {'schema': 1, 'users': {}, 'tokens': {}, 'restaurants': [], 'reservations': {}, 'receipts': []}
+    return {'schema': 2, 'users': {}, 'tokens': {}, 'restaurants': [], 'reservations': {}, 'receipts': []}
 
 
 def require(condition, message='Invalid state'):
@@ -69,12 +69,28 @@ def validate_restaurants(restaurants):
             require(ident(tid) and tid not in tids)
             tids.add(tid)
             require(type(table.get('label')) is str and integer(table.get('capacity'), 1))
+        pairs = restaurant.get('combinable', [])
+        require(type(pairs) is list)
+        seen = set()
+        for pair in pairs:
+            require(type(pair) is list and len(pair) == 2 and all(ident(t) for t in pair))
+            require(pair[0] != pair[1] and all(t in tids for t in pair))
+            require(frozenset(pair) not in seen)
+            seen.add(frozenset(pair))
+
+
+def selection_body(record):
+    """Records expose a singleton alias; request bodies may not send both."""
+    body = deepcopy(record)
+    if 'table_ids' in body:
+        body.pop('table_id', None)
+    return body
 
 
 def validate_record(record, state, *, owner=None):
     from .reservations import candidate
     require(type(record) is dict)
-    for name in ('reservation_id', 'reference', 'restaurant_id', 'table_id', 'user_id'):
+    for name in ('reservation_id', 'reference', 'restaurant_id', 'user_id'):
         require(ident(record.get(name)))
     require(re.fullmatch('[A-Z0-9]{6,12}', record['reference']) is not None)
     require(record['user_id'] in state['users'])
@@ -82,14 +98,23 @@ def validate_record(record, state, *, owner=None):
         require(record['user_id'] == owner)
     require(record.get('status') in ('confirmed', 'cancelled'))
     instant(record.get('created_at'))
-    expected = candidate(state, record)
+    expected = candidate(state, selection_body(record))
+    if 'table_ids' in record:
+        require(record['table_ids'] == expected['table_ids'])
+        if len(record['table_ids']) == 1:
+            require(record.get('table_id') == record['table_ids'][0])
+        else:
+            require('table_id' not in record)
+    else:
+        # Original stage-1 receipts are immutable and legitimately lack table_ids.
+        require(record.get('table_id') == expected.get('table_id'))
     require(instant(record.get('starts_at')) == instant(expected['starts_at']))
     require(instant(record.get('ends_at')) == instant(expected['ends_at']))
 
 
 def validate_state(state):
     from .reservations import candidate, check_occupancy
-    require(type(state) is dict and type(state.get('schema')) is int and state['schema'] == 1)
+    require(type(state) is dict and type(state.get('schema')) is int and state['schema'] == 2)
     require(type(state.get('users')) is dict and type(state.get('tokens')) is dict)
     emails = set()
     for uid, user in state['users'].items():
@@ -107,6 +132,7 @@ def validate_state(state):
     reservation_ids = set()
     for ref, record in state['reservations'].items():
         validate_record(record, state)
+        require('table_ids' in record)
         require(record['reference'] == ref and record['reservation_id'] not in reservation_ids)
         reservation_ids.add(record['reservation_id'])
     confirmed = [r for r in state['reservations'].values() if r['status'] == 'confirmed']
@@ -148,7 +174,9 @@ def validate_state(state):
                 move = moves[index]
                 require(type(move) is dict and move.get('reference') == ref)
                 expected = candidate(state, move, record)
-            for name in ('restaurant_id', 'table_id', 'party_size', 'starts_at_local'):
+            from .reservations import table_ids
+            require(table_ids(expected) == table_ids(record))
+            for name in ('restaurant_id', 'party_size', 'starts_at_local'):
                 require(expected[name] == record[name])
     return state
 
@@ -165,6 +193,7 @@ def from_fixture(fixture):
         copied = {k: deepcopy(restaurant[k]) for k in ('id', 'name', 'timezone', 'slot_minutes', 'reservation_duration_minutes', 'cancellation_cutoff_minutes', 'opening_hours', 'tables')}
         copied['opening_hours'] = [{k: h[k] for k in ('weekday', 'opens', 'closes')} for h in copied['opening_hours']]
         copied['tables'] = [{k: t[k] for k in ('id', 'label', 'capacity')} for t in copied['tables']]
+        copied['combinable'] = deepcopy(restaurant.get('combinable', []))
         state['restaurants'].append(copied)
     for user in users:
         require(type(user) is dict and ident(user.get('id')) and user['id'] not in state['users'])
@@ -175,7 +204,7 @@ def from_fixture(fixture):
         require(type(booking) is dict)
         record = candidate(state, booking)
         record.update(reservation_id=booking.get('id'), reference=booking.get('reference'),
-                      user_id=booking.get('user_id'), status='confirmed', created_at=now().isoformat())
+                      user_id=booking.get('user_id'), status=booking.get('status', 'confirmed'), created_at=now().isoformat())
         require(type(record['reference']) is str and record['reference'] not in state['reservations'])
         state['reservations'][record['reference']] = record
     return validate_state(state)
@@ -184,7 +213,20 @@ def from_fixture(fixture):
 def import_envelope(envelope):
     require(envelope.get('track') == 'tablekeeper' and type(envelope.get('format_version')) is int and envelope['format_version'] == 1)
     try:
-        return validate_state(deepcopy(envelope.get('state')))
+        state = deepcopy(envelope.get('state'))
+        require(type(state) is dict and type(state.get('schema')) is int)
+        if state['schema'] == 1:
+            # Upgrade only live record shape. Never rewrite original retry receipts.
+            require(type(state.get('restaurants')) is list and type(state.get('reservations')) is dict)
+            for restaurant in state['restaurants']:
+                require(type(restaurant) is dict)
+                restaurant.setdefault('combinable', [])
+            for record in state['reservations'].values():
+                require(type(record) is dict)
+                require('table_ids' not in record)
+                record['table_ids'] = [record['table_id']]
+            state['schema'] = 2
+        return validate_state(state)
     except (APIError, KeyError, TypeError, ValueError, OverflowError):
         invalid('Invalid imported state')
 

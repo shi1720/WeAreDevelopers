@@ -41,25 +41,63 @@ def cutoff(record, restaurant):
         raise APIError(409, 'cutoff_passed')
 
 
+def table_ids(record):
+    return record['table_ids'] if 'table_ids' in record else [record['table_id']]
+
+
+def selection(restaurant, body, current=None):
+    """Resolve one or two tables into their canonical declared order."""
+    if 'table_id' in body and 'table_ids' in body:
+        invalid('Use table_id or table_ids, not both')
+    if 'table_ids' in body:
+        ids = field(body, 'table_ids', list)
+        if not ids:
+            invalid('Select at least one table')
+        if len(ids) > 2:
+            raise APIError(422, 'combination_not_allowed')
+        for tid in ids:
+            if type(tid) is not str:
+                raise APIError(400, 'malformed_request', 'Table ids must be strings')
+            if not tid or len(tid) > 64:
+                invalid('Invalid table id')
+        if len(set(ids)) != len(ids):
+            invalid('Duplicate table id')
+    elif 'table_id' in body:
+        ids = [identifier(body, 'table_id')]
+    elif current is not None:
+        ids = table_ids(current)
+    else:
+        invalid('Missing table selection')
+    tables = {t['id']: t for t in restaurant['tables']}
+    if any(tid not in tables for tid in ids):
+        raise APIError(404, 'not_found')
+    if len(ids) == 2:
+        pair = next((p for p in restaurant.get('combinable', []) if set(p) == set(ids)), None)
+        if pair is None:
+            raise APIError(422, 'combination_not_allowed')
+        ids = pair
+    return list(ids), sum(tables[tid]['capacity'] for tid in ids)
+
+
 def candidate(state, body, current=None):
     rid = current['restaurant_id'] if current else identifier(body, 'restaurant_id')
     restaurant = restaurant_for(state, rid)
-    tid = identifier(body, 'table_id') if current is None or 'table_id' in body else current['table_id']
-    table = next((t for t in restaurant['tables'] if t['id'] == tid), None)
-    if table is None:
-        raise APIError(404, 'not_found')
+    ids, capacity = selection(restaurant, body, current)
     if current is None and 'party_size' not in body:
         invalid('Missing party_size')
     size = party_size(body['party_size'] if 'party_size' in body else current['party_size'])
     local = field(body, 'starts_at_local') if current is None or 'starts_at_local' in body else current['starts_at_local']
     start, end = booking_interval(restaurant, local)
-    if size > table['capacity']:
+    if size > capacity:
         raise APIError(422, 'party_exceeds_capacity')
-    if current is not None and (tid, size, local) == (current['table_id'], current['party_size'], current['starts_at_local']):
+    if current is not None and (ids, size, local) == (table_ids(current), current['party_size'], current['starts_at_local']):
         return deepcopy(current)
     result = deepcopy(current) if current else {}
-    result.update(restaurant_id=rid, table_id=tid, party_size=size,
+    result.pop('table_id', None)
+    result.update(restaurant_id=rid, table_ids=ids, party_size=size,
                   starts_at_local=local, starts_at=start.isoformat(), ends_at=end.isoformat())
+    if len(ids) == 1:
+        result['table_id'] = ids[0]
     return result
 
 
@@ -68,7 +106,7 @@ def check_occupancy(state, candidates, excluded=()):
     for record in candidates:
         start, end = datetime.fromisoformat(record['starts_at']), datetime.fromisoformat(record['ends_at'])
         for other in others:
-            if (other['restaurant_id'] == record['restaurant_id'] and other['table_id'] == record['table_id']
+            if (other['restaurant_id'] == record['restaurant_id'] and set(table_ids(other)).intersection(table_ids(record))
                     and overlaps(start, end, other)):
                 raise APIError(409, 'table_unavailable')
         others.append(record)
