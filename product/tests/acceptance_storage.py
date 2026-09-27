@@ -13,7 +13,6 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-import threading
 import uuid
 
 import pytest
@@ -210,6 +209,46 @@ def test_sqlite_second_process_refuses_owner(tmp_path):
     reopened.close()
 
 
+@pytest.mark.parametrize('corruption', ['checksum', 'schema'])
+def test_sqlite_corrupt_startup_refuses(tmp_path, corruption):
+    import sqlite3
+    path = tmp_path / 'corrupt.sqlite3'
+    store = SQLiteStore(path)
+    store.transact('main', lambda c: None, create=True)
+    store.close()
+    with sqlite3.connect(path) as db:
+        if corruption == 'checksum':
+            db.execute('UPDATE namespaces SET checksum=?', ('0' * 64,))
+        else:
+            value = fresh()
+            value['schema'] = 999
+            raw = json.dumps(value).encode()
+            db.execute('UPDATE namespaces SET payload=?,checksum=?', (raw, hashlib.sha256(raw).hexdigest()))
+    with pytest.raises(StoreError):
+        SQLiteStore(path)
+    # Rejection must not replace the corrupt input with a fresh successful store.
+    with sqlite3.connect(path) as db:
+        raw, checksum = db.execute('SELECT payload,checksum FROM namespaces').fetchone()
+        if corruption == 'checksum':
+            assert checksum == '0' * 64
+        else:
+            assert json.loads(raw)['schema'] == 999
+
+
+def test_restore_into_separate_sqlite_store_preserves_snapshot(store, tmp_path):
+    store.transact('main', lambda c: c.update(setup_consumed=True))
+    path = tmp_path / 'portable.json'
+    operations.backup(store, 'main', path)
+    destination = SQLiteStore(tmp_path / 'separate.sqlite3')
+    try:
+        revision = operations.maintenance(destination, 'main', True)
+        operations.restore(destination, 'main', path, revision)
+        operations.maintenance(destination, 'main', False)
+        assert destination.snapshot('main')[1] == store.snapshot('main')[1]
+    finally:
+        destination.close()
+
+
 @pytest.mark.parametrize('fault,exit_code,committed', [('before_commit', 86, False), ('after_commit', 87, True)])
 def test_sqlite_crash_boundary(tmp_path, fault, exit_code, committed):
     path = tmp_path / 'crash.sqlite3'
@@ -255,4 +294,34 @@ def test_firestore_multiprocess_counter_and_revision():
             if process.poll() is None:
                 process.kill()
                 process.wait()
+        store.close()
+
+
+@pytest.mark.parametrize('corruption', ['schema', 'checksum', 'chunk_revision', 'missing_chunk', 'chunk_size'])
+def test_firestore_corrupt_root_or_chunk_refuses(corruption):
+    if not os.environ.get('FIRESTORE_EMULATOR_HOST'):
+        pytest.skip('Firestore emulator required')
+    project = os.environ.get('ACCEPTANCE_FIRESTORE_PROJECT', 'demo-proofline-pilot')
+    store = FirestoreStore(project, collection='verifier_' + uuid.uuid4().hex)
+    try:
+        store.transact('main', lambda c: None, create=True)
+        root = store.collection.document('main')
+        chunk = root.collection('chunks').document('0')
+        if corruption == 'schema':
+            root.update({'schema': 999})
+        elif corruption == 'checksum':
+            root.update({'sha256': '0' * 64})
+        elif corruption == 'chunk_revision':
+            chunk.update({'revision': 999})
+        elif corruption == 'missing_chunk':
+            chunk.delete()
+        else:
+            chunk.update({'data': b'x' * (512 * 1024 + 1)})
+        metadata = root.get().to_dict()
+        with pytest.raises(StoreError):
+            store.snapshot('main')
+        with pytest.raises(StoreError):
+            store.transact('main', lambda c: c.update(setup_consumed=True), create=True)
+        assert root.get().to_dict() == metadata
+    finally:
         store.close()
