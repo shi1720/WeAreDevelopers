@@ -67,5 +67,8 @@ const ok=(value)=>{assert.ok(value);checks++;};
   storage.setItem('tablekeeper.pending.v1.namespace-one:guest','invalid JSON');
   await assert.rejects(run("api('/series',{method:'POST',body:{count:2},key:'series-key'})"));checks++;
   ok(!called);
+  run("session={user_id:'guest'}");
+  await assert.rejects(run("api('/series',{method:'POST',body:{count:2},key:'series-key'})"));checks++;
+  ok(!called);
   console.log(`${checks} recovery checks passed`);
 })().catch(error=>{console.error(error);process.exitCode=1;});
