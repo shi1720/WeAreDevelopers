@@ -1,0 +1,33 @@
+{
+  "checked_at_utc": "2026-09-27T19:59:19.941087+00:00",
+  "repository": "https://github.com/shi1720/WeAreDevelopers",
+  "public_clone_commit": "a75fc2cf6b53d2e39dd2c7c6063ac5839849f147",
+  "clone_authentication": "Disabled credential helper, global and system config; terminal prompts disabled",
+  "official_package_check": {
+    "exit_code": 0,
+    "result": "Gates 1, 2 and mandate part of gate 4 pass. Runtime gate is covered separately by original isolated test evidence."
+  },
+  "stage_trees_unchanged_from_original_acceptance": {
+    "stage-1": "93744383122e819f760d2bf0a95dddf6fc791e13",
+    "stage-2": "3cff1d59fd5dbf0a625e5b223ce222dc87fcd0f4",
+    "stage-3": "bc31c3a67f21957cc6b0fbf11e9455661d9df179",
+    "stage-4": "53912d0263085f441225f962351d8876fef68ca1"
+  },
+  "root_room_sha256": "5608a22b314bb25ddb46b8e1004581a3480c04f46bd3219f28483cf40eb22fbb",
+  "product_tree": "3045a3091e812a4171a8decd514e3ee5edd784ab",
+  "final_video_sha256": "1dd3bff30cc4a8c1eb05ee195c34decb3628100b54a937c0f1144b516f171379",
+  "default_branch": "main",
+  "lablab": {
+    "status": "submitted",
+    "url": "https://lablab.ai/ai-hackathons/wearedevelopers-hackathon/proofline/proofline-tablekeeper",
+    "confirmation": "You have successfully submitted your project for the WeAreDevelopers x BAND present: Dark Factory (hackathon edition) event!",
+    "public_video_duration_seconds": 177.233333,
+    "public_video_ready_state": 4,
+    "github_presentation_and_demo_links": "Verified in public entry DOM"
+  },
+  "live_demo": "https://tablekeeper-proofline.web.app",
+  "youtube": {
+    "status": "not uploaded",
+    "blocker": "Action-time Terms acknowledgement confirmation requested; user response pending."
+  }
+}

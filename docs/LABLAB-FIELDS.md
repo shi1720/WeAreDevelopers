@@ -46,7 +46,7 @@ These notes are outside the copiable description text.
 - Creator: Shivam Gupta. Track: tablekeeper.
 - Repository: https://github.com/shi1720/WeAreDevelopers. Public access and unauthenticated clone check are recorded; retain final push receipts.
 - Website URL: https://tablekeeper-proofline.web.app. Companion accepted, cloud backend verified and Firebase Hosting deployed; public-origin HTTP and Chrome checks passed.
-- Video URL: PENDING. The final MP4, PDF and cover are uploaded to the saved lablab draft. YouTube upload awaits action-time confirmation; enter an actual public watch URL only after verification. Final lablab submission remains pending.
+- Submission: https://lablab.ai/ai-hackathons/wearedevelopers-hackathon/proofline/proofline-tablekeeper. Lablab confirmed successful submission; the final MP4, PDF and cover are published. The public video loaded at 177.233 seconds. YouTube upload still awaits action-time confirmation; no YouTube watch URL exists yet.
 - Suggested technologies: BAND Desktop, Codex, Python, Docker, automated testing; Firebase Hosting, Google Cloud Run and Firestore for the separate deployed companion.
 - Full seven-section story: [PROJECT-STORY.md](PROJECT-STORY.md). Detailed original-run submission narrative: [SUBMISSION.md](SUBMISSION.md).
 - Do not claim this deployment has a Firestore free allowance. The operator reports a dedicated named database in an existing billing project with `freeTier: false`. Usage and actual billing must be measured; generic platform allowances do not establish this database's entitlement.

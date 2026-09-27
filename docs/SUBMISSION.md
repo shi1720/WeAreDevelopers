@@ -1,6 +1,6 @@
 # Proofline submission pack
 
-**Verified original-run copy with a separate deployed companion.** The companion is accepted and its cloud backend is verified; public-origin HTTP and Chrome checks passed. The video, PDF and cover are completed and uploaded to the saved lablab draft. Final submission and public YouTube publication remain pending. Keep companion results separate from the original graded run.
+**Verified original-run copy with a separate deployed companion.** The companion is accepted and its cloud backend is verified; public-origin HTTP and Chrome checks passed. The video, PDF and cover are published with the submitted lablab entry. Lablab confirmed successful submission. Public YouTube publication remains pending action-time confirmation. Keep companion results separate from the original graded run.
 
 ## Form fields
 
@@ -44,18 +44,22 @@ The frozen graded service uses ephemeral state and judge controls, so it is a lo
 
 | Field or gate | Evidence / current state |
 |---|---|
-| Title and descriptions | Verified original-run copy above; confirm platform limits |
+| Title and descriptions | Submitted platform copy is preserved in LABLAB-FIELDS.md |
 | Public repository | Public GitHub repository and unauthenticated clone check recorded; preserve final push receipts |
 | Stage folders | All four accepted; frozen implementation and independent reports linked in FACTORY.md |
 | Factory setup | FACTORY.md includes portable commands, recovery and measured usage limitations |
-| Generic mandates | Actual files preserved; run final official package check |
+| Generic mandates | Actual files preserved; final public-clone official package check passed |
 | Room export | Authentic root room.json; full export, 3,540 messages, exported 18:01:32 UTC |
-| Cover and slide presentation | Completed, reviewed and uploaded to the saved lablab draft |
-| Video | Final MP4 includes authentic room recording and captions; saved in lablab draft. YouTube awaits action-time confirmation and verified watch URL; listening review unavailable |
-| Security/licensing | Best-effort export review complete; final staged-file/history scan and third-party notices required |
+| Cover and slide presentation | Completed, reviewed and published with the submitted entry |
+| Video | Final MP4 includes authentic room recording and captions; published in the lablab entry. YouTube awaits action-time confirmation and verified watch URL; listening review unavailable |
+| Security/licensing | Best-effort publication audit complete; official public-clone checker passed and third-party notices preserved |
 | Service checks | Original workspace and fresh-clone isolated tests passed; post-export package/public-clone checks recorded |
 | Final package check | Post-export official checker and unauthenticated public clone passed; distinct from original runtime tests |
 | Hosted companion | Accepted companion; cloud backend verified; deployed at https://tablekeeper-proofline.web.app. Public-origin HTTP and Chrome checks passed |
-| Submission receipt | Saved lablab draft with completed media; final submission pending. Retain actual confirmation |
+| Submission receipt | Submitted successfully. Public entry and receipt linked below |
 
 The original room export and old checker logs are historical records. Keep them unchanged; add later package-check evidence separately. Platform publication, team creation and submission require their actual successful results, not this checklist alone.
+
+## Publication receipt
+
+[Submitted lablab entry](https://lablab.ai/ai-hackathons/wearedevelopers-hackathon/proofline/proofline-tablekeeper). The public video loaded with a duration of 177.233 seconds. The entry links to the live demo, public main branch and presentation. See [final public release check](../evidence/hosted/public-release-check.json) for the unauthenticated clone, unchanged stage trees and media hashes. YouTube remains pending the requested action-time acknowledgement.
