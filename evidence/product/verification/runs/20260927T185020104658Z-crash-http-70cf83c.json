@@ -1,0 +1,19 @@
+{
+  "label": "crash-http-70cf83c",
+  "started_utc": "20260927T185020104658Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_crash.py",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-70cf83c/product",
+  "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+  "test_driver_revision": "bc2b0f235d91d129b3409672b7a4b109e413ece6",
+  "working_tree_status": "",
+  "exit_status": 1,
+  "duration_seconds": 17.49117,
+  "log": "20260927T185020104658Z-crash-http-70cf83c.log"
+}

@@ -1,0 +1,20 @@
+{
+  "label": "inherited-pure-domain-30f1bbe",
+  "started_utc": "20260927T191006720075Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_availability.py",
+    "tests/test_temporal.py",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-30f1bbe/product",
+  "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 0.269873,
+  "log": "20260927T191006720075Z-inherited-pure-domain-30f1bbe.log"
+}

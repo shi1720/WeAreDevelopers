@@ -1,0 +1,21 @@
+{
+  "label": "http-precommit-lock-recovery-48c45d0",
+  "started_utc": "20260927T185947335553Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_crash.py",
+    "-q",
+    "-k",
+    "before_commit and firestore",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "37ba6c962ac2f6768ddaf23156193f06351f4bd3",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 63.016272,
+  "log": "20260927T185947335553Z-http-precommit-lock-recovery-48c45d0.log"
+}

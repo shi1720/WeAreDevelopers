@@ -1,0 +1,86 @@
+Process terminated before commit; starting one recovery transaction
+I0928 00:26:51.614134 1135225 ev_poll_posix.cc:587] FD from fork parent still in poll list: fd(7, generation: 1)
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/grpc_helpers.py", line 76, in error_remapped_callable
+    return callable_(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 276, in __call__
+    response, ignored_call = self._with_call(
+                             ^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 331, in _with_call
+    return call.result(), call
+           ^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/grpc/_channel.py", line 447, in result
+    raise self
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/grpc/_interceptor.py", line 314, in continuation
+    response, call = self._thunk(new_method).with_call(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/grpc/_channel.py", line 1182, in with_call
+    return _end_unary_response_blocking(state, call, True, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/grpc/_channel.py", line 999, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.ABORTED
+	details = "Transaction lock timeout."
+	debug_error_string = "ABORTED:Transaction lock timeout."
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/cloud/firestore_v1/transaction.py", line 296, in __call__
+    transaction._commit()
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/cloud/firestore_v1/transaction.py", line 138, in _commit
+    commit_response = self._client._firestore_api.commit(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/cloud/firestore_v1/services/firestore/client.py", line 1431, in commit
+    response = rpc(
+               ^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/gapic_v1/method.py", line 373, in __call__
+    result = wrapped_func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 295, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 157, in retry_target
+    next_sleep = _retry_error_helper(
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/retry/retry_base.py", line 215, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/retry/retry_unary.py", line 148, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/api_core/grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.Aborted: 409 Transaction lock timeout.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product/tablekeeper/storage.py", line 296, in transact
+    result = execute(transaction)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/lib/python3.12/site-packages/google/cloud/firestore_v1/transaction.py", line 309, in __call__
+    raise ValueError(msg) from last_exc
+ValueError: Failed to commit transaction in 5 attempts.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product/tablekeeper/storage.py", line 300, in transact
+    raise StoreError('Firestore transaction unavailable; retry the unchanged request') from exc
+tablekeeper.storage.StoreError: Firestore transaction unavailable; retry the unchanged request
+Recovery exit 1 elapsed_seconds 10.350102
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_firestore_crash_probe.py", line 38, in <module>
+    main()
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_firestore_crash_probe.py", line 31, in main
+    assert result.returncode == 0
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

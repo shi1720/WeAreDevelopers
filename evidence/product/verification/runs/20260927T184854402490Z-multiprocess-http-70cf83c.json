@@ -1,0 +1,19 @@
+{
+  "label": "multiprocess-http-70cf83c",
+  "started_utc": "20260927T184854402490Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_multiprocess.py",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-70cf83c/product",
+  "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+  "test_driver_revision": "58ff3a2c015c467d593cdb171a0d0f0db898d740",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 6.908616,
+  "log": "20260927T184854402490Z-multiprocess-http-70cf83c.log"
+}

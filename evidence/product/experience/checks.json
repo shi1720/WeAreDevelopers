@@ -1,0 +1,20 @@
+{
+  "baseline_revision": "1448eea24239a59e03941fc3a1a691b86bad19d9",
+  "checks": [
+    {
+      "command": "/tmp/proofline-official-spec/.venv/bin/python product/tests/experience_browser.py",
+      "revision": "1448eea24239a59e03941fc3a1a691b86bad19d9 plus uncommitted UI and backend implementation",
+      "exit_status": 1,
+      "runner_duration_seconds": 22.084,
+      "result": "3 errors: demo start, setup secret and setup submit locator timeouts at 7000ms. Backend implementation had not yet aligned with the agreed /api/session and demo/static routes. Integration failure retained; no accepted product claim.",
+      "cases": ["test_demo_closure_series_updated_summary", "test_lost_booking_response_reload_restart_and_account_isolation", "test_setup_booking_edit_roster_and_mobile"]
+    },
+    {
+      "command": "node --check product/static/app.js; node --check product/static/operations.js; node --check product/static/experience.js; node --check product/static/repairs.js",
+      "revision": "1448eea24239a59e03941fc3a1a691b86bad19d9 plus uncommitted UI implementation",
+      "exit_status": 0,
+      "tool_wall_seconds": 0.008236125,
+      "result": "JavaScript syntax accepted; not a behavior test. Commands executed as separate newline-delimited shell commands."
+    }
+  ]
+}

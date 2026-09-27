@@ -1,0 +1,11 @@
+.F.                                                                      [100%]
+=================================== FAILURES ===================================
+_______ test_demo_cookie_locator_is_not_authority_and_expiry_synchronous _______
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_security.py:97: in test_demo_cookie_locator_is_not_authority_and_expiry_synchronous
+    assert operations.cleanup(store,limit=1) == 1
+E   assert 0 == 1
+E    +  where 0 = <function cleanup at 0x107c425c0>(<tablekeeper.storage.SQLiteStore object at 0x1021f7530>, limit=1)
+E    +    where <function cleanup at 0x107c425c0> = operations.cleanup
+=========================== short test summary info ============================
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_security.py::test_demo_cookie_locator_is_not_authority_and_expiry_synchronous
+1 failed, 2 passed, 23 deselected in 2.01s

@@ -1,0 +1,55 @@
+{
+  "product_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "driver_revision": "cbd4ef3b39e3574699116fb1975409f754e62864",
+  "synthetic_only": true,
+  "screenshots": [
+    {
+      "file": "bookings-1440.png",
+      "sha256": "3333b8c60ec589fa22d3a54bc6571b391210e178ceadd35813993b13a534e1ac"
+    },
+    {
+      "file": "bookings-375.png",
+      "sha256": "104d70afbd5699dc210d68586aa82e8bc43e12407cb18f572e6fa491e5ca8d08"
+    },
+    {
+      "file": "closure-preview-1440.png",
+      "sha256": "ba3149d6ff3516e85c6769f86079b39e593b84b2bd7a1f7fb0a953d137dcb898"
+    },
+    {
+      "file": "closure-preview-375.png",
+      "sha256": "b72d0a2b34caac02c96d219ebcde753bafbb316e2f7807141373bc42501c340a"
+    },
+    {
+      "file": "edit-review-375.png",
+      "sha256": "ec63f95302ef832165c6bda348caa785d50cae15a2d07251f2410d1d11691ef6"
+    },
+    {
+      "file": "manager-roster-1440.png",
+      "sha256": "c47f6f9942b5b8746e57cb861960d64ecde0990192b697ff4e7353c30c954b06"
+    },
+    {
+      "file": "manager-roster-375.png",
+      "sha256": "0a44a1051a57ea7351d9a09a8e3f37086d514469413dbf97d5625fe543e04d12"
+    },
+    {
+      "file": "regular-updated-1440.png",
+      "sha256": "d07b82627bbfb1ce96a8c5a739ea54f1dab8a61a3bb13c03e518a4fafd283eed"
+    },
+    {
+      "file": "regular-updated-375.png",
+      "sha256": "b6e5b00c35d83e345a1f467cf4d6b3bc6fa512698782353a53cac2ec7d60966b"
+    },
+    {
+      "file": "restart-recovery-375.png",
+      "sha256": "1dcf0e19b0cc70b9a63f038b6ce14bce776460c5d14acdd30f6bc1cd2c62a839"
+    },
+    {
+      "file": "setup-1440.png",
+      "sha256": "85aefec1dda0ff5813f66e2d0be79969cb07bdf219653f95bdba8ccd45d5d6d4"
+    },
+    {
+      "file": "setup-375.png",
+      "sha256": "772c06b09c2cb3ce22f59ce8e2ba2f881ff87e3a348afbd339f861e1d7c1a389"
+    }
+  ]
+}

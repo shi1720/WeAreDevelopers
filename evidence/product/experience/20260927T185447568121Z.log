@@ -1,0 +1,10 @@
+test_demo_closure_series_updated_summary (__main__.ExperienceBrowser.test_demo_closure_series_updated_summary) ... ok
+test_demo_reset_isolates_saved_pending_request (__main__.ExperienceBrowser.test_demo_reset_isolates_saved_pending_request) ... ok
+test_lost_booking_response_reload_restart_and_account_isolation (__main__.ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation) ... ok
+test_material_amendment_and_repair_recover_after_restart (__main__.ExperienceBrowser.test_material_amendment_and_repair_recover_after_restart) ... ok
+test_setup_booking_edit_roster_and_mobile (__main__.ExperienceBrowser.test_setup_booking_edit_roster_and_mobile) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 8.701s
+
+OK

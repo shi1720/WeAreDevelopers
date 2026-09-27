@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "hosting",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [{"source": "**", "run": {"serviceId": "tablekeeper", "region": "us-central1"}}],
+    "headers": [{"source": "**", "headers": [{"key": "Cache-Control", "value": "private, no-store"}]}]
+  },
+  "firestore": {"rules": "firestore.rules", "indexes": "firestore.indexes.json"},
+  "emulators": {"firestore": {"port": 8089}, "ui": {"enabled": false}}
+}

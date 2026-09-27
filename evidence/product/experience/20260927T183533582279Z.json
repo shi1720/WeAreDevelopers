@@ -1,0 +1,38 @@
+{
+  "command": [
+    "node",
+    "product/tests/experience_recovery.cjs"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "head_at_start": "77dcba6067dddfbd3d9ebe8fd786c46c17b9976c",
+  "dirty_status_at_start": [
+    " M product/Dockerfile",
+    " M product/static/operations.js",
+    " M product/tablekeeper/auth.py",
+    " M product/tablekeeper/planner.py",
+    " M product/tablekeeper/server.py",
+    " M product/tests/experience_recovery.cjs",
+    "?? evidence/product/experience/20260927T183403206957Z.json",
+    "?? evidence/product/experience/20260927T183403206957Z.log",
+    "?? product/config.env.example",
+    "?? product/deploy/",
+    "?? product/docs/operations.md",
+    "?? product/firebase.json",
+    "?? product/firestore.indexes.json",
+    "?? product/firestore.rules",
+    "?? product/hosting/",
+    "?? product/requirements.in",
+    "?? product/requirements.txt",
+    "?? product/tablekeeper/companion.py",
+    "?? product/tablekeeper/launch.py",
+    "?? product/tablekeeper/operations.py",
+    "?? product/tablekeeper/storage.py",
+    "?? product/tests/author_companion.py"
+  ],
+  "tracked_diff_sha256": "b423b1467b0e2e1ad6da737192af6fe0537fd2dd7cac51dc2c1c1b6b1544a6ee",
+  "started_at_utc": "20260927T183533582279Z",
+  "duration_seconds": 0.13675070799945388,
+  "exit_status": 0,
+  "output": "20260927T183533582279Z.log",
+  "immutable_acceptance": false
+}

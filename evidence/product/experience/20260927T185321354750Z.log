@@ -1,0 +1,26 @@
+test_lost_booking_response_reload_restart_and_account_isolation (__main__.ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation) ... ok
+test_demo_reset_isolates_saved_pending_request (__main__.ExperienceBrowser.test_demo_reset_isolates_saved_pending_request) ... FAIL
+test_material_amendment_and_repair_recover_after_restart (__main__.ExperienceBrowser.test_material_amendment_and_repair_recover_after_restart) ... FAIL
+
+======================================================================
+FAIL: test_demo_reset_isolates_saved_pending_request (__main__.ExperienceBrowser.test_demo_reset_isolates_saved_pending_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.cache/tablekeeper-experience-48c45d0/product/tests/experience_browser.py", line 268, in test_demo_reset_isolates_saved_pending_request
+    self.assertNotEqual(original_scope, self.page.evaluate('session.account_scope'))
+AssertionError: 'ddb463f312685176a6e6b2db94d5378ea4145c35a5daa7f66c912c7cfbe17f07' == 'ddb463f312685176a6e6b2db94d5378ea4145c35a5daa7f66c912c7cfbe17f07'
+
+======================================================================
+FAIL: test_material_amendment_and_repair_recover_after_restart (__main__.ExperienceBrowser.test_material_amendment_and_repair_recover_after_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.cache/tablekeeper-experience-48c45d0/product/tests/experience_browser.py", line 311, in test_material_amendment_and_repair_recover_after_restart
+    recover_lost('**/series/*/amend', self.page.get_by_test_id('series-amend-submit'), 'series-amend-uncertain')
+  File "/Users/shivamgupta/.cache/tablekeeper-experience-48c45d0/product/tests/experience_browser.py", line 293, in recover_lost
+    self.assertEqual(200, results[0]['status'], results[0]['body'])
+AssertionError: 200 != 201 : {'series_id': 'series_7f79faff8977d993087674af844d1b27', 'revision': 2, 'interval_weeks': 1, 'occurrences': [{'index': 0, 'reference': 'EVENING1', 'exception': False, 'reservation': {'accepted_terms': {'policy_version': 0, 'slot_minutes': 30, 'reservation_duration_minutes': 90, 'cancellation_cutoff_minutes': 60, 'opening_hours': [{'closes': '23:00', 'opens': '17:00', 'weekday': 'mon'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'tue'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'wed'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'thu'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'fri'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'sat'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'sun'}], 'capacities': {'window': 2, 'garden': 2, 'round': 4, 'alcove': 6}}, 'created_at': '2026-09-27T18:53:25.426332+00:00', 'ends_at': '2035-06-14T19:30:00+01:00', 'party_size': 2, 'reference': 'EVENING1', 'reservation_id': 'demo_evening', 'restaurant_id': 'the_orangery', 'revision': 2, 'starts_at': '2035-06-14T18:00:00+01:00', 'starts_at_local': '2035-06-14T18:00', 'status': 'confirmed', 'table_ids': ['window'], 'table_id': 'window'}}, {'index': 1, 'reference': '278A37D8BF', 'exception': False, 'reservation': {'accepted_terms': {'policy_version': 0, 'slot_minutes': 30, 'reservation_duration_minutes': 90, 'cancellation_cutoff_minutes': 60, 'opening_hours': [{'closes': '23:00', 'opens': '17:00', 'weekday': 'mon'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'tue'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'wed'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'thu'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'fri'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'sat'}, {'closes': '23:00', 'opens': '17:00', 'weekday': 'sun'}], 'capacities': {'window': 2, 'garden': 2, 'round': 4, 'alcove': 6}}, 'created_at': '2026-09-27T18:53:25.641570+00:00', 'ends_at': '2035-06-21T19:30:00+01:00', 'party_size': 2, 'reference': '278A37D8BF', 'reservation_id': 'res_65fd9aa277c9b411e09e60402441b5d3', 'restaurant_id': 'the_orangery', 'revision': 2, 'starts_at': '2035-06-21T18:00:00+01:00', 'starts_at_local': '2035-06-21T18:00', 'status': 'confirmed', 'table_ids': ['window'], 'table_id': 'window'}}]}
+
+----------------------------------------------------------------------
+Ran 3 tests in 4.658s
+
+FAILED (failures=2)

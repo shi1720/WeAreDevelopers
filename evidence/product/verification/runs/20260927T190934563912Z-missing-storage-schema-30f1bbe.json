@@ -1,0 +1,21 @@
+{
+  "label": "missing-storage-schema-30f1bbe",
+  "started_utc": "20260927T190934563912Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py",
+    "-k",
+    "unsupported_schema or missing_root",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-30f1bbe/product",
+  "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "test_driver_revision": "c2093163528a35df32d18fba29efe8f5f33e611f",
+  "working_tree_status": "",
+  "exit_status": 1,
+  "duration_seconds": 0.622133,
+  "log": "20260927T190934563912Z-missing-storage-schema-30f1bbe.log"
+}

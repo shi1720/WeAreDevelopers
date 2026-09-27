@@ -1,0 +1,15 @@
+...F.                                                                    [100%]
+=================================== FAILURES ===================================
+________ test_material_action_lost_response_reload_and_restart[series] _________
+tests/acceptance_browser.py:217: in test_material_action_lost_response_reload_and_restart
+    assert page.locator('.occurrences h3').filter(has_text='20:00').count() == 2
+E   assert 0 == 2
+E    +  where 0 = count()
+E    +    where count = <Locator frame=<Frame name= url='http://127.0.0.1:49257/series?series_id=series_1928862676d08151114c54bd4158f33c'> selector='.occurrences h3 >> internal:has-text="20:00"i'>.count
+E    +      where <Locator frame=<Frame name= url='http://127.0.0.1:49257/series?series_id=series_1928862676d08151114c54bd4158f33c'> selector='.occurrences h3 >> internal:has-text="20:00"i'> = filter(has_text='20:00')
+E    +        where filter = <Locator frame=<Frame name= url='http://127.0.0.1:49257/series?series_id=series_1928862676d08151114c54bd4158f33c'> selector='.occurrences h3'>.filter
+E    +          where <Locator frame=<Frame name= url='http://127.0.0.1:49257/series?series_id=series_1928862676d08151114c54bd4158f33c'> selector='.occurrences h3'> = locator('.occurrences h3')
+E    +            where locator = <Page url='http://127.0.0.1:49257/series?series_id=series_1928862676d08151114c54bd4158f33c'>.locator
+=========================== short test summary info ============================
+FAILED tests/acceptance_browser.py::test_material_action_lost_response_reload_and_restart[series]
+1 failed, 4 passed in 10.88s

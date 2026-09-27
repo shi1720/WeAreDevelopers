@@ -1,0 +1,18 @@
+{
+  "label": "final-build-30f1bbe",
+  "started_utc": "20260927T190503799207Z",
+  "command": [
+    "/opt/homebrew/bin/docker",
+    "build",
+    "-t",
+    "tablekeeper-verifier:30f1bbe",
+    "."
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-30f1bbe/product",
+  "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 3.535446,
+  "log": "20260927T190503799207Z-final-build-30f1bbe.log"
+}

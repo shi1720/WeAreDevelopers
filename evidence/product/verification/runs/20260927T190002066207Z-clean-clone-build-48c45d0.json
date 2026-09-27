@@ -1,0 +1,18 @@
+{
+  "label": "clean-clone-build-48c45d0",
+  "started_utc": "20260927T190002066207Z",
+  "command": [
+    "/opt/homebrew/bin/docker",
+    "build",
+    "-t",
+    "tablekeeper-verifier:clean48c45d0",
+    "."
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/clean-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "37ba6c962ac2f6768ddaf23156193f06351f4bd3",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 0.176639,
+  "log": "20260927T190002066207Z-clean-clone-build-48c45d0.log"
+}

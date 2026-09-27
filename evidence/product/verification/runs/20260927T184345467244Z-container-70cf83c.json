@@ -1,0 +1,17 @@
+{
+  "label": "container-70cf83c",
+  "started_utc": "20260927T184345467244Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_container.py",
+    "host",
+    "tablekeeper-verifier:70cf83c"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-70cf83c/product",
+  "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+  "test_driver_revision": "2e296ff7340cbc5385bc6d4e605e0d85deec3d6c",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 2.701194,
+  "log": "20260927T184345467244Z-container-70cf83c.log"
+}

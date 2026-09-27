@@ -1,0 +1,15 @@
+{
+  "label": "firestore-lock-expiry-48c45d0",
+  "started_utc": "20260927T185759753279Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_firestore_crash_probe.py"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "9da0aaa6ea72f58186e1262649e92d938e1d053b",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 61.528453,
+  "log": "20260927T185759753279Z-firestore-lock-expiry-48c45d0.log"
+}

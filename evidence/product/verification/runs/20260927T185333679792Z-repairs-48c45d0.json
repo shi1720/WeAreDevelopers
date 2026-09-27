@@ -1,0 +1,22 @@
+{
+  "label": "repairs-48c45d0",
+  "started_utc": "20260927T185333679792Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/acceptance_storage.py",
+    "tests/acceptance_http.py",
+    "-q",
+    "-k",
+    "operational_schema or header_names",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 1.514886,
+  "log": "20260927T185333679792Z-repairs-48c45d0.log"
+}

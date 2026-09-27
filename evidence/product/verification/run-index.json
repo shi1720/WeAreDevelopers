@@ -1,0 +1,411 @@
+{
+  "note": "All observed run records, including failures. Durations may overlap and must not be added as wall-clock elapsed. Full commands are in each adjacent JSON record.",
+  "runs": [
+    {
+      "label": "infrastructure",
+      "started_utc": "20260927T182135797195Z",
+      "source_revision": "34a3a04525452ccb998e507ac8026e5e633e7f47",
+      "test_driver_revision": null,
+      "exit_status": 0,
+      "duration_seconds": 1.766552,
+      "log": "20260927T182135797195Z-infrastructure.log",
+      "driver_provenance": "No separate driver revision recorded; infrastructure/build command rather than test driver."
+    },
+    {
+      "label": "storage-70cf83c",
+      "started_utc": "20260927T183933481034Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "exit_status": 1,
+      "duration_seconds": 21.894984,
+      "log": "20260927T183933481034Z-storage-70cf83c.log",
+      "driver_provenance": "Supplement inferred from clean recorded checkout and repository-relative test command; original record preserved."
+    },
+    {
+      "label": "http-70cf83c",
+      "started_utc": "20260927T183933482996Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "exit_status": 0,
+      "duration_seconds": 4.168789,
+      "log": "20260927T183933482996Z-http-70cf83c.log",
+      "driver_provenance": "Supplement inferred from clean recorded checkout and repository-relative test command; original record preserved."
+    },
+    {
+      "label": "build-70cf83c",
+      "started_utc": "20260927T183933485988Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": null,
+      "exit_status": 0,
+      "duration_seconds": 2.721141,
+      "log": "20260927T183933485988Z-build-70cf83c.log",
+      "driver_provenance": "No separate driver revision recorded; infrastructure/build command rather than test driver."
+    },
+    {
+      "label": "browser-70cf83c",
+      "started_utc": "20260927T184201614904Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "c33aac48f4be5ef75d05827aab5c718e85969a52",
+      "exit_status": 1,
+      "duration_seconds": 11.695066,
+      "log": "20260927T184201614904Z-browser-70cf83c.log"
+    },
+    {
+      "label": "contention-recovery-70cf83c",
+      "started_utc": "20260927T184201615127Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "c33aac48f4be5ef75d05827aab5c718e85969a52",
+      "exit_status": 0,
+      "duration_seconds": 10.811174,
+      "log": "20260927T184201615127Z-contention-recovery-70cf83c.log"
+    },
+    {
+      "label": "container-70cf83c",
+      "started_utc": "20260927T184345467244Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "2e296ff7340cbc5385bc6d4e605e0d85deec3d6c",
+      "exit_status": 0,
+      "duration_seconds": 2.701194,
+      "log": "20260927T184345467244Z-container-70cf83c.log"
+    },
+    {
+      "label": "browser-recovery-fixed-70cf83c",
+      "started_utc": "20260927T184501795594Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "91a1cfc90fde69c11ef0ba7b577c5b923c7ba625",
+      "exit_status": 1,
+      "duration_seconds": 10.379301,
+      "log": "20260927T184501795594Z-browser-recovery-fixed-70cf83c.log"
+    },
+    {
+      "label": "proxy-trickle-70cf83c",
+      "started_utc": "20260927T184514627834Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "283a35fc793a5e4fce54b7af26cd73b4d397330f",
+      "exit_status": 1,
+      "duration_seconds": 24.865434,
+      "log": "20260927T184514627834Z-proxy-trickle-70cf83c.log"
+    },
+    {
+      "label": "header-casing-70cf83c",
+      "started_utc": "20260927T184621281282Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "382ff8c1ac6d8be1b182615a3fbd6bd9e9781ec1",
+      "exit_status": 1,
+      "duration_seconds": 1.33968,
+      "log": "20260927T184621281282Z-header-casing-70cf83c.log"
+    },
+    {
+      "label": "multiprocess-http-70cf83c",
+      "started_utc": "20260927T184854402490Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "58ff3a2c015c467d593cdb171a0d0f0db898d740",
+      "exit_status": 0,
+      "duration_seconds": 6.908616,
+      "log": "20260927T184854402490Z-multiprocess-http-70cf83c.log"
+    },
+    {
+      "label": "domain-70cf83c",
+      "started_utc": "20260927T184906020959Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "0457424ed216e51cb4f065497bc630436b1ab611",
+      "exit_status": 0,
+      "duration_seconds": 2.43153,
+      "log": "20260927T184906020959Z-domain-70cf83c.log"
+    },
+    {
+      "label": "crash-http-70cf83c",
+      "started_utc": "20260927T185020104658Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "bc2b0f235d91d129b3409672b7a4b109e413ece6",
+      "exit_status": 1,
+      "duration_seconds": 17.49117,
+      "log": "20260927T185020104658Z-crash-http-70cf83c.log"
+    },
+    {
+      "label": "security-crash-recovery-70cf83c",
+      "started_utc": "20260927T185258029932Z",
+      "source_revision": "70cf83c8de4c67babab92973264913c2ccc7b984",
+      "test_driver_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "exit_status": 1,
+      "duration_seconds": 54.906522,
+      "log": "20260927T185258029932Z-security-crash-recovery-70cf83c.log"
+    },
+    {
+      "label": "repairs-48c45d0",
+      "started_utc": "20260927T185333679792Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "exit_status": 0,
+      "duration_seconds": 1.514886,
+      "log": "20260927T185333679792Z-repairs-48c45d0.log"
+    },
+    {
+      "label": "browser-recovery-48c45d0",
+      "started_utc": "20260927T185333683399Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "exit_status": 0,
+      "duration_seconds": 2.227509,
+      "log": "20260927T185333683399Z-browser-recovery-48c45d0.log"
+    },
+    {
+      "label": "build-48c45d0",
+      "started_utc": "20260927T185333687264Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "exit_status": 0,
+      "duration_seconds": 3.861088,
+      "log": "20260927T185333687264Z-build-48c45d0.log"
+    },
+    {
+      "label": "browser-material-48c45d0",
+      "started_utc": "20260927T185520161853Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "d1e9efe626ec2035615390580077436919e67fb5",
+      "exit_status": 1,
+      "duration_seconds": 8.121348,
+      "log": "20260927T185520161853Z-browser-material-48c45d0.log"
+    },
+    {
+      "label": "proxy-trickle-48c45d0",
+      "started_utc": "20260927T185520163164Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "d1e9efe626ec2035615390580077436919e67fb5",
+      "exit_status": 0,
+      "duration_seconds": 24.820416,
+      "log": "20260927T185520163164Z-proxy-trickle-48c45d0.log"
+    },
+    {
+      "label": "browser-material-csp-48c45d0",
+      "started_utc": "20260927T185650993124Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "286ffb29ee7f2e39ea5fec0174b49aea39f039b7",
+      "exit_status": 0,
+      "duration_seconds": 6.92558,
+      "log": "20260927T185650993124Z-browser-material-csp-48c45d0.log"
+    },
+    {
+      "label": "firestore-crash-lock-probe-48c45d0",
+      "started_utc": "20260927T185650994790Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "286ffb29ee7f2e39ea5fec0174b49aea39f039b7",
+      "exit_status": 1,
+      "duration_seconds": 10.968322,
+      "log": "20260927T185650994790Z-firestore-crash-lock-probe-48c45d0.log"
+    },
+    {
+      "label": "firestore-lock-expiry-48c45d0",
+      "started_utc": "20260927T185759753279Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "9da0aaa6ea72f58186e1262649e92d938e1d053b",
+      "exit_status": 0,
+      "duration_seconds": 61.528453,
+      "log": "20260927T185759753279Z-firestore-lock-expiry-48c45d0.log"
+    },
+    {
+      "label": "consolidated-48c45d0",
+      "started_utc": "20260927T185825840870Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "9da0aaa6ea72f58186e1262649e92d938e1d053b",
+      "exit_status": 0,
+      "duration_seconds": 57.60947,
+      "log": "20260927T185825840870Z-consolidated-48c45d0.log"
+    },
+    {
+      "label": "http-precommit-lock-recovery-48c45d0",
+      "started_utc": "20260927T185947335553Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "37ba6c962ac2f6768ddaf23156193f06351f4bd3",
+      "exit_status": 0,
+      "duration_seconds": 63.016272,
+      "log": "20260927T185947335553Z-http-precommit-lock-recovery-48c45d0.log"
+    },
+    {
+      "label": "clean-clone-build-48c45d0",
+      "started_utc": "20260927T190002066207Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "37ba6c962ac2f6768ddaf23156193f06351f4bd3",
+      "exit_status": 0,
+      "duration_seconds": 0.176639,
+      "log": "20260927T190002066207Z-clean-clone-build-48c45d0.log"
+    },
+    {
+      "label": "clean-clone-container-48c45d0",
+      "started_utc": "20260927T190023466318Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "37ba6c962ac2f6768ddaf23156193f06351f4bd3",
+      "exit_status": 0,
+      "duration_seconds": 2.709542,
+      "log": "20260927T190023466318Z-clean-clone-container-48c45d0.log"
+    },
+    {
+      "label": "demo-cas-boundaries-48c45d0",
+      "started_utc": "20260927T190135783351Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "a829ace55f217a76a07cf6442152ec0344b1fb23",
+      "exit_status": 1,
+      "duration_seconds": 2.271084,
+      "log": "20260927T190135783351Z-demo-cas-boundaries-48c45d0.log"
+    },
+    {
+      "label": "proxy-header-body-48c45d0",
+      "started_utc": "20260927T190206426506Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "e6334e60629bd103e6878b5c42bdf92ecf682629",
+      "exit_status": 0,
+      "duration_seconds": 24.860701,
+      "log": "20260927T190206426506Z-proxy-header-body-48c45d0.log"
+    },
+    {
+      "label": "demo-cleanup-corrected-48c45d0",
+      "started_utc": "20260927T190228835355Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "ab39b854e30b5f1257b4b38bc50be75f511a02af",
+      "exit_status": 0,
+      "duration_seconds": 1.54719,
+      "log": "20260927T190228835355Z-demo-cleanup-corrected-48c45d0.log"
+    },
+    {
+      "label": "final-browser-clean-clone-48c45d0",
+      "started_utc": "20260927T190256064342Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "ab39b854e30b5f1257b4b38bc50be75f511a02af",
+      "exit_status": 0,
+      "duration_seconds": 11.10717,
+      "log": "20260927T190256064342Z-final-browser-clean-clone-48c45d0.log"
+    },
+    {
+      "label": "proxy-generated-504-48c45d0",
+      "started_utc": "20260927T190340751759Z",
+      "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+      "test_driver_revision": "9efeb3b194790c515def6b521ba31737f1259e59",
+      "exit_status": 0,
+      "duration_seconds": 20.7742,
+      "log": "20260927T190340751759Z-proxy-generated-504-48c45d0.log"
+    },
+    {
+      "label": "final-api-storage-30f1bbe",
+      "started_utc": "20260927T190503793370Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "exit_status": 0,
+      "duration_seconds": 112.723767,
+      "log": "20260927T190503793370Z-final-api-storage-30f1bbe.log"
+    },
+    {
+      "label": "final-browser-30f1bbe",
+      "started_utc": "20260927T190503795170Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "exit_status": 1,
+      "duration_seconds": 11.147153,
+      "log": "20260927T190503795170Z-final-browser-30f1bbe.log"
+    },
+    {
+      "label": "final-build-30f1bbe",
+      "started_utc": "20260927T190503799207Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "exit_status": 0,
+      "duration_seconds": 3.535446,
+      "log": "20260927T190503799207Z-final-build-30f1bbe.log"
+    },
+    {
+      "label": "browser-series-refresh-30f1bbe",
+      "started_utc": "20260927T190840868798Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "9f9de0facb5aba2b23c5e50c09affc09da59d25e",
+      "exit_status": 0,
+      "duration_seconds": 3.071293,
+      "log": "20260927T190840868798Z-browser-series-refresh-30f1bbe.log"
+    },
+    {
+      "label": "final-container-30f1bbe",
+      "started_utc": "20260927T190842013838Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "exit_status": 0,
+      "duration_seconds": 2.69152,
+      "log": "20260927T190842013838Z-final-container-30f1bbe.log"
+    },
+    {
+      "label": "missing-storage-schema-30f1bbe",
+      "started_utc": "20260927T190934563912Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "c2093163528a35df32d18fba29efe8f5f33e611f",
+      "exit_status": 1,
+      "duration_seconds": 0.622133,
+      "log": "20260927T190934563912Z-missing-storage-schema-30f1bbe.log"
+    },
+    {
+      "label": "inherited-pure-domain-30f1bbe",
+      "started_utc": "20260927T191006720075Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "exit_status": 0,
+      "duration_seconds": 0.269873,
+      "log": "20260927T191006720075Z-inherited-pure-domain-30f1bbe.log"
+    },
+    {
+      "label": "setup-boundaries-30f1bbe",
+      "started_utc": "20260927T191054342820Z",
+      "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+      "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "exit_status": 1,
+      "duration_seconds": 2.828572,
+      "log": "20260927T191054342820Z-setup-boundaries-30f1bbe.log"
+    },
+    {
+      "label": "final-operational-d6194c8",
+      "started_utc": "20260927T191124901144Z",
+      "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "exit_status": 1,
+      "duration_seconds": 105.230903,
+      "log": "20260927T191124901144Z-final-operational-d6194c8.log"
+    },
+    {
+      "label": "final-build-d6194c8",
+      "started_utc": "20260927T191126050682Z",
+      "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "exit_status": 0,
+      "duration_seconds": 3.074906,
+      "log": "20260927T191126050682Z-final-build-d6194c8.log"
+    },
+    {
+      "label": "final-container-d6194c8",
+      "started_utc": "20260927T191237179132Z",
+      "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "exit_status": 0,
+      "duration_seconds": 2.41041,
+      "log": "20260927T191237179132Z-final-container-d6194c8.log"
+    },
+    {
+      "label": "multiprocess-unknown-recovery-d6194c8",
+      "started_utc": "20260927T191350934914Z",
+      "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "test_driver_revision": "6e74d8e42294dd85ea724729c7e68b322593ca1f",
+      "exit_status": 0,
+      "duration_seconds": 18.875995,
+      "log": "20260927T191350934914Z-multiprocess-unknown-recovery-d6194c8.log"
+    },
+    {
+      "label": "final-ui-domain-d6194c8",
+      "started_utc": "20260927T191505514341Z",
+      "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+      "exit_status": 0,
+      "duration_seconds": 11.321539,
+      "log": "20260927T191505514341Z-final-ui-domain-d6194c8.log"
+    }
+  ],
+  "observed_run_window": {
+    "first_start_utc": "2026-09-27T18:21:35.797195Z",
+    "last_end_utc": "2026-09-27T19:15:16.835880Z",
+    "elapsed_seconds": 3221.038685,
+    "scope": "Elapsed span of preserved runs, including gaps; excludes earlier planning and later reporting."
+  }
+}

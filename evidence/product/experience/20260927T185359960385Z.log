@@ -1,0 +1,15 @@
+test_demo_reset_isolates_saved_pending_request (__main__.ExperienceBrowser.test_demo_reset_isolates_saved_pending_request) ... ok
+test_material_amendment_and_repair_recover_after_restart (__main__.ExperienceBrowser.test_material_amendment_and_repair_recover_after_restart) ... FAIL
+
+======================================================================
+FAIL: test_material_amendment_and_repair_recover_after_restart (__main__.ExperienceBrowser.test_material_amendment_and_repair_recover_after_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.cache/tablekeeper-experience-48c45d0/product/tests/experience_browser.py", line 314, in test_material_amendment_and_repair_recover_after_restart
+    self.assertEqual(2, self.page.locator('.occurrences h3').filter(has_text='18:00').count())
+AssertionError: 2 != 0
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.915s
+
+FAILED (failures=1)

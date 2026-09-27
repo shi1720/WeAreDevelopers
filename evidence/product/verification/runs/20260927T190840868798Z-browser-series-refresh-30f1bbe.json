@@ -1,0 +1,19 @@
+{
+  "label": "browser-series-refresh-30f1bbe",
+  "started_utc": "20260927T190840868798Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "-m",
+    "pytest",
+    "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_browser.py::test_material_action_lost_response_reload_and_restart[series]",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-30f1bbe/product",
+  "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "test_driver_revision": "9f9de0facb5aba2b23c5e50c09affc09da59d25e",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 3.071293,
+  "log": "20260927T190840868798Z-browser-series-refresh-30f1bbe.log"
+}

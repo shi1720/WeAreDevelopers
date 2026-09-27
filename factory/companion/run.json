@@ -1,0 +1,30 @@
+{
+  "room_id": "ce2cf88a-94cb-41ac-99e4-eb8940fd7b1f",
+  "original_room_id": "d82b4197-09c0-4af3-aabf-fa336747ff95",
+  "baseline": "330f1c8321670ca7d34b6b7127c0fb73df84ca25",
+  "purpose": "Separately commissioned hosted operational companion; not a graded stage",
+  "dispatch_sha256": "f94dec71c52d02887d47b7824b39d53ca9ad1e36d7217e3cebe0716791078563",
+  "dispatch_status": "completed",
+  "outcome": "accepted_bounded_local_emulator_pilot",
+  "dispatch_received_at": "2026-09-27T18:17:09.759Z",
+  "accepted_at": "2026-09-27T19:23:13Z",
+  "dispatch_to_acceptance_seconds": 3963.241,
+  "first_copy_revision": "1448eea24239a59e03941fc3a1a691b86bad19d9",
+  "baseline_and_copy_tree": "53912d0263085f441225f962351d8876fef68ca1",
+  "independently_checked_runtime_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "corrected_independent_driver_revision": "6e74d8e42294dd85ea724729c7e68b322593ca1f",
+  "accepted_code_test_revision": "8f749427004a35e6ac25ed34abb7997515ec4354",
+  "accepted_image": "sha256:ad581e03b6a305dd34f6f08149f6fc5e7fe6cf768f7d45108bcbd951ee754c79",
+  "report": "evidence/product/report.md",
+  "independent_report": "evidence/product/verification/final-report.md",
+  "room_attributed_token_usage": null,
+  "provider_billed_cost": null,
+  "usage_note": "Room usage queries returned no attributed entry; unrelated totals were not assigned to this task.",
+  "deployed_acceptance": "operator_gate_not_performed",
+  "seats": {
+    "coordinator": "316737f8-5692-4736-91c3-16a4ccaf54a2",
+    "engineer": "1635365c-d1f8-4291-84ff-012dc1d5686d",
+    "experience": "1ab176bf-9021-4092-ba27-ceafd7714cc7",
+    "verifier": "05391200-ba24-4c74-84b1-444282ca9015"
+  }
+}

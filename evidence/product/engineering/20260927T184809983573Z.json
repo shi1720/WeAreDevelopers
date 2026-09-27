@@ -1,0 +1,43 @@
+{
+  "command": [
+    "env",
+    "DOCKER_HOST=unix:///Users/shivamgupta/.colima/default/docker.sock",
+    "DOCKER_CONFIG=/tmp/proofline-public-docker-config",
+    "/Users/shivamgupta/.cache/tablekeeper-engineer-venv/bin/python",
+    "product/tests/acceptance_container.py",
+    "host-slow",
+    "tablekeeper-companion:author"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "revision": "eb9e521f13bbcf4fd7fcbea9e34bb1f553a03061",
+  "status_at_start": [
+    " M evidence/product/review-notes.md",
+    "?? evidence/product/engineering/20260927T184751850291Z.json",
+    "?? evidence/product/engineering/20260927T184751850291Z.log",
+    "?? evidence/product/verification/runs/20260927T183933481034Z-storage-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933481034Z-storage-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T183933482996Z-http-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933482996Z-http-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T183933485988Z-build-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933485988Z-build-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184201614904Z-browser-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184201614904Z-browser-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184201615127Z-contention-recovery-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184201615127Z-contention-recovery-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184345467244Z-container-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184345467244Z-container-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184501795594Z-browser-recovery-fixed-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184501795594Z-browser-recovery-fixed-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184514627834Z-proxy-trickle-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184514627834Z-proxy-trickle-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184621281282Z-header-casing-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184621281282Z-header-casing-70cf83c.log",
+    "?? evidence/product/verification/screenshots/"
+  ],
+  "tracked_diff_sha256": "e79140e202829677904bf97e16706f8d4f51efc88c05858967b6b0f7e3f231d6",
+  "started_at": "20260927T184809983573Z",
+  "duration_seconds": 24.727574250006,
+  "exit_status": 0,
+  "log": "20260927T184809983573Z.log",
+  "independent_acceptance": false
+}

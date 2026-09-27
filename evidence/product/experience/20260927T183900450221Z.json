@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "product/tests/experience_browser.py"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "head_at_start": "70cf83c8de4c67babab92973264913c2ccc7b984",
+  "dirty_status_at_start": [],
+  "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "started_at_utc": "20260927T183900450221Z",
+  "duration_seconds": 16.991336500002944,
+  "exit_status": 1,
+  "output": "20260927T183900450221Z.log",
+  "immutable_acceptance": true
+}

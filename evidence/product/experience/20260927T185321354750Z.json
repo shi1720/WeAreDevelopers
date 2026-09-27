@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "product/tests/experience_browser.py",
+    "ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation",
+    "ExperienceBrowser.test_demo_reset_isolates_saved_pending_request",
+    "ExperienceBrowser.test_material_amendment_and_repair_recover_after_restart"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/tablekeeper-experience-48c45d0",
+  "head_at_start": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "dirty_status_at_start": [],
+  "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "started_at_utc": "20260927T185321354750Z",
+  "duration_seconds": 4.796815957997751,
+  "exit_status": 1,
+  "output": "20260927T185321354750Z.log",
+  "clean_at_start": true,
+  "independent_acceptance": false
+}

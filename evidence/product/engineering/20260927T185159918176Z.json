@@ -1,0 +1,24 @@
+{
+  "command": [
+    "env",
+    "PYTHONPATH=product",
+    "/Users/shivamgupta/.cache/tablekeeper-engineer-venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "product/tests/author_companion.py",
+    "-k",
+    "operational_flag_corruption"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "revision": "ee21b65f7f6bd70b2a23120862fa86e6fe116b49",
+  "status_at_start": [
+    " M evidence/product/review-notes.md"
+  ],
+  "tracked_diff_sha256": "3521dfcfe872920e2e30a07ac95b4326d955dd345a562d4d98e697b25e3f248e",
+  "started_at": "20260927T185159918176Z",
+  "duration_seconds": 0.41285883400269086,
+  "exit_status": 0,
+  "log": "20260927T185159918176Z.log",
+  "independent_acceptance": false
+}

@@ -1,0 +1,18 @@
+{
+  "label": "build-48c45d0",
+  "started_utc": "20260927T185333687264Z",
+  "command": [
+    "/opt/homebrew/bin/docker",
+    "build",
+    "-t",
+    "tablekeeper-verifier:48c45d0",
+    "."
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/candidate-48c45d0/product",
+  "source_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "test_driver_revision": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 3.861088,
+  "log": "20260927T185333687264Z-build-48c45d0.log"
+}

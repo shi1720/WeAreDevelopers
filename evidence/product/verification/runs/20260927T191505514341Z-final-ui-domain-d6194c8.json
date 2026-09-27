@@ -1,0 +1,21 @@
+{
+  "label": "final-ui-domain-d6194c8",
+  "started_utc": "20260927T191505514341Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/acceptance_browser.py",
+    "tests/test_availability.py",
+    "tests/test_temporal.py",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-d6194c8/product",
+  "source_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "test_driver_revision": "d6194c8c9575f0a6b85ec2a322e8a65cbb9af740",
+  "working_tree_status": "",
+  "exit_status": 0,
+  "duration_seconds": 11.321539,
+  "log": "20260927T191505514341Z-final-ui-domain-d6194c8.log"
+}

@@ -1,0 +1,14 @@
+{
+  "label": "infrastructure",
+  "started_utc": "20260927T182135797195Z",
+  "command": [
+    "/Users/shivamgupta/.cache/proofline-pilot-verifier/venv/bin/python",
+    "evidence/product/verification/infrastructure_probe.py"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "source_revision": "34a3a04525452ccb998e507ac8026e5e633e7f47",
+  "working_tree_status": " M product/static/app.js\n M product/static/experience.js\n M product/static/index.html\n?? evidence/product/review-notes.md\n?? evidence/product/verification/\n",
+  "exit_status": 0,
+  "duration_seconds": 1.766552,
+  "log": "20260927T182135797195Z-infrastructure.log"
+}

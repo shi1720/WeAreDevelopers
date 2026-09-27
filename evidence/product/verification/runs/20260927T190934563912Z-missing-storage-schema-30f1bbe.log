@@ -1,0 +1,50 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+__________ test_firestore_corrupt_root_or_chunk_refuses[missing_root] __________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py:394: in test_firestore_corrupt_root_or_chunk_refuses
+    store.snapshot('main')
+tablekeeper/storage.py:368: in snapshot
+    return read(transaction)
+           ^^^^^^^^^^^^^^^^^
+../../venv/lib/python3.12/site-packages/google/cloud/firestore_v1/transaction.py:294: in __call__
+    result = self._pre_commit(transaction, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../venv/lib/python3.12/site-packages/google/cloud/firestore_v1/transaction.py:265: in _pre_commit
+    return self.to_wrap(transaction, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tablekeeper/storage.py:364: in read
+    raise APIError(404, 'not_found')
+E   tablekeeper.validation.APIError: not found
+_________ test_sqlite_unsupported_schema_is_not_initialized[unrelated] _________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py:426: in test_sqlite_unsupported_schema_is_not_initialized
+    with pytest.raises(StoreError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE StoreError
+_______ test_sqlite_unsupported_schema_is_not_initialized[missing_table] _______
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py:426: in test_sqlite_unsupported_schema_is_not_initialized
+    with pytest.raises(StoreError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE StoreError
+_______ test_sqlite_unsupported_schema_is_not_initialized[extra_column] ________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py:426: in test_sqlite_unsupported_schema_is_not_initialized
+    with pytest.raises(StoreError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE StoreError
+__________ test_sqlite_unsupported_schema_is_not_initialized[marker] ___________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py:426: in test_sqlite_unsupported_schema_is_not_initialized
+    with pytest.raises(StoreError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE StoreError
+_________ test_sqlite_unsupported_schema_is_not_initialized[revision] __________
+../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py:426: in test_sqlite_unsupported_schema_is_not_initialized
+    with pytest.raises(StoreError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE StoreError
+=========================== short test summary info ============================
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py::test_firestore_corrupt_root_or_chunk_refuses[missing_root]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py::test_sqlite_unsupported_schema_is_not_initialized[unrelated]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py::test_sqlite_unsupported_schema_is_not_initialized[missing_table]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py::test_sqlite_unsupported_schema_is_not_initialized[extra_column]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py::test_sqlite_unsupported_schema_is_not_initialized[marker]
+FAILED ../../../../.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/acceptance_storage.py::test_sqlite_unsupported_schema_is_not_initialized[revision]
+6 failed, 41 deselected in 0.39s

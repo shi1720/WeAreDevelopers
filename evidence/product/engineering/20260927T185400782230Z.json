@@ -1,0 +1,33 @@
+{
+  "command": [
+    "env",
+    "FIRESTORE_EMULATOR_HOST=127.0.0.1:18980",
+    "PYTHONPATH=product",
+    "/Users/shivamgupta/.cache/tablekeeper-engineer-venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "product/tests/author_companion.py",
+    "product/tests/author_firestore.py"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "revision": "80429d6e2a127722f5091b604c075f5ad2ae5f8e",
+  "status_at_start": [
+    " M evidence/product/review-notes.md",
+    "?? evidence/product/verification/runs/20260927T185258029932Z-security-crash-recovery-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T185258029932Z-security-crash-recovery-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T185333679792Z-repairs-48c45d0.json",
+    "?? evidence/product/verification/runs/20260927T185333679792Z-repairs-48c45d0.log",
+    "?? evidence/product/verification/runs/20260927T185333683399Z-browser-recovery-48c45d0.json",
+    "?? evidence/product/verification/runs/20260927T185333683399Z-browser-recovery-48c45d0.log",
+    "?? evidence/product/verification/runs/20260927T185333687264Z-build-48c45d0.json",
+    "?? evidence/product/verification/runs/20260927T185333687264Z-build-48c45d0.log",
+    "?? evidence/product/verification/screenshots/48c45d0/"
+  ],
+  "tracked_diff_sha256": "3521dfcfe872920e2e30a07ac95b4326d955dd345a562d4d98e697b25e3f248e",
+  "started_at": "20260927T185400782230Z",
+  "duration_seconds": 9.50378641700081,
+  "exit_status": 0,
+  "log": "20260927T185400782230Z.log",
+  "independent_acceptance": false
+}

@@ -1,0 +1,19 @@
+{
+  "label": "final-browser-30f1bbe",
+  "started_utc": "20260927T190503795170Z",
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/acceptance_browser.py",
+    "-q",
+    "--tb=short"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/proofline-pilot-verifier/final-30f1bbe/product",
+  "source_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "test_driver_revision": "30f1bbe5da02fd4bbb74852c72d5168fb8a2a9e3",
+  "working_tree_status": "",
+  "exit_status": 1,
+  "duration_seconds": 11.147153,
+  "log": "20260927T190503795170Z-final-browser-30f1bbe.log"
+}

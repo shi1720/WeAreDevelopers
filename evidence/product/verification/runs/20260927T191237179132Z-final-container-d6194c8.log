@@ -1,0 +1,8 @@
+Seed setup/booking/policy/series adoption+amendment/closure apply: PASS
+Non-root container and proxy oversized body/header private no-store errors: PASS
+Original receipts, identities, current series, policy and history after restart/restore: PASS
+{"revision": 24}
+{"revision": 2}
+Original receipts, identities, current series, policy and history after restart/restore: PASS
+Image identity: sha256:ad581e03b6a305dd34f6f08149f6fc5e7fe6cf768f7d45108bcbd951ee754c79
+Container restrictions: none 2000000000 2147483648 65534:65534
