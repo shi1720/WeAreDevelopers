@@ -14,7 +14,7 @@ This repository is the Tablekeeper-track output of **Proofline**, a four-seat so
 - [Release ledger](docs/RELEASE-GATES.md): requirement families, accepted revisions and evidence status.
 - [Security boundaries](docs/SECURITY.md): judge controls, private exports and deployment limitations.
 
-The folders are sequential releases, each complete and independently buildable after acceptance. **Stage 1 is accepted** at implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, with independent evidence at `3813508b5624b4ae89a346b68611a595f83cfde5`: official host/isolated checks 120/120 and independent HTTP/offline checks 23/23. Stage 2 is also accepted; stage 3 is underway and stage 4 remains gated. A folder's presence during development is not an acceptance claim. The ledger records exact reviewed revisions and commands.
+The folders are sequential releases, each complete and independently buildable after acceptance. **Stage 1 is accepted** at implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, with independent evidence at `3813508b5624b4ae89a346b68611a595f83cfde5`: official host/isolated checks 120/120 and independent HTTP/offline checks 23/23. Stage 2 is also accepted; stage 3 is accepted and stage 4 is underway. A folder's presence during development is not an acceptance claim. The ledger records exact reviewed revisions and commands.
 
 ## Verification
 
@@ -29,7 +29,7 @@ The official contracts are from kickoff revision `803560d2a678ace1414465c098eb0a
 
 Every run needs a new output directory. Published checks are partial; independent specification-derived checks and source review are also required. The operator exports the authentic complete Band room as `room.json` after the autonomous run. Until then the room-log submission gate remains pending.
 
-Stage 2 is also accepted at `e4fc1c5bf52769927b50e139be1d380b1c044aeb`, evidence `f2e3189db5f113f9b38509cc57241d9e50d91330`: official host/isolated 120+25 checks pass. Stage 3 is underway; stage 4 remains gated.
+Stage 2 is also accepted at `e4fc1c5bf52769927b50e139be1d380b1c044aeb`, evidence `f2e3189db5f113f9b38509cc57241d9e50d91330`: official host/isolated 120+25 checks pass. Stage 3 is accepted at `8a12344510a97d7ee20a4326935cacc3ab00798e`, evidence `0e302c79de3521fc0993cb6ed0b6f21a52d493e4`, with all 152 official checks passing host/isolated. Stage 4 is underway.
 
 Run the accepted browser product locally:
 
