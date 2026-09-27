@@ -8,7 +8,7 @@ import mimetypes
 from pathlib import Path
 import re
 from urllib.parse import parse_qs, unquote, urlsplit
-from . import auth, reservations, policies, series
+from . import auth, reservations, policies, series, replans
 from .availability import get_availability
 from .state import Store, from_fixture, import_envelope
 from .validation import APIError, calendar_date, invalid, object_body, party_size
@@ -77,7 +77,7 @@ class Application:
             if 'explain' in query and query['explain'] != ['true']:
                 invalid('explain accepts only true')
             return 200, get_availability(restaurant, list(state['reservations'].values()), day, size,
-                                        policy=policies.select_terms(state, restaurant, day), explain='explain' in query)
+                                        policy=policies.select_terms(state, restaurant, day), explain='explain' in query, closures=state['closures'])
         private_detail = re.fullmatch(r'/reservations/([^/]+)/(history|decision)', path)
         series_detail = re.fullmatch(r'/series/([^/]+)', path)
         if method == 'GET' and (private_detail or series_detail):
@@ -92,6 +92,20 @@ class Application:
                 return 200, {'reference': record['reference'], 'entries': deepcopy(state['histories'][record['reference']])}
             return 200, {k: deepcopy(record[k]) for k in ('reference', 'revision', 'accepted_terms')}
         user = auth.authenticate(state, headers.get('Authorization'))
+        preview_route = re.fullmatch(r'/restaurants/([^/]+)/replans', path)
+        apply_route = re.fullmatch(r'/restaurants/([^/]+)/replans/([^/]+)/apply', path)
+        detail_route = re.fullmatch(r'/api/restaurants/([^/]+)/replans/([^/]+)', path)
+        amend_route = re.fullmatch(r'/series/([^/]+)/amend', path)
+        if method == 'GET' and detail_route:
+            return 200, replans.detail(state, user, unquote(detail_route[1]), unquote(detail_route[2]))
+        if method == 'POST' and (preview_route or apply_route or amend_route):
+            def operation():
+                if preview_route:
+                    return replans.preview(state, user, unquote(preview_route[1]), body)
+                if apply_route:
+                    return replans.apply(state, user, unquote(apply_route[1]), unquote(apply_route[2]))
+                return series.amend(state, user, unquote(amend_route[1]), body)
+            return reservations.idempotent(state, user, method, path, headers.get('Idempotency-Key'), body, operation)
         if method == 'GET' and path == '/api/series':
             return 200, {'series': [series.response(state, agreement) for agreement in state['series'].values()
                                     if agreement['user_id'] == user]}

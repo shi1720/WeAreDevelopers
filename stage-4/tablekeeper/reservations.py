@@ -117,6 +117,9 @@ def check_occupancy(state, candidates, excluded=()):
     others = [r for ref, r in state['reservations'].items() if ref not in excluded and r['status'] == 'confirmed']
     for record in candidates:
         start, end = datetime.fromisoformat(record['starts_at']), datetime.fromisoformat(record['ends_at'])
+        from .planner import blocked
+        if blocked(record, table_ids(record), state.get('closures', [])):
+            raise APIError(409, 'table_unavailable')
         for other in others:
             if (other['restaurant_id'] == record['restaurant_id'] and set(table_ids(other)).intersection(table_ids(record))
                     and overlaps(start, end, other)):

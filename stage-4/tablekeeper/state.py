@@ -10,8 +10,8 @@ from . import policies, history
 
 
 def empty():
-    return {'schema': 3, 'users': {}, 'tokens': {}, 'restaurants': [], 'reservations': {}, 'receipts': [],
-            'policies': {}, 'histories': {}, 'series': {}, 'restaurant_revisions': {}}
+    return {'schema': 4, 'users': {}, 'tokens': {}, 'restaurants': [], 'reservations': {}, 'receipts': [],
+            'policies': {}, 'histories': {}, 'series': {}, 'restaurant_revisions': {}, 'plans': {}, 'closures': [], 'series_operations': []}
 
 
 def require(condition, message='Invalid state'):
@@ -141,7 +141,7 @@ def validate_record(record, state, *, owner=None):
 
 def validate_state(state):
     from .reservations import candidate, check_occupancy
-    require(type(state) is dict and type(state.get('schema')) is int and state['schema'] == 3)
+    require(type(state) is dict and type(state.get('schema')) is int and state['schema'] == 4)
     require(type(state.get('users')) is dict and type(state.get('tokens')) is dict)
     emails = set()
     for uid, user in state['users'].items():
@@ -176,11 +176,15 @@ def validate_state(state):
         reservation_ids.add(record['reservation_id'])
     confirmed = [r for r in state['reservations'].values() if r['status'] == 'confirmed']
     check_occupancy(state, confirmed, state['reservations'])
+    require(type(state.get('plans')) is dict and type(state.get('closures')) is list and type(state.get('series_operations')) is list)
     validate_histories(state)
     validate_series(state)
     require(type(state.get('receipts')) is list)
     scopes = set()
     adopted_series = set()
+    from .portability import validate_operations, validate_plans, validate_stage4_receipt
+    collective = validate_operations(state)
+    validate_plans(state)
     for receipt in state['receipts']:
         require(type(receipt) is dict)
         require(type(receipt.get('user_id')) is str and receipt['user_id'] in state['users'])
@@ -191,6 +195,8 @@ def validate_state(state):
         scopes.add(scope)
         require(type(receipt.get('body')) is dict and type(receipt.get('response')) is dict)
         response = receipt['response']
+        if validate_stage4_receipt(state, receipt):
+            continue
         if receipt['path'].startswith('/restaurants/') and receipt['path'].endswith('/policies'):
             from urllib.parse import unquote
             from .reservations import restaurant_for
@@ -204,7 +210,7 @@ def validate_state(state):
             require(response == dict(clean, policy_version=version) == state['policies'][restaurant['id']][version - 1])
             continue
         if receipt['path'] == '/series':
-            validate_series_receipt(state, receipt)
+            validate_series_receipt(state, receipt, collective)
             sid = response['series_id']
             require(sid not in adopted_series)
             adopted_series.add(sid)
@@ -260,7 +266,7 @@ def validate_histories(state):
             require(previous_at is None or at >= previous_at)
             previous_at = at
             event = entry.get('event')
-            require(not cancelled and (event == 'created' if seq == 1 else event in ('changed', 'cancelled')))
+            require(not cancelled and (event == 'created' if seq == 1 else event in ('changed', 'cancelled', 'reassigned')))
             changes = entry.get('changes')
             require(type(changes) is list)
             terms = entry.get('accepted_terms')
@@ -283,11 +289,25 @@ def validate_histories(state):
                         body.pop('table_id', None)
                         body.pop('table_ids', None)
                     body[name] = deepcopy(change['to'])
-                resulting = candidate(state, body, terms=terms)
+                if event == 'reassigned':
+                    require(terms == previous['accepted_terms'])
+                    resulting = deepcopy(previous)
+                    from .reservations import restaurant_for, selection
+                    ids, _ = selection(restaurant_for(state, current['restaurant_id']), body)
+                    require(sum(terms['capacities'][tid] for tid in ids) >= previous['party_size'])
+                    resulting['table_ids'] = ids
+                    resulting.pop('table_id', None)
+                    if len(ids) == 1:
+                        resulting['table_id'] = ids[0]
+                    require(changes == [{'field': 'table_ids', 'from': previous['table_ids'], 'to': ids}])
+                    require(previous['table_ids'] != ids and ident(entry.get('plan_id')))
+                else:
+                    resulting = candidate(state, body, terms=terms)
                 resulting.update({k: current[k] for k in ('reference', 'reservation_id', 'user_id', 'created_at')})
                 resulting['status'] = 'confirmed'
                 resulting['revision'] = seq
-                require(canonical(changes) == canonical(history.changes(previous, resulting)))
+                if event != 'reassigned':
+                    require(canonical(changes) == canonical(history.changes(previous, resulting)))
                 validate_record(resulting, state)
             resulting['revision'] = seq
             previous = resulting
@@ -352,7 +372,7 @@ def validate_series(state):
                 require(booking['starts_at_local'][:10] == date.isoformat())
 
 
-def validate_series_receipt(state, receipt):
+def validate_series_receipt(state, receipt, collective):
     response, body = receipt['response'], receipt['body']
     sid = response.get('series_id')
     require(type(sid) is str and sid in state['series'])
@@ -383,7 +403,8 @@ def validate_series_receipt(state, receipt):
         revision = record.get('revision')
         require(integer(revision, 1))
         amended = any(entry['event'] == 'changed'
-                      for entry in state['histories'][ref][revision:])
+                      for entry in state['histories'][ref][revision:]
+                      if (ref, entry['revision']) not in collective)
         require(agreement['occurrences'][index]['exception'] == amended)
 
 
@@ -451,6 +472,8 @@ def import_envelope(envelope):
                 record['revision'] = 1
                 history.initialize(state, record)
             state['schema'] = 3
+        if state['schema'] == 3:
+            state.update(schema=4, plans={}, closures=[], series_operations=[])
         return validate_state(state)
     except (APIError, KeyError, TypeError, ValueError, OverflowError):
         invalid('Invalid imported state')

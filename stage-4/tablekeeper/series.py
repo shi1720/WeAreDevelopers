@@ -60,3 +60,46 @@ def adopt(state, user, body):
     state['series'][sid] = agreement
     state['restaurant_revisions'][anchor['restaurant_id']] += 1
     return response(state, agreement)
+
+
+def amend(state, user, sid, body):
+    from . import reservations, history
+    import re
+    agreement = owned(state, user, sid)
+    expected, first, clock = (body.get(k) for k in ('expected_revision', 'from_index', 'local_time'))
+    if (type(expected) is not int or expected < 1 or type(first) is not int
+            or not 0 <= first < len(agreement['occurrences']) or type(clock) is not str
+            or not re.fullmatch(r'(?:[01][0-9]|2[0-3]):[0-5][0-9]', clock)):
+        invalid('Invalid recurring amendment')
+    if expected != agreement['revision']:
+        raise APIError(409, 'stale_revision')
+    before = response(state, agreement)
+    candidates = []
+    for occurrence in agreement['occurrences'][first:]:
+        old = state['reservations'][occurrence['reference']]
+        if occurrence['exception'] or old['status'] == 'cancelled':
+            continue
+        local = occurrence['scheduled_date'] + 'T' + clock
+        if local == old['starts_at_local']:
+            candidates.append(deepcopy(old))
+            continue
+        reservations.editable(old, reservations.restaurant_for(state, old['restaurant_id']))
+        candidates.append(reservations.candidate(state, {'starts_at_local': local}, old))
+    reservations.check_occupancy(state, candidates, [r['reference'] for r in candidates])
+    changed = []
+    for record in candidates:
+        old = state['reservations'][record['reference']]
+        if history.changes(old, record):
+            record['revision'] += 1
+            history.append(state, record, 'changed', old)
+            state['reservations'][record['reference']] = record
+            changed.append(record['reference'])
+    if changed:
+        agreement['revision'] += 1
+        state['restaurant_revisions'][agreement['restaurant_id']] += 1
+    result = response(state, agreement)
+    # Portable provenance lets import distinguish collective clock amendments
+    # from permanent individual diner exceptions without changing public history.
+    state['series_operations'].append({'series_id': sid, 'body': deepcopy(body),
+                                       'before': before, 'after': deepcopy(result)})
+    return result
