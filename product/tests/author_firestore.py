@@ -106,10 +106,10 @@ def test_chunk_capacity_and_hash_fail_closed(store):
 def test_crash_boundaries(store, tmp_path, fault, expected, code):
     marker = tmp_path / 'arm'
     marker.touch()
-    process = worker(store, PRELUDE + "s.transact('main',lambda value:value.update(setup_consumed=True))", TABLEKEEPER_MODE='development', TABLEKEEPER_FAULT=fault, TABLEKEEPER_FAULT_ARM_FILE=str(marker))
+    process = worker(store, PRELUDE + "s.transact('main',lambda value:value.update(author_crash_marker=True))", TABLEKEEPER_MODE='development', TABLEKEEPER_FAULT=fault, TABLEKEEPER_FAULT_ARM_FILE=str(marker))
     output, error = process.communicate(timeout=30)
     assert process.returncode == code, error
-    assert store.snapshot('main')[1]['setup_consumed'] is expected
+    assert store.snapshot('main')[1].get('author_crash_marker', False) is expected
 
 
 def test_backup_during_writes_and_restore_cas(store, tmp_path):

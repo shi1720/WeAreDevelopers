@@ -240,7 +240,7 @@ def test_demo_reset_rotates_recovery_scope_and_expiry_recovers_shell(app):
     assert result['authenticated'] is False and result['demo'] is False
 
 
-@pytest.mark.parametrize('corruption', ['unconsumed', 'demo_without_expiry', 'expiry_without_demo', 'demo_unconfigured'])
+@pytest.mark.parametrize('corruption', ['unconsumed', 'demo_without_expiry', 'expiry_without_demo', 'demo_unconfigured', 'consumed_empty', 'no_manager'])
 def test_operational_flag_corruption_restore_preserves_store(app, tmp_path, corruption):
     import hashlib
     from tablekeeper.storage import encode
@@ -254,6 +254,11 @@ def test_operational_flag_corruption_restore_preserves_store(app, tmp_path, corr
         value['demo'] = True
     elif corruption == 'expiry_without_demo':
         value['expires_at'] = time.time() + 100
+    elif corruption == 'consumed_empty':
+        value = fresh()
+        value['setup_consumed'] = True
+    elif corruption == 'no_manager':
+        value['domain']['restaurants'][0]['manager_user_ids'] = []
     else:
         value = fresh()
         value.update(demo=True, expires_at=time.time() + 100)

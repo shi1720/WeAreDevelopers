@@ -54,6 +54,10 @@ def validate(value):
             raise ValueError('invalid flags')
         if not value['setup_consumed'] and value['domain'] != empty():
             raise ValueError('unconsumed setup cannot contain configured domain state')
+        if value['setup_consumed']:
+            venues = value['domain']['restaurants']
+            if len(venues) != 1 or not venues[0].get('manager_user_ids'):
+                raise ValueError('configured namespace requires one venue and a valid manager')
         if 'scope_generation' in value and (type(value['scope_generation']) is not str or not re.fullmatch('[0-9a-f]{32}', value['scope_generation'])):
             raise ValueError('invalid recovery generation')
         if value['expires_at'] is not None and (type(value['expires_at']) not in (int, float) or not math.isfinite(value['expires_at'])):
