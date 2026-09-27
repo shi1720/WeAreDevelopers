@@ -85,7 +85,9 @@ def test_demo_cookie_locator_is_not_authority_and_expiry_synchronous(tmp_path):
         server.stop()
         store = SQLiteStore(tmp_path/'state.sqlite3')
         try:
-            store.transact(namespace_a,lambda c:c.update(expires_at=time.time()-1))
+            expired_at=time.time()-1
+            store.transact(namespace_a,lambda c:c.update(expires_at=expired_at))
+            store.transact('main',lambda c:c['registry'].update({namespace_a:expired_at}))
         finally:
             store.close()
         server.start()
