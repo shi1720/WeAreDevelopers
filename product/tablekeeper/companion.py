@@ -47,7 +47,12 @@ class Companion:
             raise StoreError('Setup secret must contain at least 32 random characters')
         self.store = store or open_store()
         self.domain_route = domain_route
-        self.store.transact('main', lambda value: None, create=True)
+        try:
+            self.store.snapshot('main')
+        except APIError as exc:
+            if exc.code != 'not_found':
+                raise
+            self.store.transact('main', lambda value: None, create=True)
 
     def cookie(self, namespace, token, max_age=SESSION_SECONDS):
         return f'__session={namespace}.{token}; Path=/; HttpOnly; SameSite=Lax; Max-Age={max_age}' + ('; Secure' if self.mode == 'production' else '')

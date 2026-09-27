@@ -1,5 +1,6 @@
 """Durable candidate transactions. No callback may publish outside its candidate."""
 from copy import deepcopy
+from contextlib import contextmanager
 import fcntl
 import hashlib
 import json
@@ -8,7 +9,7 @@ import os
 from pathlib import Path
 import re
 import sqlite3
-from threading import RLock
+from threading import RLock, local
 import time
 
 from .state import empty, validate_state
@@ -17,6 +18,8 @@ from .validation import APIError
 MAX_BYTES = 4 * 1024 * 1024
 CHUNK_BYTES = 512 * 1024
 MAX_REQUEST_BYTES = 8 * 1024 * 1024
+STORE_NETWORK_SECONDS = 8.0
+RPC_SECONDS = 4.0
 
 
 class StoreError(RuntimeError):
@@ -231,8 +234,53 @@ class FirestoreStore:
         if not project or not re.fullmatch('[a-zA-Z0-9_-]{1,64}', collection):
             raise StoreError('Explicit project and valid collection required')
         self.firestore = firestore
-        self.client = firestore.Client(project=project, database=database)
+        self.clock = local()
+        clock = self.clock
+
+        class DeadlineAPI:
+            """Bound the pinned SDK's internal transaction RPCs as well as reads."""
+            def __init__(self, api):
+                self.api = api
+
+            def __getattr__(self, name):
+                target = getattr(self.api, name)
+                if name not in ('begin_transaction', 'batch_get_documents', 'commit', 'rollback'):
+                    return target
+
+                def call(*args, **kwargs):
+                    remaining = getattr(clock, 'deadline', time.monotonic() + RPC_SECONDS) - time.monotonic()
+                    if name == 'rollback':
+                        # Release server locks even when the main budget expired.
+                        timeout = 1.0
+                    else:
+                        if remaining <= 0:
+                            raise StoreError('Firestore operation deadline exceeded; retry unchanged request')
+                        timeout = min(RPC_SECONDS, remaining)
+                    kwargs.update(retry=None, timeout=timeout)
+                    return target(*args, **kwargs)
+                return call
+
+        class DeadlineClient(firestore.Client):
+            @property
+            def _firestore_api(self):
+                # SDK2.21 Transaction methods lack public timeout parameters.
+                # Keep SDK transaction/retry logic, bounding its GAPIC boundary.
+                return DeadlineAPI(super()._firestore_api)
+
+        self.client = DeadlineClient(project=project, database=database)
         self.collection = self.client.collection(collection)
+
+    @contextmanager
+    def network_budget(self):
+        previous = getattr(self.clock, 'deadline', None)
+        self.clock.deadline = time.monotonic() + STORE_NETWORK_SECONDS
+        try:
+            yield
+        finally:
+            if previous is None:
+                del self.clock.deadline
+            else:
+                self.clock.deadline = previous
 
     def _read(self, namespace, transaction):
         root = self.collection.document(namespace_id(namespace))
@@ -297,7 +345,8 @@ class FirestoreStore:
             return result
 
         try:
-            result = execute(transaction)
+            with self.network_budget():
+                result = execute(transaction)
         except (APIError, StoreError):
             raise
         except Exception as exc:
@@ -314,7 +363,13 @@ class FirestoreStore:
             if value is None:
                 raise APIError(404, 'not_found')
             return meta['revision'], value
-        return read(transaction)
+        try:
+            with self.network_budget():
+                return read(transaction)
+        except (APIError, StoreError):
+            raise
+        except Exception as exc:
+            raise StoreError('Firestore snapshot unavailable') from exc
 
     def delete(self, namespace):
         if namespace == 'main':

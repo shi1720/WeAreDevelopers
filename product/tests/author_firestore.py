@@ -4,6 +4,7 @@ from copy import deepcopy
 import os
 import subprocess
 import sys
+import time
 import uuid
 
 import pytest
@@ -129,3 +130,42 @@ def test_backup_during_writes_and_restore_cas(store, tmp_path):
         operations.restore(store, 'main', file, revision - 1)
     operations.restore(store, 'main', file, revision, True)
     operations.maintenance(store, 'main', False)
+
+
+def test_orphan_lock_recovery_has_bounded_attempts_and_one_receipt(store, tmp_path):
+    from tablekeeper.demo import fixture
+    from tablekeeper.state import from_fixture
+    from tablekeeper import reservations
+    store.transact('main', lambda value: value.update(domain=from_fixture(fixture()), setup_consumed=True))
+    body = {'restaurant_id': 'the_orangery', 'table_id': 'window', 'starts_at_local': '2035-06-15T19:00', 'party_size': 2}
+    marker = tmp_path / 'orphan-arm'
+    marker.touch()
+    source = PRELUDE + "from tablekeeper import reservations; body=" + repr(body) + "; s.transact('main',lambda value: reservations.idempotent(value['domain'],'demo_guest','POST','/reservations','orphan-key',body,lambda: reservations.create(value['domain'],'demo_guest',body)))"
+    process = worker(store, source, TABLEKEEPER_MODE='development', TABLEKEEPER_FAULT='before_commit', TABLEKEEPER_FAULT_ARM_FILE=str(marker))
+    _, error = process.communicate(timeout=15)
+    assert process.returncode == 86, error
+    began = time.monotonic()
+    attempts = []
+    result = None
+    # Firestore documents a 60-second idle expiry. Observe release without
+    # increasing any individual RPC/client wait or changing the saved request.
+    while time.monotonic() - began < 75:
+        started = time.monotonic()
+        try:
+            result = store.transact('main', lambda value: reservations.idempotent(value['domain'], 'demo_guest', 'POST', '/reservations', 'orphan-key', body,
+                lambda: reservations.create(value['domain'], 'demo_guest', body)))
+        except StoreError:
+            attempts.append({'seconds': round(time.monotonic() - started, 3), 'outcome': 'retryable_unknown'})
+            assert attempts[-1]['seconds'] < 10
+            time.sleep(1)
+            continue
+        attempts.append({'seconds': round(time.monotonic() - started, 3), 'outcome': 'success'})
+        break
+    print({'orphan_recovery_seconds': round(time.monotonic() - began, 3), 'attempts': attempts}, flush=True)
+    assert result is not None
+    replay = store.transact('main', lambda value: reservations.idempotent(value['domain'], 'demo_guest', 'POST', '/reservations', 'orphan-key', body,
+        lambda: reservations.create(value['domain'], 'demo_guest', body)))
+    assert replay == (200, result[1])
+    value = store.snapshot('main')[1]
+    assert len(value['domain']['reservations']) == 4
+    assert len(value['domain']['receipts']) == 1
