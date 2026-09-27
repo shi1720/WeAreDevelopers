@@ -132,9 +132,22 @@ def inside(phase):
         finally:
             for connection in sockets:
                 connection.close()
+    elif phase == 'proxy-error':
+        import signal
+        backend = next(int(path.parent.name) for path in Path('/proc').glob('[0-9]*/cmdline')
+                       if b'tablekeeper.server' in path.read_bytes().split(b'\0'))
+        os.kill(backend,signal.SIGSTOP)
+        try:
+            response=client.get(origin+'/health/ready',timeout=25)
+            assert response.status_code == 504
+            assert 'private' in response.headers.get('Cache-Control','') and 'no-store' in response.headers.get('Cache-Control','')
+            assert response.headers.get('X-Content-Type-Options') == 'nosniff'
+            print('Proxy-generated504 carries private,no-store and nosniff: PASS')
+        finally:
+            os.kill(backend,signal.SIGCONT)
 
 
-def host(image, slow_only=False):
+def host(image, limited=None):
     docker = os.environ.get('ACCEPTANCE_DOCKER', '/opt/homebrew/bin/docker')
     suffix = uuid.uuid4().hex[:10]
     name, target = 'verifier-' + suffix, 'verifier-restore-' + suffix
@@ -157,8 +170,8 @@ def host(image, slow_only=False):
         run('volume', 'create', volume)
         launch(name, volume)
         phase(name, 'seed')
-        if slow_only:
-            phase(name, 'slow')
+        if limited:
+            phase(name, limited)
             return
         phase(name, 'proxy')
         run('restart', name)
@@ -182,7 +195,7 @@ def host(image, slow_only=False):
 
 
 if __name__ == '__main__':
-    if sys.argv[1] in ('host', 'host-slow'):
-        host(sys.argv[2], sys.argv[1] == 'host-slow')
+    if sys.argv[1] in ('host', 'host-slow','host-proxy-error'):
+        host(sys.argv[2], {'host-slow':'slow','host-proxy-error':'proxy-error'}.get(sys.argv[1]))
     else:
         inside(sys.argv[1])
