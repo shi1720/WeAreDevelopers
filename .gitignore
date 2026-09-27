@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+__pycache__/
+.pytest_cache/
+.venv/
+node_modules/
+*.pyc
+*.db
+*.sqlite*
+playwright-report/
+test-results/
+.private/
