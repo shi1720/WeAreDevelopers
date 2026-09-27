@@ -264,6 +264,7 @@ class ExperienceBrowser(unittest.TestCase):
         self.page.goto(self.base + '/demo')
         self.page.locator('#reset-demo').click()
         self.page.locator('#confirm-reset').click()
+        self.page.wait_for_url(self.base + '/')
         self.page.get_by_test_id('current-user').wait_for()
         self.assertNotEqual(original_scope, self.page.evaluate('session.account_scope'))
         self.assertEqual(0, self.page.get_by_test_id('recover-request').count())
@@ -290,7 +291,8 @@ class ExperienceBrowser(unittest.TestCase):
             self.page.route(pattern, lose)
             submit.click()
             self.page.get_by_test_id(uncertain).wait_for()
-            self.assertEqual(200, results[0]['status'], results[0]['body'])
+            # Inherited keyed material operations return 201, including replays.
+            self.assertEqual(201, results[0]['status'], results[0]['body'])
             self.page.unroute(pattern, lose)
             self.stop()
             self.start()
