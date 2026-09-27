@@ -192,7 +192,7 @@ def test_material_action_lost_response_reload_and_restart(ui, action):
     page.route(pattern,lose)
     page.get_by_test_id(button).click()
     page.get_by_test_id('recover-request').wait_for(state='visible')
-    page.wait_for_function("!document.querySelector('[data-testid=recover-request]')?.disabled")
+    page.locator('[data-testid="recover-request"]:enabled').wait_for()
     assert len(observed) == 1
     page.unroute(pattern,lose)
     service.restart()
