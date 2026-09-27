@@ -1,0 +1,14 @@
+{
+  "room_id": "ce2cf88a-94cb-41ac-99e4-eb8940fd7b1f",
+  "original_room_id": "d82b4197-09c0-4af3-aabf-fa336747ff95",
+  "baseline": "330f1c8321670ca7d34b6b7127c0fb73df84ca25",
+  "purpose": "Separately commissioned hosted operational companion; not a graded stage",
+  "dispatch_sha256": "f94dec71c52d02887d47b7824b39d53ca9ad1e36d7217e3cebe0716791078563",
+  "dispatch_status": "prepared",
+  "seats": {
+    "coordinator": "316737f8-5692-4736-91c3-16a4ccaf54a2",
+    "engineer": "1635365c-d1f8-4291-84ff-012dc1d5686d",
+    "experience": "1ab176bf-9021-4092-ba27-ceafd7714cc7",
+    "verifier": "05391200-ba24-4c74-84b1-444282ca9015"
+  }
+}
