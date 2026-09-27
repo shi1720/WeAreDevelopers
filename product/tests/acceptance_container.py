@@ -103,6 +103,10 @@ def inside(phase):
                 connection = socket.create_connection(('127.0.0.1', 8080), timeout=2)
                 connection.sendall(b'POST /auth/login HTTP/1.1\r\nHost: localhost\r\nContent-Length: 10000\r\nContent-Type: application/json\r\n\r\n{')
                 sockets.append(connection)
+            for _ in range(4):
+                connection = socket.create_connection(('127.0.0.1', 8080), timeout=2)
+                connection.sendall(b'POST /auth/login HTTP/1.1\r\nHost: localhost\r\nX-Slow: ')
+                sockets.append(connection)
             began = time.monotonic()
             body = dict(saved['receipts'][0]['body'], table_id='table_3', starts_at_local='2032-06-18T19:00')
             booking_start = time.monotonic()
@@ -121,7 +125,7 @@ def inside(phase):
                         except OSError:
                             alive.remove(connection)
             elapsed = time.monotonic() - began
-            print(json.dumps({'trickling_clients': len(sockets), 'still_open_after_seconds': round(elapsed, 3),
+            print(json.dumps({'trickling_clients': len(sockets), 'body_clients':4, 'header_clients':4, 'still_open_after_seconds': round(elapsed, 3),
                               'still_open_count': len(alive), 'healthy_booking_seconds': round(booking_duration, 3)}), flush=True)
             assert booking_duration < 5
             assert not alive, 'proxy accepted body trickles beyond documented backend total connection deadline'
