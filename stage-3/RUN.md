@@ -94,3 +94,11 @@ relationships before the atomic state swap.
 The manager policy screen is `/manager`; guest history, terms and recurring adoption are
 available through lookup, with agreement details at `/series`. Replanning and collective
 recurring amendments belong to stage 4 and are not implemented in this folder.
+The optional authenticated `GET /api/series` helper lists only the signed-in user's
+agreements; `/series` itself remains the HTML screen.
+
+During parallel integration, the first policy-aware availability check failed because
+the server and module used crossed keyword contracts. The agreed `policy=` argument
+resolved it. A subsequent browser series-list check exposed an API/HTML route collision;
+the owner-only list helper now uses `/api/series`. The original test expectations were
+retained; independent acceptance is separate from these author checks.

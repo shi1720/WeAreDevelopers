@@ -226,6 +226,9 @@ class PolicySeriesTests(unittest.TestCase):
         body = {'anchor_reference': anchor['reference'], 'count': 12, 'interval_weeks': 4}
         agreement = self.call('POST', '/series', body, 'limits')[1]
         self.assertEqual(len(agreement['occurrences']), 12)
+        self.assertEqual(self.call('GET', '/api/series')[1], {'series': [agreement]})
+        self.assertEqual(self.call('GET', '/api/series', token=self.other)[1], {'series': []})
+        self.error(401, 'unauthenticated', lambda: self.call('GET', '/api/series', token=''))
         self.assertEqual(len({o['reference'] for o in agreement['occurrences']}), 12)
         self.error(409, 'already_in_series', lambda: self.call('POST', '/series', body, 'again'))
         for token in ('', self.other):

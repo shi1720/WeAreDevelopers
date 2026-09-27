@@ -92,6 +92,9 @@ class Application:
                 return 200, {'reference': record['reference'], 'entries': deepcopy(state['histories'][record['reference']])}
             return 200, {k: deepcopy(record[k]) for k in ('reference', 'revision', 'accepted_terms')}
         user = auth.authenticate(state, headers.get('Authorization'))
+        if method == 'GET' and path == '/api/series':
+            return 200, {'series': [series.response(state, agreement) for agreement in state['series'].values()
+                                    if agreement['user_id'] == user]}
         if method == 'POST' and policy_route:
             return reservations.idempotent(state, user, method, path, headers.get('Idempotency-Key'), body,
                 lambda: policies.publish(state, user, reservations.restaurant_for(state, unquote(policy_route[1])), body))
