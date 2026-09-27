@@ -236,11 +236,13 @@ def test_owner_list_pagination_roster_and_private_history(service):
     assert owner.expect(200, 'GET', '/reservations?view=upcoming&limit=25&offset=0')['reservations'] == []
     for suffix in ('', '/history', '/decision'):
         owner.expect(404, 'GET', '/reservations/' + references[0] + suffix)
-    query = f'/api/roster?restaurant_id={rid}&date=2032-06-17'
+    query = f'/api/roster?restaurant_id={rid}&date=2032-06-17&limit=50&offset=0'
     guest.expect(403, 'GET', query)
     roster = owner.expect(200, 'GET', query)
     assert len(roster['reservations']) == 1
+    assert roster['next_offset'] is None
     assert roster['reservations'][0]['reference'] == references[0]
+    assert roster['reservations'][0]['display_name'] == 'Synthetic Guest'
     for forbidden in ('password', 'password_hash', 'sessions', 'history', 'accepted_terms'):
         assert forbidden not in roster['reservations'][0]
 
