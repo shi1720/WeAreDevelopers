@@ -1,6 +1,6 @@
 # Stage 1 independent requirement coverage
 
-Source: complete official stage-1 specification, immutable kickoff revision `803560d2a678ace1414465c098eb0ab5380ffade`. The participant guide and all four contracts were read before authoring checks. Tests were derived before reviewing implementation or published tests. Ownership: Proofline Verifier. This is a coverage plan, not a pass claim.
+Source: complete official stage-1 specification, immutable kickoff revision `803560d2a678ace1414465c098eb0ab5380ffade`. The participant guide and all four contracts were read before authoring checks. The first 20 tests were derived before reviewing implementation or published tests. Three additional tests deepen review with 22 import corruptions, cutoff bracketing, and 50 concurrent batch/read calls. Ownership: Proofline Verifier.
 
 | Contract | Independent coverage | Remaining acceptance evidence |
 |---|---|---|
@@ -19,4 +19,16 @@ Source: complete official stage-1 specification, immutable kickoff revision `803
 
 The independent suite uses only HTTP and standard-library Python. Set `TABLEKEEPER_BASE_URL` to a disposable instance; every test resets it. Tokens and exported state remain in memory, and assertion messages suppress successful authentication/export payloads. No official test or implementation module is imported.
 
-Pending gate: coordinator must freeze an exact committed revision before acceptance execution. Run commands, exit codes, durations, failures, fixes and isolated evidence will be recorded in `evidence/stage-1/`. Later-stage contracts inform extensibility review only; no future feature is required in this folder.
+## Executed evidence and source review
+
+Frozen service revision: `8a2a07abfe972815cfea7c02176a075b8b2accaf`. The entire service package, Dockerfile, RUN.md and implementation tests were reviewed. Service package Git tree: `2a5107fedec409dd152484de88ede68b861e008b`; later test/evidence commits leave that tree identical. Test additions are committed at `5fb91092752dc97fe4df6b17bd0659a0a5c1fe28`.
+
+- Independent HTTP: initial 20/20 pass, then expanded 23/23 pass. All three 50-request groups passed: original-key replay, competing creates, and whole-batch read visibility. Eight-item batches, seeded identities, cross-restaurant rejection, signup races and listing order close the preparation gaps above.
+- All 22 corrupt import variants returned 422 and left the complete exported destination equal to its pre-request snapshot. Cases cover orphan sessions/owners/receipts, duplicate identities/emails/receipts, credential structure, overlapping bookings, invalid timestamps/configuration and mismatched create/batch receipts.
+- A fresh second container accepted an unchanged snapshot twice. It preserved login, existing bearer token, identities, exact original create and batch receipts, while removing the old destination token. The exported snapshot was detached from subsequent source cancellation.
+- Reviewer independently executed all 24 implementation unit/HTTP tests: pass. These include Lord Howe non-hour transitions, past/leap dates and exact closing-time behavior.
+- Official host suite: 120/120 stage-1 checks passed, no skips/errors/deselection. Stage-2 overshoot collected 25 and stopped after its first expected failure: the absent browser search screen. This is intentionally a stage-1 API service.
+- Source review: a reentrant lock covers every read and complete mutation. Mutations operate on a deep copy and publish only after success; reset/import validate before assignment. Receipt replay precedes endpoint validation and returns a deep copy of the original response. Passwords use salted scrypt (N=16384, r=8, p=1); tokens are opaque and nonexpiring. Time arithmetic and overlap use UTC, with IANA fold=0 and gap round-trip checks. Imported current records, receipts and ownership relationships are validated before replacement.
+- Cutoff threshold comparison is `now >= start - cutoff`; HTTP checks bracket the current instant at neighboring minute thresholds. Exact microsecond equality is established by source inspection rather than a frozen-clock HTTP mechanism, which the contract does not provide.
+
+Pending gate: final official isolated run is still building its runner. No isolated pass or overall acceptance is claimed yet. Run commands, exit codes and measured durations are in `evidence/stage-1/`. Finite tests cannot prove every possible schedule or input; no material violation was found in the reviewed service. Later-stage contracts inform extensibility review only; no future feature is required in this folder.

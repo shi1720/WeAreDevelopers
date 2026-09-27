@@ -1,0 +1,28 @@
+test_seeded_identity_past_dates_reset_and_descending_listing (independent_boundaries.IndependentBoundaries.test_seeded_identity_past_dates_reset_and_descending_listing) ... ok
+test_cross_restaurant_tables_and_collective_moves (independent_boundaries.IndependentBoundaries.test_cross_restaurant_tables_and_collective_moves) ... ok
+test_eight_item_batch_and_unlisted_occupancy_rollback (independent_boundaries.IndependentBoundaries.test_eight_item_batch_and_unlisted_occupancy_rollback) ... ok
+test_concurrent_amendments_cannot_share_target (independent_boundaries.IndependentBoundaries.test_concurrent_amendments_cannot_share_target) ... ok
+test_concurrent_signup_one_identity (independent_boundaries.IndependentBoundaries.test_concurrent_signup_one_identity) ... ok
+test_batch_input_error_precedes_occupancy_and_noop_occupies (independent_boundaries.IndependentBoundaries.test_batch_input_error_precedes_occupancy_and_noop_occupies) ... ok
+test_import_structural_relational_corruptions_roll_back (independent_boundaries.IndependentBoundaries.test_import_structural_relational_corruptions_roll_back) ... ok
+test_cutoff_surrounding_current_minute (independent_boundaries.IndependentBoundaries.test_cutoff_surrounding_current_minute) ... ok
+test_batch_reads_are_whole_snapshots (independent_boundaries.IndependentBoundaries.test_batch_reads_are_whole_snapshots) ... ok
+test_auth_validation_multiple_sessions_and_reset_revocation (independent_contract.IndependentContract.test_auth_validation_multiple_sessions_and_reset_revocation) ... ok
+test_batch_shape_owner_and_input_order (independent_contract.IndependentContract.test_batch_shape_owner_and_input_order) ... ok
+test_batch_swap_noop_receipt_and_atomic_failure (independent_contract.IndependentContract.test_batch_swap_noop_receipt_and_atomic_failure) ... ok
+test_concurrent_competing_50_no_double_booking (independent_contract.IndependentContract.test_concurrent_competing_50_no_double_booking) ... ok
+test_concurrent_identical_50_exactly_one_write (independent_contract.IndependentContract.test_concurrent_identical_50_exactly_one_write) ... ok
+test_dst_gaps_folds_absolute_durations_arbitrary_year (independent_contract.IndependentContract.test_dst_gaps_folds_absolute_durations_arbitrary_year) ... ok
+test_export_import_receipts_sessions_replacement_and_rejection (independent_contract.IndependentContract.test_export_import_receipts_sessions_replacement_and_rejection) ... ok
+test_half_open_intervals_grid_capacity_and_failed_patch (independent_contract.IndependentContract.test_half_open_intervals_grid_capacity_and_failed_patch) ... ok
+test_health_public_configuration_and_closed_day (independent_contract.IndependentContract.test_health_public_configuration_and_closed_day) ... ok
+test_idempotency_boundaries_value_equality_and_precedence (independent_contract.IndependentContract.test_idempotency_boundaries_value_equality_and_precedence) ... ok
+test_past_creation_and_current_cutoff (independent_contract.IndependentContract.test_past_creation_and_current_cutoff) ... ok
+test_receipts_survive_amend_cancel_and_owner_isolation (independent_contract.IndependentContract.test_receipts_survive_amend_cancel_and_owner_isolation) ... ok
+test_slots_from_opening_offset_and_full_empty_rows (independent_contract.IndependentContract.test_slots_from_opening_offset_and_full_empty_rows) ... ok
+test_strict_body_query_and_error_types (independent_contract.IndependentContract.test_strict_body_query_and_error_types) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 6.080s
+
+OK

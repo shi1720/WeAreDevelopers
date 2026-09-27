@@ -1,0 +1,29 @@
+test_capacity_closed_empty_and_cancelled (test_availability.AvailabilityTests.test_capacity_closed_empty_and_cancelled) ... ok
+test_fold_overlap_compares_absolute_instants (test_availability.AvailabilityTests.test_fold_overlap_compares_absolute_instants) ... ok
+test_half_open_overlap_and_fixture_order (test_availability.AvailabilityTests.test_half_open_overlap_and_fixture_order) ... ok
+test_inputs_not_mutated_and_result_not_aliased (test_availability.AvailabilityTests.test_inputs_not_mutated_and_result_not_aliased) ... ok
+test_party_type_and_range (test_availability.AvailabilityTests.test_party_type_and_range) ... ok
+test_50_competitors_never_double_book (test_core.CoreTests.test_50_competitors_never_double_book) ... ok
+test_50_identical_requests_have_one_commit (test_core.CoreTests.test_50_identical_requests_have_one_commit) ... ok
+test_atomic_swap_and_failure_leave_whole_snapshot_unchanged (test_core.CoreTests.test_atomic_swap_and_failure_leave_whole_snapshot_unchanged) ... ok
+test_export_is_detached_and_import_replaces_credentials (test_core.CoreTests.test_export_is_detached_and_import_replaces_credentials) ... ok
+test_half_open_and_owner_isolation (test_core.CoreTests.test_half_open_and_owner_isolation) ... ok
+test_invalid_import_does_not_replace_any_state (test_core.CoreTests.test_invalid_import_does_not_replace_any_state) ... ok
+test_json_type_and_key_boundaries (test_core.CoreTests.test_json_type_and_key_boundaries) ... ok
+test_original_receipt_survives_cancel_and_import (test_core.CoreTests.test_original_receipt_survives_cancel_and_import) ... ok
+test_past_create_and_cutoff_failure_atomicity (test_core.CoreTests.test_past_create_and_cutoff_failure_atomicity) ... ok
+test_receipt_corruption_rejected_atomically (test_core.CoreTests.test_receipt_corruption_rejected_atomically) ... ok
+test_reuse_precedes_validation_and_unknown_fields_matter (test_core.CoreTests.test_reuse_precedes_validation_and_unknown_fields_matter) ... ok
+test_real_http_types_auth_and_concurrency (test_core.HttpTests.test_real_http_types_auth_and_concurrency) ... ok
+test_absolute_durations_both_transitions (test_temporal.TemporalTests.test_absolute_durations_both_transitions) ... ok
+test_closed_day_and_arbitrary_past_date (test_temporal.TemporalTests.test_closed_day_and_arbitrary_past_date) ... ok
+test_gap_slots_omitted_fold_slots_once (test_temporal.TemporalTests.test_gap_slots_omitted_fold_slots_once) ... ok
+test_gaps_and_first_folds (test_temporal.TemporalTests.test_gaps_and_first_folds) ... ok
+test_grid_anchored_at_opening_and_exact_close (test_temporal.TemporalTests.test_grid_anchored_at_opening_and_exact_close) ... ok
+test_invalid_formats_and_types (test_temporal.TemporalTests.test_invalid_formats_and_types) ... ok
+test_transition_closing_uses_real_duration (test_temporal.TemporalTests.test_transition_closing_uses_real_duration) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 2.199s
+
+OK
