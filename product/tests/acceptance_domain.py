@@ -114,3 +114,18 @@ def test_planner_matches_independent_exhaustive_oracle(service,selections,closed
     plan=owner.expect(201,'POST','/restaurants/'+rid+'/replans',closure,'oracle-plan')
     for key in ('assignments','moved_count','unused_seats'):
         assert plan[key] == expected[key]
+
+
+def test_competing_amendment_cas_and_cutoff_precedence(service):
+    owner,rid = configured(service)
+    _, booking = owner.booking(rid, table='table_2')
+    route='/reservations/'+booking['reference']
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        results=list(pool.map(lambda party:owner.request('PATCH',route,{'party_size':party,'expected_revision':booking['revision']},'cas'+str(party)),(1,3)))
+    assert sorted(result.status_code for result in results) == [200,409]
+    assert owner.expect(200,'GET',route)['revision'] == booking['revision']+1
+    past=owner.expect(201,'POST','/reservations',{'restaurant_id':rid,'table_id':'table_1','starts_at_local':'2020-06-17T18:00','party_size':2},'past')
+    route='/reservations/'+past['reference']
+    owner.expect(409,'PATCH',route,{'party_size':999,'expected_revision':999},'stale-before-cutoff','stale_revision')
+    owner.expect(409,'PATCH',route,{'party_size':999,'expected_revision':past['revision']},'cutoff-before-capacity','cutoff_passed')
+    assert owner.expect(200,'GET',route) == past
