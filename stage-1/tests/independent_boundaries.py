@@ -1,5 +1,6 @@
 """Additional state-transition and concurrency cases derived from stage 1."""
 import copy
+from datetime import datetime, timedelta, timezone
 from independent_contract import IndependentContract, fixture
 
 
@@ -75,6 +76,82 @@ class IndependentBoundaries(IndependentContract):
         collision["moves"][1]["party_size"] = 0
         self.expect(422, "POST", "/reservation-moves", collision, self.a, "noop-collision", "validation_failed")
         self.assertTrue(before == self.snapshot())
+
+    def test_import_structural_relational_corruptions_roll_back(self):
+        first = self.create()
+        second = self.create(key="second", table="table-a")
+        self.expect(201, "POST", "/reservation-moves", {"moves": [{"reference": first["reference"], "party_size": 1}]}, self.a, "move")
+        original = self.snapshot()
+        ref, other = first["reference"], second["reference"]
+        changes = {
+            "boolean schema": lambda s: s.update(schema=True),
+            "orphan session": lambda s: s["tokens"].update({"synthetic-orphan": "missing-user"}),
+            "mismatched user id": lambda s: s["users"]["user-a"].update(id="different"),
+            "duplicate email": lambda s: s["users"]["user-b"].update(email=s["users"]["user-a"]["email"]),
+            "plaintext credential": lambda s: s["users"]["user-a"].update(password="synthetic-invalid"),
+            "malformed hash": lambda s: s["users"]["user-a"]["password_hash"].update(salt="invalid"),
+            "orphan owner": lambda s: s["reservations"][ref].update(user_id="missing-user"),
+            "duplicate identity": lambda s: s["reservations"][ref].update(reservation_id=s["reservations"][other]["reservation_id"]),
+            "reference mismatch": lambda s: s["reservations"][ref].update(reference="OTHER1"),
+            "invalid status": lambda s: s["reservations"][ref].update(status="pending"),
+            "invalid party": lambda s: s["reservations"][ref].update(party_size=True),
+            "bad table": lambda s: s["reservations"][ref].update(table_id="missing-table"),
+            "wrong end instant": lambda s: s["reservations"][ref].update(ends_at="2032-06-17T19:01:00+00:00"),
+            "overlapping records": lambda s: s["reservations"][other].update(table_id="table-z"),
+            "bad timezone": lambda s: s["restaurants"][0].update(timezone="Invalid/Timezone"),
+            "duplicate weekday": lambda s: s["restaurants"][0]["opening_hours"].append(copy.deepcopy(s["restaurants"][0]["opening_hours"][0])),
+            "duplicate receipt": lambda s: s["receipts"].append(copy.deepcopy(s["receipts"][0])),
+            "orphan receipt": lambda s: s["receipts"][0].update(user_id="missing-user"),
+            "receipt request mismatch": lambda s: s["receipts"][0]["body"].update(party_size=2_000),
+            "receipt response mismatch": lambda s: s["receipts"][0]["response"].update(reference="OTHER1"),
+            "receipt cancelled response": lambda s: s["receipts"][0]["response"].update(status="cancelled"),
+            "batch receipt order mismatch": lambda s: s["receipts"][-1]["body"]["moves"][0].update(reference=other),
+        }
+        for label, mutate in changes.items():
+            with self.subTest(corruption=label):
+                invalid = copy.deepcopy(original)
+                mutate(invalid["state"])
+                self.expect(422, "POST", "/_test/import", invalid, code="validation_failed")
+                self.assertTrue(original == self.snapshot(), "invalid import mutated destination: " + label)
+        self.assertEqual(first, self.expect(200, "POST", "/reservations", self.booking(), self.a, "create"))
+
+    def test_cutoff_surrounding_current_minute(self):
+        # The two cutoff thresholds bracket now by one minute without sleeping.
+        # Retry a setup crossing a minute boundary rather than weaken expectations.
+        for cutoff, expected in ((9, 200), (10, 409)):
+            for attempt in range(3):
+                anchor = datetime.now(timezone.utc).replace(second=0, microsecond=0)
+                start = anchor + timedelta(minutes=10)
+                zone = "Etc/UTC"
+                if start.hour == 23 and start.minute > 58:
+                    zone = "Etc/GMT-12"
+                    start = start.astimezone(timezone(timedelta(hours=12)))
+                self.reset(fixture(zone, slot=1, duration=1, cutoff=cutoff)); self.a = self.login()
+                booked = self.create(local=start.strftime("%Y-%m-%dT%H:%M"))
+                if datetime.now(timezone.utc).replace(second=0, microsecond=0) != anchor:
+                    continue
+                status, response = self.request("POST", "/reservations/" + booked["reference"] + "/cancel", {}, self.a)
+                self.assertEqual(status, expected)
+                if expected == 409:
+                    self.assertEqual(response["error"]["code"], "cutoff_passed")
+                break
+            else:
+                self.fail("Could not establish a stable current-minute cutoff fixture")
+
+    def test_batch_reads_are_whole_snapshots(self):
+        one = self.create(key="one")
+        two = self.create(key="two", table="table-a")
+        moves = {"moves": [{"reference": one["reference"], "table_id": "table-a"}, {"reference": two["reference"], "table_id": "table-z"}]}
+        def operation(i):
+            if i % 2:
+                return self.request("POST", "/reservation-moves", moves, self.a, "atomic-" + str(i))
+            return self.request("GET", "/reservations", token=self.a)
+        results = self.concurrent(50, operation)
+        for status, result in results:
+            self.assertIn(status, (200, 201))
+            assignment = {r["reference"]: r["table_id"] for r in result["reservations"]}
+            self.assertIn((assignment[one["reference"]], assignment[two["reference"]]),
+                          (("table-z", "table-a"), ("table-a", "table-z")))
 
 
 def load_tests(loader, tests, pattern):
