@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "product/tests/experience_browser.py",
+    "ExperienceBrowser.test_setup_booking_edit_roster_and_mobile",
+    "ExperienceBrowser.test_demo_closure_series_updated_summary"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "head_at_start": "145536827499efcf1342b0936e8311d00bc0c33b",
+  "dirty_status_at_start": [
+    " M evidence/product/review-notes.md",
+    " M product/static/app.js",
+    " M product/static/experience.js",
+    " M product/static/styles.css",
+    " M product/tests/experience_browser.py",
+    "?? evidence/product/verification/runs/20260927T183933481034Z-storage-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933481034Z-storage-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T183933482996Z-http-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933482996Z-http-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T183933485988Z-build-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933485988Z-build-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184201614904Z-browser-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184201614904Z-browser-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184201615127Z-contention-recovery-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184201615127Z-contention-recovery-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T184345467244Z-container-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T184345467244Z-container-70cf83c.log",
+    "?? evidence/product/verification/screenshots/"
+  ],
+  "tracked_diff_sha256": "86be6e97c075e3015fcdb7aa727002fe0cf17ef1b38b9e9b9813f979bf99b707",
+  "started_at_utc": "20260927T184412053845Z",
+  "duration_seconds": 4.294044791997294,
+  "exit_status": 0,
+  "output": "20260927T184412053845Z.log",
+  "clean_at_start": false,
+  "independent_acceptance": false
+}

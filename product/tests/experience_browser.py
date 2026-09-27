@@ -49,7 +49,10 @@ class ExperienceBrowser(unittest.TestCase):
         self.page = self.context.new_page()
         self.page.set_default_timeout(7000)
         self.errors = []
+        self.csp_errors = []
         self.page.on('pageerror', lambda error: self.errors.append(str(error)))
+        self.page.on('console', lambda message: self.csp_errors.append(message.text)
+                     if 'content security policy' in message.text.lower() else None)
 
     def start(self):
         self.process = subprocess.Popen([sys.executable, '-m', 'tablekeeper.server'], cwd=ROOT,
@@ -77,6 +80,7 @@ class ExperienceBrowser(unittest.TestCase):
             self.stop()
             self.directory.cleanup()
         self.assertEqual([], self.errors)
+        self.assertEqual([], self.csp_errors)
 
     def screenshot(self, name, width=1440):
         self.page.set_viewport_size({'width': width, 'height': 1000 if width > 375 else 900})

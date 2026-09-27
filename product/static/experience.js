@@ -55,7 +55,7 @@ async function managerScreen() {
     const list=await api('/restaurants'); const restaurants=await Promise.all(list.restaurants.map(r=>api(`/restaurants/${encodeURIComponent(r.id)}`)));
     const managed=restaurants.filter(r=>(r.manager_user_ids||[]).includes(session.user_id));
     const select=document.querySelector('#manager-restaurant');select.replaceChildren();
-    if(!managed.length) { select.innerHTML='<option>No managed restaurants</option>';document.querySelector('#manager-content').innerHTML='<div class="empty" style="margin-top:25px"><h2>Your guest experience comes first.</h2>This account does not manage a restaurant. <a href="/">Find a table</a> instead.</div>';return; }
+    if(!managed.length) { select.innerHTML='<option>No managed restaurants</option>';document.querySelector('#manager-content').innerHTML='<div class="empty manager-empty"><h2>Your guest experience comes first.</h2>This account does not manage a restaurant. <a href="/">Find a table</a> instead.</div>';return; }
     for(const restaurant of managed) { const option=document.createElement('option');option.value=restaurant.id;option.textContent=restaurant.name;select.append(option); }
     select.onchange=()=>loadManager(managed.find(r=>r.id===select.value));
     await loadManager(managed[0]);
