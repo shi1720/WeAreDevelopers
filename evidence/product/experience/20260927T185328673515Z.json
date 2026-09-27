@@ -1,0 +1,20 @@
+{
+  "command": [
+    "node",
+    "product/tests/experience_recovery.cjs"
+  ],
+  "cwd": "/Users/shivamgupta/.cache/tablekeeper-experience-48c45d0",
+  "head_at_start": "48c45d0b63bc7c4e6aba582b381e7be5262ca3ff",
+  "dirty_status_at_start": [
+    "?? evidence/product/experience/20260927T185321354750Z.json",
+    "?? evidence/product/experience/20260927T185321354750Z.log",
+    "?? evidence/product/experience/restart-recovery-375.png"
+  ],
+  "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "started_at_utc": "20260927T185328673515Z",
+  "duration_seconds": 0.1229947079991689,
+  "exit_status": 0,
+  "output": "20260927T185328673515Z.log",
+  "clean_at_start": false,
+  "independent_acceptance": false
+}
