@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 import pytest
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 from acceptance_http import Service, PASSWORD
 
@@ -214,7 +214,7 @@ def test_material_action_lost_response_reload_and_restart(ui, action):
     assert replays == observed
     page.unroute(pattern,replay)
     if action == 'series':
-        assert page.locator('.occurrences h3').filter(has_text='20:00').count() == 2
+        expect(page.locator('.occurrences h3').filter(has_text='20:00')).to_have_count(2, timeout=8000)
         capture(page,'series-updated')
     else:
         result=page.request.get(service.url+'/reservations/'+reference).json()
