@@ -1,24 +1,18 @@
-# Stage 4 implementation coverage
+# Companion engineering
 
-Agent-generated backend by Proofline Engineer; independent acceptance remains with the verifier and coordinator.
+The unchanged stage-4 domain is extended through `tablekeeper/companion.py` and `tablekeeper/storage.py`. Domain operations still derive private candidate state. SQLite commits with exclusive writer ownership; Firestore commits namespace roots, revisions and bounded byte chunks transactionally across processes. Successful receipts are stored in the same transaction as the effects.
 
-| Requirement | Implementation | Author evidence |
-|---|---|---|
-| Bounded global optimum, three objective tiers | planner.py exhaustive search with lexicographic objective and safe nonnegative-cost pruning | objective tiers, fixed full-interval overlap, 6/4/6 limits |
-| Own accepted capacities and unchanged promises | Candidate capacities taken from each reservation's accepted_terms; apply edits table selection only | terms/time equality, repair past cutoff |
-| Preview purity, replay and stale precedence | replans.py stores immutable context; existing transactional receipts; applied check precedes stale check | preview snapshots, original replay after later edits, stale and impossible rollback |
-| Atomic apply and series counters | One store transaction publishes closure and assignments; each affected series touched once | 50 simultaneous apply retries, history and counter assertions |
-| Closure occupancy | reservations.check_occupancy and availability closures keyword use half-open UTC intervals | blocked creation and closure-aware availability tests |
-| Recurring amendment CAS and rollback | series.amend validates revision first, original dates, eligible indices, old cutoff, then all occupancy | competing CAS, skipped exceptions/cancelled, no-op/empty success, full rollback |
-| Provenance without rewriting history | Private series_operations snapshots cross-check receipts and actual historical revisions; ordinary changed events retained | collective/individual exception round trip and provenance corruption rejection |
-| Portable plans and closures | portability.py checks optimizer result, historical identities, closure/apply links, original receipts and reassigned history | applied/unapplied round trips and corrupted plan rejection |
-| Deployment | Existing non-root Python3.12 image, local assets, no runtime downloads | independent host/isolated gates required before acceptance |
+Auth uses durable digested cookie sessions, CSRF and exact Origin checks. One-time setup, isolated public demos, bounded operational lists, private backups and maintenance/CAS restore are documented in [operations](docs/operations.md).
 
-Manager-only `GET /api/restaurants/{id}/replans/{plan_id}` returns preview fields at top level plus `before_reservations`, with public snapshots omitting user_id. Owners retain private lookup/history permissions.
+[Engineer coverage](../evidence/product/engineering/coverage.md) maps the requirements to implementation and author evidence. It is not independent acceptance. [Baseline provenance](../evidence/product/baseline.json) records the unchanged source and destination tree hashes. Original implementation and historical reports remain in the original stage folders and the first-copy commit.
 
-Run author checks from this folder with the prepared interpreter:
-`/tmp/proofline-official-spec/.venv/bin/python -m unittest discover -s tests -p 'test_*.py'`.
+The original temporal, availability, reservation, policy, series, planner, history and portability modules preserve half-open UTC occupancy, IANA gaps/folds, declared-pair selection, immutable accepted terms, append-only history, permanent recurring exceptions, collective atomic CAS and deterministic bounded global closure planning. The companion adds durable extra receipts for individual edit/cancel without rewriting inherited receipt contracts.
 
-Initial environment probes failed: macOS system Python3.9 lacks hashlib.scrypt; Homebrew Python3.14 lacks Playwright and differs in datetime parsing. Prepared-interpreter run passed 73 tests in 12.292s before two additional backend boundary tests. These probes did not alter earlier stages or official harness files. Final measured checks are reported with the committed handoff.
+Author checks from this folder:
 
-Subsequent evolving-tree discovery ran 78 tests in 27.681s, exit 1: newly added browser tests `test_closure_apply_lost_response_and_mobile` and `test_closure_stale_refresh_and_impossible` timed out waiting for `replan-preview`; other 76 passed. Failures were handed to the Experience owner. This is not an acceptance claim.
+```sh
+PYTHONPATH=. python3.12 -m pytest -q tests/author_companion.py tests/test_temporal.py tests/test_availability.py
+FIRESTORE_EMULATOR_HOST=127.0.0.1:18980 PYTHONPATH=. python3.12 -m pytest -q tests/author_firestore.py
+```
+
+The Firestore author suite uses the synthetic emulator project `demo-proofline-pilot` and unique `author_` collections. Install the hash-locked requirements first. Independent tests are maintained by Verifier, browser implementation/tests by Experience, and final acceptance/reporting by Coordinator. Agent-generated code is credited to those coding seats; Shivam Gupta leads project, product and factory configuration.
