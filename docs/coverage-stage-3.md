@@ -2,7 +2,7 @@
 
 Contracts: full stages 1–3 at official `803560d2a678ace1414465c098eb0ab5380ffade`. Copy-forward `5fe6f09be2d41500a051d3f77983941d0eb97ce8` copied accepted stage 2 unchanged; source/destination tree `3cff1d59fd5dbf0a625e5b223ce222dc87fcd0f4`. Earlier folders remain frozen.
 
-This matrix and new HTTP tests precede new implementation review. Preparation is not an acceptance result. Inherited checks remain enabled, with stage-specific expectation changes permitted only where the newer contract changes behavior.
+This matrix and new HTTP tests precede new implementation review. Final independent recommendation PASS at `8a12344510a97d7ee20a4326935cacc3ab00798e`; measured results and limits are in `../evidence/stage-3/verification.md`. Inherited checks remain enabled, with stage-specific expectation changes permitted only where the newer contract changes behavior.
 
 | Clause | Independent cases / transitions | Remaining acceptance work |
 |---|---|---|
@@ -25,3 +25,7 @@ This matrix and new HTTP tests precede new implementation review. Preparation is
 | Deployment/official | Immutable official host suites1–3, expected4 rejection, isolated internal network2CPU2GiB | Run only after coordinator freeze; new shared output every time |
 
 Reviewer owns `stage-3/tests/independent_*.py`, this matrix and `evidence/stage-3/`. Source repairs belong to authors. Exports/tokens stay in memory or private outside repository. Restaurant revision has no mandatory public read endpoint in stage3: exact counter validation requires source review and exported opaque-state inspection, without demanding a future stage4 endpoint.
+
+## Completed gate
+
+47 HTTP checks plus3 additional transition/counter checks,7 inherited browser scenarios,3 product scenarios,2 actual predecessor migrations,62 implementation tests and official152/152 host+isolated passed. Initial import exception defect was rejected, repaired by Engineer and independently rechecked. All rows received implementation review and runtime evidence; remaining nonexhaustive limits are stated in the final report. The original prepared matrix retains its planned follow-up wording for traceability.

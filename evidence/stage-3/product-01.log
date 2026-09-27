@@ -1,0 +1,6 @@
+PASS manager-policy-responsive-original-replay
+PASS guest-terms-history-series-adoption-responsive
+PASS diner-manager-screen-permission
+real 1.62
+user 1.32
+sys 0.34

@@ -1,0 +1,51 @@
+{
+  "0fa9a93fb480": {
+    "name": "/df-svc-4702f2fc5d81",
+    "cpu": 2000000000,
+    "memory": 2147483648,
+    "internal": true,
+    "proxy_keys": []
+  },
+  "edfe12e71774": {
+    "name": "/competent_germain",
+    "cpu": 0,
+    "memory": 0,
+    "internal": true,
+    "proxy_keys": []
+  },
+  "8e1511c20d46": {
+    "name": "/df-svc-c9c9b8918973",
+    "cpu": 2000000000,
+    "memory": 2147483648,
+    "internal": true,
+    "proxy_keys": []
+  },
+  "c114cdcbd04f": {
+    "name": "/reverent_clarke",
+    "cpu": 0,
+    "memory": 0,
+    "internal": true,
+    "proxy_keys": []
+  },
+  "193215cf4f3a": {
+    "name": "/df-svc-25477fb97e6a",
+    "cpu": 2000000000,
+    "memory": 2147483648,
+    "internal": true,
+    "proxy_keys": []
+  },
+  "bf3ad0e0d92b": {
+    "name": "/charming_carson",
+    "cpu": 0,
+    "memory": 0,
+    "internal": true,
+    "proxy_keys": []
+  },
+  "0d7a906e0a67": {
+    "name": "/optimistic_khayyam",
+    "cpu": 0,
+    "memory": 0,
+    "internal": true,
+    "proxy_keys": []
+  }
+}

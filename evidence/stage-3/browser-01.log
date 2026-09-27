@@ -1,0 +1,57 @@
+PASS routes-grid-mobile-desktop-assets duration_seconds=0.868
+PASS single-lost-response duration_seconds=0.783
+PASS pair-lost-response duration_seconds=0.785
+PASS single-conflict-refresh duration_seconds=0.689
+PASS pair-conflict-refresh duration_seconds=0.696
+PASS stale-search-result duration_seconds=0.637
+FAIL live-stage1-upgrade-pending-retry AssertionError: Locator expected to be visible
+Actual value: None
+Error: element(s) not found 
+Call log:
+  - Expect "to_be_visible" get_by_test_id("availability-grid") with timeout 5000ms
+  - waiting for get_by_test_id("availability-grid")
+
+Aria snapshot:
+- link "Skip to content":
+  - /url: "#main"
+- banner:
+  - link "Tablekeeper home":
+    - /url: /
+    - text: tablekeeper
+  - navigation "Main navigation":
+    - link "Find a table":
+      - /url: /
+    - link "Your reservation":
+      - /url: /lookup
+    - link "Regular evenings":
+      - /url: /series
+    - link "For restaurants":
+      - /url: /manager
+    - text: Ada
+    - button "Sign out"
+- main:
+  - paragraph: Make room for a lovely evening
+  - heading "Good company. Your table is waiting." [level=1]:
+    - text: Good company.
+    - emphasis: Your table is waiting.
+  - paragraph: Find a place, choose your moment, and bring your favourite people. We’ll keep the table.
+  - figure "Good company. A place to gather.":
+    - img "Illustration of a thoughtfully set dining table"
+    - text: Good company. A place to gather.
+  - region "Find a table":
+    - text: Restaurant
+    - combobox "Restaurant":
+      - option "Independent Hearth" [selected]
+      - option "Second Dining Room"
+    - text: Date
+    - textbox "Date": 2032-06-17
+    - text: Guests
+    - spinbutton "Guests": "5"
+    - button "Find a table"
+  - alert: We could not find that reservation in your account. Check the reference and try again.
+- contentinfo:
+  - link "tablekeeper":
+    - /url: /
+  - paragraph: A booking is a promise. Keep the evening yours.
+  - text: Made for gathering.
+scenarios=7 passed=6 failed=1

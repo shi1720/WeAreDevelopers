@@ -1,0 +1,107 @@
+{
+  "revision": "8a12344510a97d7ee20a4326935cacc3ab00798e",
+  "track": "tablekeeper",
+  "stages": {
+    "1": "pass",
+    "2": "pass",
+    "3": "pass"
+  },
+  "highest_contiguous": 3,
+  "started_at": "2026-09-27T13:35:34.824116+00:00",
+  "finished_at": "2026-09-27T13:36:20.739759+00:00",
+  "schema_version": 2,
+  "run_id": "6532fc851a3540f2b61f244980590a90",
+  "mode": "host",
+  "provenance": "working-tree",
+  "state": "completed",
+  "pytest_args": [],
+  "suite_digest": "7e85d007a912b44e94c2890b5dccc4dcd416832b6aba35d729844de8c0aa1956",
+  "checks": {
+    "1": {
+      "collected": 120,
+      "passed": 120,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "deselected": 0,
+      "xfailed": 0,
+      "files": {
+        "stage_1/test_health_reset_auth.py": {
+          "passed": 12,
+          "total": 12
+        },
+        "stage_1/test_reservations.py": {
+          "passed": 37,
+          "total": 37
+        },
+        "stage_1/test_restaurants_availability.py": {
+          "passed": 18,
+          "total": 18
+        },
+        "stage_1/test_retries_time_input.py": {
+          "passed": 20,
+          "total": 20
+        },
+        "stage_1/test_sample.py": {
+          "passed": 20,
+          "total": 20
+        },
+        "stage_1/test_seeded_state.py": {
+          "passed": 13,
+          "total": 13
+        }
+      }
+    },
+    "2": {
+      "collected": 25,
+      "passed": 25,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "deselected": 0,
+      "xfailed": 0,
+      "files": {
+        "stage_2/test_sample.py": {
+          "passed": 8,
+          "total": 8
+        },
+        "stage_2/test_ui.py": {
+          "passed": 17,
+          "total": 17
+        }
+      }
+    },
+    "3": {
+      "collected": 7,
+      "passed": 7,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "deselected": 0,
+      "xfailed": 0,
+      "files": {
+        "stage_3/test_sample.py": {
+          "passed": 7,
+          "total": 7
+        }
+      }
+    }
+  },
+  "overshoot": null,
+  "claimed_stage": "3",
+  "share": 1.0,
+  "upgrade_sources": {
+    "2": {
+      "folder": "/Users/shivamgupta/Downloads/we-are-developers/stage-1",
+      "revision": "8a12344510a97d7ee20a4326935cacc3ab00798e"
+    },
+    "3": {
+      "folder": "/Users/shivamgupta/Downloads/we-are-developers/stage-2",
+      "revision": "8a12344510a97d7ee20a4326935cacc3ab00798e"
+    },
+    "4": {
+      "folder": "/Users/shivamgupta/Downloads/we-are-developers/stage-3",
+      "revision": "8a12344510a97d7ee20a4326935cacc3ab00798e"
+    }
+  }
+}

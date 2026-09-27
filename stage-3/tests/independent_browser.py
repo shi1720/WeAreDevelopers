@@ -22,6 +22,7 @@ from independent_contract import PASSWORD
 
 TARGET = os.environ.get("TABLEKEEPER_BASE_URL", "http://127.0.0.1:18092").rstrip("/")
 SOURCE = os.environ.get("TABLEKEEPER_STAGE1_URL", "http://127.0.0.1:18091").rstrip("/")
+LEGACY_UI = os.environ.get("TABLEKEEPER_STAGE2_URL", "http://127.0.0.1:18092").rstrip("/")
 DATE = "2032-06-17"
 
 
@@ -229,6 +230,12 @@ async def scenario_live_stage1_upgrade(browser, api):
     async def backend(route):
         request = route.request
         path = urlsplit(request.url).path
+        # Retain the actual predecessor browser code through upgrade. A new
+        # stage-3 page expects policies that the stage-1 source never offered.
+        if path in ('/', '/login', '/lookup') or path.startswith('/static/'):
+            response = await route.fetch(url=LEGACY_UI + path)
+            await route.fulfill(response=response)
+            return
         if path not in ("/auth/login", "/restaurants", "/availability", "/reservations") and not path.startswith("/restaurants/") and not path.startswith("/reservations/"):
             await route.continue_(); return
         base = SOURCE if upgrading["source"] else TARGET

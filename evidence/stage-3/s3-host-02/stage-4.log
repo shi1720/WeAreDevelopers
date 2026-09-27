@@ -1,0 +1,27 @@
+$ /private/tmp/proofline-official-spec/.venv/bin/python -m pytest /private/tmp/proofline-official-spec/tablekeeper/test/stage_4 --base-url http://127.0.0.1:56594 -p harness.plugin --rootdir /private/tmp/proofline-official-spec/tablekeeper/test -q -x --previous-base-url http://127.0.0.1:56594 --harness-summary /Users/shivamgupta/.cache/proofline-checks/s3-host-02/stage-4.counts.json
+
+....F
+=============================================================================================== FAILURES ===============================================================================================
+________________________________________________________________________________ test_series_clock_time_can_be_changed _________________________________________________________________________________
+
+world = namespace(fixture={'users': [{'id': 'u_ada', 'email': 'ada@example.com', 'password': 'correct horse', 'display_name': ..._anker', date='2026-10-04', ada=<harness.http.Api object at 0x108f8bf20>, bob=<harness.http.Api object at 0x108fb77d0>)
+book = <function book.<locals>._book at 0x108fb2700>
+
+    def test_series_clock_time_can_be_changed(world, book):
+        from harness.http import new_key
+        anchor = book().json()
+        made = world.ada.post('/series', json=dict(anchor_reference=anchor['reference'],
+            count=2, interval_weeks=1), idempotency_key=new_key())
+        assert made.status_code == 201
+        response = world.ada.post('/series/' + made.json()['series_id'] + '/amend',
+            json=dict(expected_revision=1, from_index=0, local_time='20:00'), idempotency_key=new_key())
+>       assert response.status_code == 201
+E       assert 404 == 201
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tablekeeper/test/stage_4/test_sample.py:90: AssertionError
+======================================================================================= short test summary info ========================================================================================
+FAILED tablekeeper/test/stage_4/test_sample.py::test_series_clock_time_can_be_changed - assert 404 == 201
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed, 4 passed in 1.00s
+
