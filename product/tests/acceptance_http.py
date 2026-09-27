@@ -34,6 +34,27 @@ def setup_body(secret):
                            'combinable': [['table_1', 'table_2']]}}
 
 
+@pytest.mark.parametrize('case', ['owner_null', 'owner_list', 'zero_tables', 'seven_tables', 'five_pairs', 'timezone', 'boolean_grid'])
+def test_invalid_setup_is_atomic_and_recoverable(service, case):
+    client = BrowserClient(service)
+    body = setup_body(service.secret)
+    venue = body['restaurant']
+    if case.startswith('owner_'):
+        body['owner'] = None if case == 'owner_null' else []
+    elif case in ('zero_tables', 'seven_tables', 'five_pairs'):
+        count = {'zero_tables': 0, 'seven_tables': 7, 'five_pairs': 6}[case]
+        venue['tables'] = [{'id': 't'+str(i), 'label': 'Synthetic '+str(i), 'capacity': 2} for i in range(count)]
+        venue['combinable'] = [['t0', 't'+str(i)] for i in range(1, 6)] if case == 'five_pairs' else []
+    elif case == 'timezone':
+        venue['timezone'] = 'Synthetic/Nowhere'
+    else:
+        venue['slot_minutes'] = True
+    assert client.request('POST', '/api/setup', body).status_code in (400, 422)
+    assert client.session()['setup_required'] is True
+    assert client.expect(200, 'GET', '/restaurants')['restaurants'] == []
+    client.setup()
+
+
 class Service:
     def __init__(self, directory, demo=False, overrides=None):
         self.directory = directory
