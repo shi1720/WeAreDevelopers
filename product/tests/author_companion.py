@@ -274,3 +274,60 @@ def test_operational_flag_corruption_restore_preserves_store(app, tmp_path, corr
     assert app.store.snapshot('main') == before
     operations.maintenance(app.store, 'main', False)
     assert owner.call('GET', '/reservations')[1]['total'] == 1
+
+
+@pytest.mark.parametrize('kind', ['unrelated', 'dropped', 'wrong_columns', 'wrong_marker'])
+def test_existing_unsupported_sqlite_startup_preserves_file(tmp_path, kind):
+    import sqlite3
+    path = tmp_path / 'unsupported.sqlite3'
+    if kind in ('dropped', 'wrong_marker'):
+        store = SQLiteStore(path)
+        store.transact('main', lambda value: None, create=True)
+        store.close()
+    with sqlite3.connect(path) as db:
+        if kind == 'unrelated':
+            db.execute('CREATE TABLE other (value TEXT)')
+            db.execute("INSERT INTO other VALUES ('synthetic preserved value')")
+        elif kind == 'dropped':
+            db.execute('DROP TABLE namespaces')
+        elif kind == 'wrong_columns':
+            db.execute('CREATE TABLE namespaces (payload TEXT)')
+        else:
+            db.execute('PRAGMA user_version=999')
+        db.commit()
+        db.execute('PRAGMA wal_checkpoint(TRUNCATE)')
+    before = path.read_bytes()
+    for _ in range(2):
+        with pytest.raises(StoreError):
+            SQLiteStore(path)
+        assert path.read_bytes() == before
+
+
+def test_zero_byte_and_valid_legacy_sqlite_remain_supported(tmp_path):
+    import sqlite3
+    from tablekeeper.storage import SQLITE_SCHEMA
+    path = tmp_path / 'zero.sqlite3'
+    path.touch()
+    store = SQLiteStore(path)
+    store.transact('main', lambda value: None, create=True)
+    original = store.snapshot('main')
+    store.close()
+    with sqlite3.connect(path) as db:
+        db.execute('PRAGMA user_version=0')
+        db.execute('PRAGMA application_id=0')
+    reopened = SQLiteStore(path)
+    assert reopened.snapshot('main') == original
+    reopened.close()
+
+
+@pytest.mark.parametrize('owner', [None, [], 'invalid', 1])
+def test_invalid_setup_owner_is_bounded_and_preserves_domain(app, owner):
+    browser = Browser(app)
+    before = app.store.snapshot('main')[1]
+    body = setup_body()
+    body['owner'] = owner
+    status, response = browser.call('POST', '/api/setup', body)
+    assert status == 422 and response['error']['code'] == 'validation_failed'
+    after = app.store.snapshot('main')[1]
+    assert after['domain'] == before['domain']
+    assert after['setup_consumed'] is False

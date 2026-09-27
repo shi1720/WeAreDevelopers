@@ -20,6 +20,8 @@ CHUNK_BYTES = 512 * 1024
 MAX_REQUEST_BYTES = 8 * 1024 * 1024
 STORE_NETWORK_SECONDS = 8.0
 RPC_SECONDS = 4.0
+SQLITE_APPLICATION_ID = 0x544B4350
+SQLITE_SCHEMA = 'CREATE TABLE namespaces (id TEXT PRIMARY KEY, revision INTEGER NOT NULL, payload BLOB NOT NULL, checksum TEXT NOT NULL)'
 
 
 class StoreError(RuntimeError):
@@ -158,13 +160,34 @@ class SQLiteStore:
         except OSError as exc:
             self.owner.close()
             raise StoreError('SQLite store already has an owner') from exc
-        self.db = sqlite3.connect(self.path, check_same_thread=False, isolation_level=None)
-        os.chmod(self.path, 0o600)
-        self.db.execute('PRAGMA journal_mode=WAL')
-        self.db.execute('PRAGMA synchronous=FULL')
-        self.db.execute('CREATE TABLE IF NOT EXISTS namespaces (id TEXT PRIMARY KEY, revision INTEGER NOT NULL, payload BLOB NOT NULL, checksum TEXT NOT NULL)')
-        for raw, checksum in self.db.execute('SELECT payload,checksum FROM namespaces'):
-            decode(raw, checksum)
+        existing = Path(self.path).exists() and Path(self.path).stat().st_size > 0
+        self.db = None
+        try:
+            self.db = sqlite3.connect(self.path, check_same_thread=False, isolation_level=None)
+            if existing:
+                # Inspect before changing journal mode, schema, markers or data.
+                validate_sqlite_schema(self.db)
+            else:
+                self.db.execute('BEGIN IMMEDIATE')
+                self.db.execute(SQLITE_SCHEMA)
+                self.db.execute(f'PRAGMA application_id={SQLITE_APPLICATION_ID}')
+                self.db.execute('PRAGMA user_version=1')
+                self.db.execute('COMMIT')
+            for name, revision, raw, checksum in self.db.execute('SELECT id,revision,payload,checksum FROM namespaces'):
+                namespace_id(name)
+                if type(revision) is not int or revision < 1:
+                    raise StoreError('Invalid SQLite namespace revision')
+                decode(raw, checksum)
+            os.chmod(self.path, 0o600)
+            self.db.execute('PRAGMA journal_mode=WAL')
+            self.db.execute('PRAGMA synchronous=FULL')
+        except BaseException as exc:
+            if self.db is not None:
+                self.db.close()
+            self.owner.close()
+            if isinstance(exc, sqlite3.Error):
+                raise StoreError('Invalid or unsupported SQLite store') from exc
+            raise
 
     def transact(self, namespace, callback, *, create=False, maintenance=False, expected_revision=None):
         namespace_id(namespace)
@@ -217,6 +240,11 @@ class SQLiteReader:
     def __init__(self, path):
         from urllib.parse import quote
         self.db = sqlite3.connect('file:' + quote(str(Path(path).resolve())) + '?mode=ro', uri=True)
+        try:
+            validate_sqlite_schema(self.db)
+        except BaseException:
+            self.db.close()
+            raise
 
     def snapshot(self, namespace):
         row = self.db.execute('SELECT revision,payload,checksum FROM namespaces WHERE id=?', (namespace_id(namespace),)).fetchone()
@@ -226,6 +254,22 @@ class SQLiteReader:
 
     def close(self):
         self.db.close()
+
+
+def validate_sqlite_schema(db):
+    try:
+        objects = db.execute("SELECT type,name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY name").fetchall()
+        normalize = lambda sql: re.sub(r'\s+', ' ', sql or '').strip().upper()
+        if len(objects) != 1 or objects[0][:2] != ('table', 'namespaces') or normalize(objects[0][2]) != normalize(SQLITE_SCHEMA):
+            raise StoreError('Missing or unsupported SQLite schema')
+        app_id = db.execute('PRAGMA application_id').fetchone()[0]
+        version = db.execute('PRAGMA user_version').fetchone()[0]
+        # Pre-marker companion stores remain supported only with the exact
+        # validated original schema. Never upgrade an unrelated SQLite file.
+        if (app_id, version) not in ((0, 0), (SQLITE_APPLICATION_ID, 1)):
+            raise StoreError('Unsupported SQLite schema marker')
+    except sqlite3.Error as exc:
+        raise StoreError('Invalid or unsupported SQLite database') from exc
 
 
 class FirestoreStore:
@@ -286,6 +330,11 @@ class FirestoreStore:
         root = self.collection.document(namespace_id(namespace))
         snap = root.get(transaction=transaction)
         if not snap.exists:
+            # A missing parent does not delete Firestore subcollections. Known
+            # chunks prove partial corruption, not a never-initialized store.
+            for index in range(8):
+                if root.collection('chunks').document(str(index)).get(transaction=transaction).exists:
+                    raise StoreError('Firestore root is missing but durable chunks remain')
             return root, None, None
         meta = snap.to_dict()
         if meta.get('schema') != 1 or type(meta.get('chunks')) is not int or not 1 <= meta['chunks'] <= 8:

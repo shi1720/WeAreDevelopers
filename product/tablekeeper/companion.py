@@ -193,7 +193,9 @@ class Companion:
                 # Failures commit ONLY bounded abuse counters, never partial domain changes.
                 try:
                     self.throttle(value, 'auth-global', now, 60)
-                    self.throttle(value, 'auth:' + str(body.get('email', body.get('owner', {}).get('email', 'setup'))), now, 8)
+                    owner = body.get('owner')
+                    label = body.get('email', owner.get('email', 'setup') if type(owner) is dict else 'setup')
+                    self.throttle(value, 'auth:' + str(label), now, 8)
                 except APIError as exc:
                     return exc.status, {'error': {'code': exc.code, 'message': exc.message}}, None
                 candidate = deepcopy(value)

@@ -169,3 +169,16 @@ def test_orphan_lock_recovery_has_bounded_attempts_and_one_receipt(store, tmp_pa
     value = store.snapshot('main')[1]
     assert len(value['domain']['reservations']) == 4
     assert len(value['domain']['receipts']) == 1
+
+
+def test_missing_root_with_chunks_cannot_initialize(store):
+    root = store.collection.document('main')
+    chunk = root.collection('chunks').document('0')
+    original = chunk.get().to_dict()
+    root.delete()
+    with pytest.raises(StoreError, match='chunks remain'):
+        store.snapshot('main')
+    with pytest.raises(StoreError, match='chunks remain'):
+        store.transact('main', lambda value: value.update(author_marker=True), create=True)
+    assert not root.get().exists
+    assert chunk.get().to_dict() == original
