@@ -367,7 +367,7 @@ s.close()
         store.close()
 
 
-@pytest.mark.parametrize('corruption', ['schema', 'checksum', 'chunk_revision', 'missing_chunk', 'chunk_size'])
+@pytest.mark.parametrize('corruption', ['schema', 'checksum', 'chunk_revision', 'missing_chunk', 'chunk_size', 'missing_root'])
 def test_firestore_corrupt_root_or_chunk_refuses(corruption):
     if not os.environ.get('FIRESTORE_EMULATOR_HOST'):
         pytest.skip('Firestore emulator required')
@@ -385,6 +385,8 @@ def test_firestore_corrupt_root_or_chunk_refuses(corruption):
             chunk.update({'revision': 999})
         elif corruption == 'missing_chunk':
             chunk.delete()
+        elif corruption == 'missing_root':
+            root.delete()
         else:
             chunk.update({'data': b'x' * (512 * 1024 + 1)})
         metadata = root.get().to_dict()
@@ -395,3 +397,36 @@ def test_firestore_corrupt_root_or_chunk_refuses(corruption):
         assert root.get().to_dict() == metadata
     finally:
         store.close()
+
+
+@pytest.mark.parametrize('corruption', ['unrelated', 'missing_table', 'extra_column', 'marker', 'revision'])
+def test_sqlite_unsupported_schema_is_not_initialized(tmp_path, corruption):
+    import sqlite3
+    from tablekeeper.storage import SQLiteReader
+    path = tmp_path / 'unsupported.sqlite3'
+    if corruption == 'unrelated':
+        with sqlite3.connect(path) as db:
+            db.execute('CREATE TABLE unrelated (value TEXT)')
+            db.execute("INSERT INTO unrelated VALUES ('synthetic retained data')")
+    else:
+        original = SQLiteStore(path)
+        original.transact('main', lambda c: None, create=True)
+        original.close()
+        with sqlite3.connect(path) as db:
+            if corruption == 'missing_table':
+                db.execute('DROP TABLE namespaces')
+            elif corruption == 'extra_column':
+                db.execute('ALTER TABLE namespaces ADD COLUMN unsupported TEXT')
+            elif corruption == 'marker':
+                db.execute('PRAGMA user_version=999')
+            else:
+                db.execute('UPDATE namespaces SET revision=-1')
+    with sqlite3.connect(path) as db:
+        before = '\n'.join(db.iterdump())
+    with pytest.raises(StoreError):
+        SQLiteStore(path)
+    if corruption != 'revision':
+        with pytest.raises(StoreError):
+            SQLiteReader(path)
+    with sqlite3.connect(path) as db:
+        assert '\n'.join(db.iterdump()) == before
