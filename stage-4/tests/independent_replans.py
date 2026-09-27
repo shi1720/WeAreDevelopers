@@ -102,6 +102,34 @@ class IndependentReplans(IndependentPolicies):
         self.assertEqual(row['rules'],[{'rule':'capacity','holds':True},{'rule':'no_overlap','holds':False}])
         self.assertTrue(all('table-z' not in o['table_ids'] for o in slot['available_options']))
 
+    def test_prior_closure_and_historical_capacity_constrain_repair(self):
+        prior=self.closure(table='table-a'); self.apply(self.preview(prior))
+        original=self.create(party=2)
+        self.publish(capacities={'table-z':1,'table-a':1,'table-m':1})
+        expected=solve(policy_fixture()['restaurants'][0],[original],self.closure(),[prior])
+        plan=self.preview(key='next')
+        for field in expected: self.assertEqual(plan[field],expected[field])
+        result=self.apply(plan,key='next-apply')['reservations'][0]
+        self.assertEqual(result['table_ids'],['table-m'])
+        self.assertEqual(result['accepted_terms'],original['accepted_terms'])
+
+    def test_repairs_ignore_guest_cutoff(self):
+        original=self.create(local='2001-01-01T18:00')
+        body={'table_id':'table-z','from':'2001-01-01T18:00:00+00:00','to':'2001-01-01T19:00:00+00:00'}
+        plan=self.preview(body); result=self.apply(plan)
+        self.assertEqual(result['reservations'][0]['starts_at'],original['starts_at'])
+        self.assertEqual(result['reservations'][0]['status'],'confirmed')
+
+    def test_preview_permissions_intervals_and_failed_key_reuse(self):
+        self.expect(401,'POST',self.path,self.closure(),key='p',code='unauthenticated')
+        self.expect(403,'POST',self.path,self.closure(),self.a,'p','forbidden')
+        self.expect(404,'POST',self.path,self.closure(table='missing'),self.b,'p','not_found')
+        before=self.snapshot()
+        for value in [dict(self.closure(),to=self.closure()['from']),dict(self.closure(),to='2032-06-17T17:00:00Z'),dict(self.closure(),**{'from':'2032-06-17T18:00:00'}),dict(self.closure(),to='not-a-date')]:
+            self.expect(422,'POST',self.path,value,self.b,'p','validation_failed')
+            self.assertTrue(before==self.snapshot())
+        self.preview(key='p')
+
 
 def load_tests(loader, tests, pattern):
     return unittest.TestSuite(IndependentReplans(name) for name in IndependentReplans.__dict__ if name.startswith('test_'))
