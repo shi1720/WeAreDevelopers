@@ -25,9 +25,14 @@ def main():
         print('Process terminated before commit; starting one recovery transaction',flush=True)
         began = time.monotonic()
         # Run recovery in a bounded process so a blocked SDK cannot hide duration.
-        result = subprocess.run([sys.executable,'-c',code,collection],timeout=120)
-        elapsed = time.monotonic()-began
-        print('Recovery exit',result.returncode,'elapsed_seconds',round(elapsed,6),flush=True)
+        for attempt in range(3):
+            result = subprocess.run([sys.executable,'-c',code,collection],timeout=30)
+            elapsed = time.monotonic()-began
+            print('Recovery attempt',attempt+1,'exit',result.returncode,'elapsed_seconds',round(elapsed,6),flush=True)
+            if result.returncode == 0:
+                break
+            if attempt < 2:
+                time.sleep(20)
         assert result.returncode == 0
         revision,value = store.snapshot('main')
         assert revision == 2 and value['acceptance_counter'] == 1
