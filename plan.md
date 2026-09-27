@@ -1,21 +1,14 @@
-# Tablekeeper delivery plan
+# Tablekeeper delivery plan — completed
 
-Build four complete standalone stage folders sequentially from the official contracts at commit `803560d2a678ace1414465c098eb0ab5380ffade`. Stage 1 starts clean; each later stage copies the independently accepted predecessor. Never implement future behavior in an earlier folder.
+Four standalone stages were built sequentially from official contracts at `803560d2a678ace1414465c098eb0ab5380ffade`. Engineer and Experience owned separate implementation files; Verifier independently reviewed committed candidates; Coordinator enforced release gates. Original author commits and failed checks remain preserved.
 
-1. Engineer owns service orchestration, transactional state, authentication, reservations, imports and deployment. Experience owns the independent temporal/availability implementation in stage 1, then browser product and manager workflows. Agree module interfaces before editing shared dependencies.
-2. Verifier independently derives clause coverage and adversarial tests, reviews all source and checks committed revisions under exclusive snapshot windows. Each release requires inherited suites, the expected next-stage rejection, independent checks and isolated no-outbound execution.
-3. Coordinator freezes accepted revisions, authorizes the next copy, maintains documentation and evidence, and resolves requirement questions without human intervention.
-4. Stage 2 adds combinations and resilient browser flows. Stage 3 adds effective policies, immutable accepted terms/history and recurring identities. Stage 4 adds optimal closure preview/atomic apply and recurring amendments.
-5. Finish with isolated all-stage execution, an independent clean clone, offline submission checks and a factual release report. Real room export remains the operator's post-run action.
+1. Stage1 accepted implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`, evidence `3813508b5624b4ae89a346b68611a595f83cfde5`.
+2. Stage2 accepted implementation `e4fc1c5bf52769927b50e139be1d380b1c044aeb`, evidence `f2e3189db5f113f9b38509cc57241d9e50d91330`.
+3. Stage3 accepted implementation `8a12344510a97d7ee20a4326935cacc3ab00798e`, evidence `0e302c79de3521fc0993cb6ed0b6f21a52d493e4`.
+4. Stage4 accepted service `53617a341d21ebae3d76761f41b6ea4d38bc2a6c`, independent evidence `aa816477c6a2a40b528a28c362a7ec67bfc566a1`.
 
-Every write must be linearizable; failed writes leave state and retry claims untouched. Original receipts survive all changes and imports. Time calculations use IANA zones and absolute durations. Public-safe evidence preserves failures and fixes; private exports stay outside Git. Seat-authored commits remain intact.
+All folders are frozen. Final official Stage4 host passed158/158. All-stage isolated and clean-clone isolated each passed575 required checks with expected next-stage rejection for stages1–3. Independent Stage4 HTTP passed69/69 on host and network-none; migration, optimizer, concurrency and browser results are preserved in `evidence/stage-4/independent/verification.md`. Final coordinator evidence and limitations are in `evidence/final/verification.md`.
 
-The product uses a warm cream, ink and terracotta visual system, responsive accessible controls, human seating labels, explicit uncertainty and a reproducible synthetic demo. Judge test controls are enabled by default; documented hardened mode disables them.
+The implemented architecture uses local browser assets, authenticated HTTP routes, serialized transactional state, immutable retry receipts and portable validated exports. Closure preview is read-only; application publishes closures and assignments atomically. Recurring amendments retain scheduled identities and accepted-policy semantics.
 
-## Release status
-
-- Stage 1: accepted implementation `8a2a07abfe972815cfea7c02176a075b8b2accaf`; independent evidence `3813508b5624b4ae89a346b68611a595f83cfde5`. Official host and isolated 120/120; independent HTTP/offline 23/23; implementation tests 24/24. Folder frozen.
-- Stage 2: accepted implementation `e4fc1c5bf52769927b50e139be1d380b1c044aeb`; evidence `f2e3189db5f113f9b38509cc57241d9e50d91330`. Official host/isolated 120+25 checks pass; independent HTTP 30 plus 2 review cases, browser 7 and author tests 41 pass. Folder frozen.
-- Stage 3: accepted repaired implementation `8a12344510a97d7ee20a4326935cacc3ab00798e`, evidence `0e302c79de3521fc0993cb6ed0b6f21a52d493e4`. Official host/isolated 152 pass; independent 47+3 HTTP, migration and browser checks pass. Original import-exception rejection preserved. Folder frozen.
-- Stage 4: dispatched unchanged copy-forward, exact closure optimizer, atomic repair, recurring amendment, manager experience and independent exhaustive oracle. Final all-stage/clean-clone gates follow acceptance.
-- Final room-log eligibility check: pending authentic operator export after completion.
+Final offline submission check reports only the absent authentic `room.json`. The operator exports the full real room after autonomous completion; no history is fabricated. Python3.12 is verified, finite oracle/source review is not proof, and browser checks are Chromium-only. FACTORY.md records measured elapsed time and qualified telemetry estimates. Human attribution is product direction and factory configuration; agents authored implementation and review.

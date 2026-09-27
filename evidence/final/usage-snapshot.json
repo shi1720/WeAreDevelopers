@@ -1,0 +1,36 @@
+{
+  "observed_at": "2026-09-27T17:56:26.308672+00:00",
+  "source": "Band usage rooms; catalog estimate, not billing; token accounting semantics unverified",
+  "data": {
+    "agents": [
+      {
+        "agentId": "6b3f7e07-7e42-43d0-be7c-d87623b7a4c4",
+        "cost": 35.23467,
+        "name": "shivam1720406/proofline-coordinator",
+        "peerId": "default/proofline-coordinator"
+      },
+      {
+        "agentId": "912aca3d-3ead-4309-91a9-9ef20834d963",
+        "cost": 19.997786,
+        "name": "shivam1720406/proofline-experience",
+        "peerId": "default/proofline-experience"
+      },
+      {
+        "agentId": "cdd044fc-134b-4fdf-9c2a-e738b97608e5",
+        "cost": 42.251068,
+        "name": "shivam1720406/proofline-verifier",
+        "peerId": "default/proofline-verifier"
+      },
+      {
+        "agentId": "e73f5868-2529-49d8-b043-b19add33d2a1",
+        "cost": 33.840126,
+        "name": "shivam1720406/proofline-engineer",
+        "peerId": "default/proofline-engineer"
+      }
+    ],
+    "room": "d82b4197-09c0-4af3-aabf-fa336747ff95",
+    "sessions": 4,
+    "tokens": 102262893,
+    "totalCost": 131.32365
+  }
+}

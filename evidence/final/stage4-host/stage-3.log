@@ -1,0 +1,5 @@
+$ /private/tmp/proofline-official-spec/.venv/bin/python -m pytest /private/tmp/proofline-official-spec/tablekeeper/test/stage_3 --base-url http://127.0.0.1:57302 -p harness.plugin --rootdir /private/tmp/proofline-official-spec/tablekeeper/test -q --previous-base-url http://127.0.0.1:58361 --harness-summary /Users/shivamgupta/.cache/proofline-checks/s4-host-01/stage-3.counts.json
+
+.......                                                                                                                                                                                          [100%]
+7 passed in 0.94s
+

@@ -1,0 +1,4 @@
+room.json is missing; open the room in the Band console (Band Desktop: the room's ⋮ menu, Open in Band), choose ⋮, Download, Download full session, and save the file unchanged as room.json at the repository root
+1 problem(s)
+
+exit=1

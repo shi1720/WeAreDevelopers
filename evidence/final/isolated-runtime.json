@@ -1,0 +1,11 @@
+[
+  {
+    "name": "/df-svc-defcb9d3c633",
+    "cpus": 2000000000,
+    "memory": 2147483648,
+    "networks": {
+      "df-run-c902b4a6c4104933bf1d71a9c9697c6e": true
+    },
+    "proxy_keys": []
+  }
+]
