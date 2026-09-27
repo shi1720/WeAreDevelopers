@@ -180,6 +180,7 @@ def validate_state(state):
     validate_series(state)
     require(type(state.get('receipts')) is list)
     scopes = set()
+    adopted_series = set()
     for receipt in state['receipts']:
         require(type(receipt) is dict)
         require(type(receipt.get('user_id')) is str and receipt['user_id'] in state['users'])
@@ -204,6 +205,9 @@ def validate_state(state):
             continue
         if receipt['path'] == '/series':
             validate_series_receipt(state, receipt)
+            sid = response['series_id']
+            require(sid not in adopted_series)
+            adopted_series.add(sid)
             continue
         require(receipt['path'] in ('/reservations', '/reservation-moves'))
         if receipt['path'] == '/reservation-moves':
@@ -236,6 +240,7 @@ def validate_state(state):
             require(table_ids(expected) == table_ids(record))
             for name in ('restaurant_id', 'party_size', 'starts_at_local'):
                 require(expected[name] == record[name])
+    require(adopted_series == set(state['series']))
     return state
 
 
@@ -372,6 +377,14 @@ def validate_series_receipt(state, receipt):
         for name in ('reservation_id', 'restaurant_id', 'user_id', 'created_at'):
             require(record[name] == state['reservations'][ref][name])
         validate_historical_response(state, record)
+        # The immutable adoption receipt is the boundary: an anchor may have
+        # changed before adoption without becoming a diner exception. Every
+        # later real amendment (including one subsequently reverted) is permanent.
+        revision = record.get('revision')
+        require(integer(revision, 1))
+        amended = any(entry['event'] == 'changed'
+                      for entry in state['histories'][ref][revision:])
+        require(agreement['occurrences'][index]['exception'] == amended)
 
 
 def from_fixture(fixture):

@@ -56,6 +56,39 @@ class PolicySeriesTests(unittest.TestCase):
     def history(self, ref):
         return self.call('GET', '/reservations/' + ref + '/history')[1]['entries']
 
+    def test_import_preserves_permanent_post_adoption_exceptions(self):
+        anchor = self.book()
+        path = '/reservations/' + anchor['reference']
+        self.call('PATCH', path, {'party_size': 1})
+        adopted = self.call('POST', '/series', {'anchor_reference': anchor['reference'],
+                            'count': 4, 'interval_weeks': 1}, 'adopt')[1]
+        sid = adopted['series_id']
+        refs = [o['reference'] for o in adopted['occurrences']]
+        # Pre-adoption history, no-op amendments and cancellations are not exceptions.
+        self.call('PATCH', path, {'party_size': 1})
+        self.call('POST', '/reservations/' + refs[3] + '/cancel', {})
+        valid = self.snapshot()
+        self.assertEqual(self.call('POST', '/_test/import', valid)[0], 204)
+        self.assertEqual(self.snapshot(), valid)
+        # A reverted change still permanently marks the member; batches do too.
+        self.call('PATCH', '/reservations/' + refs[1], {'party_size': 2})
+        self.call('PATCH', '/reservations/' + refs[1], {'party_size': 1})
+        self.call('POST', '/reservation-moves', {'moves': [
+            {'reference': refs[2], 'table_id': 'b'}]}, 'move')
+        valid = self.snapshot()
+        self.assertEqual(self.call('POST', '/_test/import', valid)[0], 204)
+        for index, flag in [(0, True), (1, False), (2, False), (3, True)]:
+            invalid = deepcopy(valid)
+            invalid['state']['series'][sid]['occurrences'][index]['exception'] = flag
+            self.error(422, 'validation_failed', lambda: self.call('POST', '/_test/import', invalid))
+            self.assertEqual(self.snapshot(), valid)
+        invalid = deepcopy(valid)
+        invalid['state']['receipts'] = [r for r in invalid['state']['receipts'] if r['path'] != '/series']
+        self.error(422, 'validation_failed', lambda: self.call('POST', '/_test/import', invalid))
+        self.assertEqual(self.snapshot(), valid)
+        self.assertEqual(self.call('POST', '/series', {'anchor_reference': anchor['reference'],
+                         'count': 4, 'interval_weeks': 1}, 'adopt'), (200, adopted))
+
     def test_effective_date_order_ties_and_immutable_original_terms(self):
         old = self.book()
         self.publish(effective='2099-09-20', reservation_duration_minutes=60)
