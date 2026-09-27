@@ -65,6 +65,8 @@ def login(state, body):
     email = field(body, 'email')
     password = field(body, 'password')
     user = next((u for u in state['users'].values() if u['email'] == email), None)
-    if user is None or not check_password(password, user['password_hash']):
+    dummy = {'algorithm': 'scrypt', 'salt': '0' * 32, 'digest': '0' * 128}
+    valid = check_password(password, user['password_hash'] if user else dummy)
+    if user is None or not valid:
         raise APIError(401, 'unauthenticated')
     return session(state, user)

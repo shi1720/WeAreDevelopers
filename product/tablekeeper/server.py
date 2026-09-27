@@ -12,38 +12,20 @@ from . import auth, reservations, policies, series, replans
 from .availability import get_availability
 from .state import Store, from_fixture, import_envelope
 from .validation import APIError, calendar_date, invalid, object_body, party_size
+from .companion import Companion
+from .storage import StoreError
+import signal
+import socket
+import threading
 
 
 class Application:
     def __init__(self):
-        self.store = Store()
-        if os.environ.get('TABLEKEEPER_DEMO', '1') != '0':
-            from .demo import fixture
-            self.store.data = from_fixture(fixture())
+        self.companion = Companion(self.route)
+        self.store = self.companion.store
 
     def dispatch(self, method, path, query, headers, body):
-        with self.store.lock:
-            if method == 'GET' and path == '/health':
-                return 200, {'status': 'ok'}
-            if path.startswith('/_test/'):
-                if os.environ.get('TABLEKEEPER_TEST_CONTROLS', '1') == '0':
-                    raise APIError(404, 'not_found')
-                if method == 'POST' and path == '/_test/reset':
-                    self.store.data = from_fixture(body)
-                    return 204, None
-                if method == 'GET' and path == '/_test/export':
-                    return 200, self.store.export()
-                if method == 'POST' and path == '/_test/import':
-                    self.store.data = import_envelope(body)
-                    return 204, None
-                raise APIError(404, 'not_found')
-            # Mutations use an isolated candidate state. Only a successful response
-            # publishes it, so errors cannot leak records, counters or retry claims.
-            state = deepcopy(self.store.data) if method != 'GET' else self.store.data
-            result = self.route(state, method, path, query, headers, body)
-            if method != 'GET':
-                self.store.data = state
-            return result
+        return self.companion.dispatch(method, path, query, headers, body)
 
     def route(self, state, method, path, query, headers, body):
         if method == 'POST' and path == '/auth/signup':
@@ -136,18 +118,54 @@ class Application:
 
 
 class Handler(BaseHTTPRequestHandler):
-    application = Application()
+    application = None
+
+    def setup(self):
+        super().setup()
+        self.connection.settimeout(5)
+        self.deadline = threading.Timer(15, self.expire_connection)
+        self.deadline.daemon = True
+        self.deadline.start()
+
+    def expire_connection(self):
+        try:
+            self.connection.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            pass
+
+    def finish(self):
+        self.deadline.cancel()
+        super().finish()
+
+    def parse_request(self):
+        if not super().parse_request():
+            return False
+        if len(self.path) > 4096 or sum(len(k) + len(v) for k, v in self.headers.items()) > 16384:
+            self.send_error(431, 'Request headers too large')
+            return False
+        return True
+
+    def end_headers(self):
+        self.send_header('Cache-Control', 'private, no-store')
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('Referrer-Policy', 'no-referrer')
+        self.send_header('X-Frame-Options', 'DENY')
+        self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+        if self.application.companion.mode == 'production':
+            self.send_header('Strict-Transport-Security', 'max-age=31536000')
+        super().end_headers()
 
     def log_message(self, *_):
         # Requests may contain private references; do not write access logs.
         pass
 
     def handle_request(self):
+        cookie = None
         try:
             parts = urlsplit(self.path)
-            if self.command == 'GET' and (parts.path in ('/', '/signup', '/login', '/lookup', '/manager', '/series') or parts.path.startswith('/static/')):
+            if self.command == 'GET' and (parts.path in ('/', '/signup', '/login', '/lookup', '/manager', '/series', '/setup', '/bookings', '/account', '/demo') or parts.path.startswith('/static/')):
                 root = Path(__file__).resolve().parent.parent / 'static'
-                relative = 'index.html' if parts.path in ('/', '/signup', '/login', '/lookup', '/manager', '/series') else unquote(parts.path[len('/static/'):])
+                relative = 'index.html' if not parts.path.startswith('/static/') else unquote(parts.path[len('/static/'):])
                 target = (root / relative).resolve()
                 if not target.is_relative_to(root) or not target.is_file():
                     raise APIError(404, 'not_found')
@@ -156,33 +174,39 @@ class Handler(BaseHTTPRequestHandler):
                 kind = mimetypes.guess_type(target.name)[0] or 'application/octet-stream'
                 self.send_header('Content-Type', kind + ('; charset=utf-8' if kind.startswith('text/') or kind in ('application/javascript',) else ''))
                 self.send_header('Content-Length', str(len(content)))
-                self.send_header('Cache-Control', 'no-store')
-                self.send_header('X-Content-Type-Options', 'nosniff')
                 self.end_headers()
                 self.wfile.write(content)
                 return
             body = None
             if self.command in ('POST', 'PATCH', 'PUT'):
+                if self.headers.get('Transfer-Encoding') or len(self.headers.get_all('Content-Length', [])) > 1:
+                    raise APIError(400, 'malformed_request')
                 try:
                     length = int(self.headers.get('Content-Length', '0'))
                 except ValueError:
                     raise APIError(400, 'malformed_request') from None
-                if length < 0:
-                    raise APIError(400, 'malformed_request')
+                if not 0 <= length <= 65536:
+                    raise APIError(413, 'request_too_large')
                 raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise APIError(400, 'malformed_request')
                 # Cancellation permits an empty body; other writes require objects.
-                body = {} if not raw and parts.path.endswith('/cancel') else object_body(raw)
-            status, response = self.application.dispatch(self.command, parts.path,
+                body = {} if not raw else object_body(raw)
+            status, response, cookie = self.application.dispatch(self.command, parts.path,
                 parse_qs(parts.query, keep_blank_values=True), self.headers, body)
         except APIError as error:
             status, response = error.status, {'error': {'code': error.code, 'message': error.message}}
         except (ValueError, TypeError, KeyError, OverflowError, RecursionError):
             status, response = 400, {'error': {'code': 'malformed_request', 'message': 'Invalid request'}}
+        except (StoreError, OSError):
+            status, response = 503, {'error': {'code': 'store_unavailable', 'message': 'Durable storage is unavailable. Retry the unchanged request to recover its outcome.'}}
         encoded = b'' if response is None else json.dumps(response, ensure_ascii=True, allow_nan=False).encode('utf-8')
         self.send_response(status)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Content-Length', str(len(encoded)))
-        self.send_header('Cache-Control', 'no-store')
+        if cookie:
+            self.send_header('Set-Cookie', cookie)
+        self.send_header('Connection', 'close')
         self.end_headers()
         try:
             self.wfile.write(encoded)
@@ -193,12 +217,39 @@ class Handler(BaseHTTPRequestHandler):
 
 
 class Server(ThreadingHTTPServer):
-    daemon_threads = True
-    request_queue_size = 128
+    daemon_threads = False
+    request_queue_size = 32
+    slots = threading.BoundedSemaphore(32)
+
+    def process_request(self, request, client_address):
+        if not self.slots.acquire(blocking=False):
+            request.close()
+            return
+        try:
+            super().process_request(request, client_address)
+        except BaseException:
+            self.slots.release()
+            raise
+
+    def process_request_thread(self, request, client_address):
+        try:
+            super().process_request_thread(request, client_address)
+        finally:
+            self.slots.release()
 
 
 def main():
-    Server(('0.0.0.0', int(os.environ.get('PORT', '8080'))), Handler).serve_forever()
+    Handler.application = Application()
+    server = Server((os.environ.get('TABLEKEEPER_BIND', '0.0.0.0'), int(os.environ.get('PORT', '8080'))), Handler)
+    def shutdown(*_):
+        threading.Thread(target=server.shutdown, daemon=True).start()
+    signal.signal(signal.SIGTERM, shutdown)
+    signal.signal(signal.SIGINT, shutdown)
+    try:
+        server.serve_forever(poll_interval=0.2)
+    finally:
+        server.server_close()
+        Handler.application.store.close()
 
 
 if __name__ == '__main__':

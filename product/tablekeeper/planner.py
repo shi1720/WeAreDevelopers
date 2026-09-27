@@ -23,7 +23,7 @@ def solve(restaurant, bookings, closures, proposed):
     active = [r for r in bookings if r['restaurant_id'] == restaurant['id'] and r['status'] == 'confirmed']
     considered = sorted([r for r in active if intersects(span, interval(r['starts_at'], r['ends_at']))], key=lambda r: r['reference'])
     if len(restaurant['tables']) > 6 or len(restaurant.get('combinable', [])) > 4 or len(considered) > 6:
-        raise APIError(422, 'planning_limit')
+        raise APIError(422, 'planning_limit', 'Closure repair supports at most 6 overlapping confirmed bookings, counting every overlap, with 6 tables and 4 declared pairs. Choose a genuinely smaller closure interval or arrange an operator review; separate plans do not prove a globally optimal larger repair.')
     refs = {r['reference'] for r in considered}
     fixed = [r for r in active if r['reference'] not in refs]
     options = [[t['id']] for t in restaurant['tables']] + restaurant.get('combinable', [])
