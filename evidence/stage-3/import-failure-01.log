@@ -1,0 +1,16 @@
+test_import_cannot_erase_permanent_series_exception (independent_import_relations.IndependentImportRelations.test_import_cannot_erase_permanent_series_exception) ... FAIL
+
+======================================================================
+FAIL: test_import_cannot_erase_permanent_series_exception (independent_import_relations.IndependentImportRelations.test_import_cannot_erase_permanent_series_exception)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shivamgupta/Downloads/we-are-developers/stage-3/tests/independent_import_relations.py", line 14, in test_import_cannot_erase_permanent_series_exception
+    self.expect(422,'POST','/_test/import',corrupt,code='validation_failed')
+  File "/Users/shivamgupta/Downloads/we-are-developers/stage-3/tests/independent_contract.py", line 80, in expect
+    self.assertEqual(actual, status, f"{method} {path}: status {actual}; error={result.get('error') if isinstance(result, dict) else None}")
+AssertionError: 204 != 422 : POST /_test/import: status 204; error=None
+
+----------------------------------------------------------------------
+Ran 1 test in 0.187s
+
+FAILED (failures=1)
