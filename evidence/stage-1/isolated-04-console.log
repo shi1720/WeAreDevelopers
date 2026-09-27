@@ -1,0 +1,7 @@
+building /Users/shivamgupta/Downloads/we-are-developers/stage-1 ...
+  stage 1: pass  (log: /Users/shivamgupta/.cache/proofline-checks/s1-isolated-04/stage-1.log)
+  stage 2: fail  (log: /Users/shivamgupta/.cache/proofline-checks/s1-isolated-04/stage-2.log)
+highest contiguous stage: 1
+claimed stage: 1 on the shipped checks
+report: /Users/shivamgupta/.cache/proofline-checks/s1-isolated-04/report.json
+NOTE: this run only includes a portion of the full tests that are applied before judging; this is meant to provide directional feedback, and ultimately you may not pass the stage with the full set of tests.

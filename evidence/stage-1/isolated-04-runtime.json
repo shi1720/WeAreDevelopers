@@ -1,0 +1,20 @@
+[
+  {
+    "name": "/angry_faraday",
+    "proxy_env_keys": [],
+    "networks_internal": {
+      "df-run-dcefa0f494d84c83884a74e199ddcb17": true
+    },
+    "nano_cpus": 0,
+    "memory_bytes": 0
+  },
+  {
+    "name": "/df-svc-6c2e6f15ff30",
+    "proxy_env_keys": [],
+    "networks_internal": {
+      "df-run-dcefa0f494d84c83884a74e199ddcb17": true
+    },
+    "nano_cpus": 2000000000,
+    "memory_bytes": 2147483648
+  }
+]
