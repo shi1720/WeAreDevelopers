@@ -8,6 +8,8 @@ These are unexecuted acceptance cases until a committed candidate is available.
 | S04/A01 | Force callback rerun and final commit failure during signup/login/setup. No cookie, usable session, token or process-memory identity may escape before successful durable commit. After a retry, returned cookie must match the committed session only. |
 | A02/S06 | Read authenticated data just before inactivity expiry on process A, then read on process B/restart. If reads refresh expiry, the touch must be durable. Inject failure on touch: no successful read may imply a refresh that did not commit. Readiness must reflect inability to access the required store. Test exact expiry boundary without revival. |
 | A05 | Split invalid logins across two live processes sharing one namespace. A process-local counter must not double the permitted budget. Test many absent accounts, repeated real synthetic account and spoofed forwarding; limiter state remains bounded and legitimate booking via another valid session remains usable. |
+| A05/O01 | Against the real container proxy, trickle headers and request-body bytes just inside configured idle timeouts. Measure total connection lifetime rather than treating an idle timeout as a total deadline. Open a bounded concurrent group and verify a healthy authenticated booking still commits promptly. Record infrastructure/resource failures separately. |
+| A04/O01 | Trigger proxy-generated oversized-header/body and upstream-unavailable errors; verify private,no-store plus required security headers on proxy-generated 4xx/5xx, not only backend responses. Build and start the actual non-root nginx image and verify writable runtime paths and PORT behavior. |
 
 ## Primary documentation reviewed 2026-09-27
 
