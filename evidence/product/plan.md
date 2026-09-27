@@ -1,5 +1,7 @@
 # Tablekeeper operational companion
 
+Status: completed and accepted for the bounded local/emulator pilot at 2026-09-27T19:23:13Z. Accepted code/test revision: `8f749427004a35e6ac25ed34abb7997515ec4354`; independently checked runtime: `d6194c8c9575f0a6b85ec2a322e8a65cbb9af740`. Product is frozen. The final report and coverage are in evidence/product/report.md and evidence/product/coverage.md. Cloud deployment and deployed acceptance remain operator gates.
+
 This is a separately traced companion, not a graded stage. Baseline: `330f1c8321670ca7d34b6b7127c0fb73df84ca25`. Preserve all original graded folders and commits. Shivam Gupta leads product and factory direction; the configured coding seats implement and independently verify.
 
 1. Engineer commits the complete unchanged stage-4 tree into product and records matching tree hashes in evidence/product/baseline.json. No other product writes before this gate.
@@ -9,4 +11,3 @@ This is a separately traced companion, not a graded stage. Baseline: `330f1c8321
 5. Accept only an independently verified immutable revision. Publish clause coverage, commands/status/duration, screenshots, provenance, limitations, elapsed time and honestly available usage. Operator retains cloud provisioning, deployed Firestore gate, publication and room export.
 
 Release constraints: one venue per namespace, 1-6 tables, at most 4 pairs, at most 6 overlapping confirmed bookings for closure planning; production has no test routes or seeded accounts; hosted authority is Firestore with ADC, never SQLite. No real data or secrets, no cloud deployment by seats, no push/merge/history rewriting. Unknown or unexecuted coverage remains explicit.
-
