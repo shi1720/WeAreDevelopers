@@ -52,10 +52,17 @@ def validate(value):
                 raise ValueError('invalid csrf digest')
         if type(value['setup_consumed']) is not bool or type(value['demo']) is not bool:
             raise ValueError('invalid flags')
+        if not value['setup_consumed'] and value['domain'] != empty():
+            raise ValueError('unconsumed setup cannot contain configured domain state')
         if 'scope_generation' in value and (type(value['scope_generation']) is not str or not re.fullmatch('[0-9a-f]{32}', value['scope_generation'])):
             raise ValueError('invalid recovery generation')
         if value['expires_at'] is not None and (type(value['expires_at']) not in (int, float) or not math.isfinite(value['expires_at'])):
             raise ValueError('invalid namespace lifetime')
+        if value['demo']:
+            if not value['setup_consumed'] or not value['domain']['restaurants'] or value['expires_at'] is None or value['expires_at'] <= 0:
+                raise ValueError('demo requires configured state and finite positive expiry')
+        elif value['expires_at'] is not None:
+            raise ValueError('non-demo namespace cannot have demo expiry')
         lock = value['maintenance']
         if lock is not None and (type(lock) is not dict or set(lock) != {'since'}
                 or type(lock['since']) not in (int, float) or not math.isfinite(lock['since']) or lock['since'] < 0):

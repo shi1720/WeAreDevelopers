@@ -238,3 +238,34 @@ def test_demo_reset_rotates_recovery_scope_and_expiry_recovers_shell(app):
     app.store.transact(namespace, lambda value: value.update(expires_at=time.time() - 1))
     result = browser.call('GET', '/api/session')[1]
     assert result['authenticated'] is False and result['demo'] is False
+
+
+@pytest.mark.parametrize('corruption', ['unconsumed', 'demo_without_expiry', 'expiry_without_demo', 'demo_unconfigured'])
+def test_operational_flag_corruption_restore_preserves_store(app, tmp_path, corruption):
+    import hashlib
+    from tablekeeper.storage import encode
+    owner = Browser(app)
+    owner.call('POST', '/setup', setup_body())
+    owner.call('POST', '/reservations', booking(), key='retained-booking')
+    value = deepcopy(app.store.snapshot('main')[1])
+    if corruption == 'unconsumed':
+        value['setup_consumed'] = False
+    elif corruption == 'demo_without_expiry':
+        value['demo'] = True
+    elif corruption == 'expiry_without_demo':
+        value['expires_at'] = time.time() + 100
+    else:
+        value = fresh()
+        value.update(demo=True, expires_at=time.time() + 100)
+    raw = json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=True, allow_nan=False).encode()
+    file = tmp_path / 'invalid-operational-backup.json'
+    file.write_text(json.dumps({'format': 'tablekeeper-companion-backup-1', 'state': value, 'sha256': hashlib.sha256(raw).hexdigest()}))
+    revision = operations.maintenance(app.store, 'main', True)
+    before = app.store.snapshot('main')
+    with pytest.raises(StoreError):
+        encode(value)
+    with pytest.raises(StoreError):
+        operations.restore(app.store, 'main', file, revision)
+    assert app.store.snapshot('main') == before
+    operations.maintenance(app.store, 'main', False)
+    assert owner.call('GET', '/reservations')[1]['total'] == 1
