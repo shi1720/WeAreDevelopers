@@ -1,0 +1,81 @@
+test_setup_booking_edit_roster_and_mobile (__main__.ExperienceBrowser.test_setup_booking_edit_roster_and_mobile) ... ok
+test_lost_booking_response_reload_restart_and_account_isolation (__main__.ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation) ... Error occurred in event listener
+Traceback (most recent call last):
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 310, in _on_route
+    handled = await route_handler.handle(route)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 455, in handle
+    raise e
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 442, in handle
+    return await self._handle_internal(route)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 478, in _handle_internal
+    await handler_finished_future
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 469, in _handler
+    self.handler(route, route.request)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_impl_to_api_mapping.py", line 139, in wrapper_func
+    return handler(
+           ^^^^^^^^
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/experience_browser.py", line 159, in lose
+    self.assertEqual(201, response.status)
+  File "/Users/shivamgupta/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/unittest/case.py", line 885, in assertEqual
+    assertion_func(first, second, msg=msg)
+  File "/Users/shivamgupta/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/unittest/case.py", line 878, in _baseAssertEqual
+    raise self.failureException(msg)
+AssertionError: 201 != 400
+ERROR
+test_lost_booking_response_reload_restart_and_account_isolation (__main__.ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation) ... FAIL
+
+======================================================================
+ERROR: test_lost_booking_response_reload_restart_and_account_isolation (__main__.ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/experience_browser.py", line 165, in test_lost_booking_response_reload_restart_and_account_isolation
+    self.page.get_by_test_id('booking-uncertain').wait_for()
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 20696, in wait_for
+    self._sync(
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 752, in wait_for
+    await self._frame.wait_for_selector(
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 395, in wait_for_selector
+    await self._channel.send(
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 7000ms exceeded.
+Call log:
+  - waiting for get_by_test_id("booking-uncertain") to be visible
+
+
+======================================================================
+FAIL: test_lost_booking_response_reload_restart_and_account_isolation (__main__.ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers/product/tests/experience_browser.py", line 74, in tearDown
+    self.context.close()
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 15470, in close
+    return mapping.from_maybe_impl(self._sync(self._impl_obj.close(reason=reason)))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_browser_context.py", line 588, in close
+    await self.request.dispose(reason=reason)
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_fetch.py", line 128, in dispose
+    await self._channel.send("dispose", None, {"reason": reason})
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/proofline-official-spec/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+AssertionError: BrowserContext.close: 201 != 400
+
+----------------------------------------------------------------------
+Ran 2 tests in 9.477s
+
+FAILED (failures=1, errors=1)

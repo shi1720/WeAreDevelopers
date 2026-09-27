@@ -1,0 +1,42 @@
+{
+  "command": [
+    "/tmp/proofline-official-spec/.venv/bin/python",
+    "product/tests/experience_browser.py",
+    "ExperienceBrowser.test_lost_booking_response_reload_restart_and_account_isolation"
+  ],
+  "cwd": "/Users/shivamgupta/.codex/worktrees/tablekeeper-pilot/we-are-developers",
+  "head_at_start": "a00dc39ea9333e4b678f7449750985b0b393922d",
+  "dirty_status_at_start": [
+    " M product/tests/experience_browser.py",
+    " M product/tests/experience_run.py",
+    "?? evidence/product/experience/20260927T183900450221Z.json",
+    "?? evidence/product/experience/20260927T183900450221Z.log",
+    "?? evidence/product/experience/20260927T184012186775Z.json",
+    "?? evidence/product/experience/20260927T184012186775Z.log",
+    "?? evidence/product/experience/bookings-1440.png",
+    "?? evidence/product/experience/bookings-375.png",
+    "?? evidence/product/experience/closure-preview-1440.png",
+    "?? evidence/product/experience/closure-preview-375.png",
+    "?? evidence/product/experience/edit-review-375.png",
+    "?? evidence/product/experience/manager-roster-1440.png",
+    "?? evidence/product/experience/manager-roster-375.png",
+    "?? evidence/product/experience/regular-updated-1440.png",
+    "?? evidence/product/experience/regular-updated-375.png",
+    "?? evidence/product/experience/setup-1440.png",
+    "?? evidence/product/experience/setup-375.png",
+    "?? evidence/product/verification/runs/20260927T183933481034Z-storage-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933481034Z-storage-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T183933482996Z-http-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933482996Z-http-70cf83c.log",
+    "?? evidence/product/verification/runs/20260927T183933485988Z-build-70cf83c.json",
+    "?? evidence/product/verification/runs/20260927T183933485988Z-build-70cf83c.log",
+    "?? product/tests/author_firestore.py"
+  ],
+  "tracked_diff_sha256": "03dcc8ee597f27d310bb6559c853311ddcef20d697a6d9dfdd2d6aa529ef996b",
+  "started_at_utc": "20260927T184058225464Z",
+  "duration_seconds": 8.190075792001153,
+  "exit_status": 1,
+  "output": "20260927T184058225464Z.log",
+  "clean_at_start": false,
+  "independent_acceptance": false
+}

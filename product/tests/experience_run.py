@@ -30,7 +30,7 @@ def main():
               'tracked_diff_sha256': hashlib.sha256(diff).hexdigest(),
               'started_at_utc': stamp, 'duration_seconds': elapsed,
               'exit_status': result.returncode, 'output': log.name,
-              'immutable_acceptance': not bool(dirty)}
+              'clean_at_start': not bool(dirty), 'independent_acceptance': False}
     (EVIDENCE / f'{stamp}.json').write_text(json.dumps(record, indent=2) + '\n')
     print(result.stdout + result.stderr, end='')
     print(json.dumps(record, indent=2))

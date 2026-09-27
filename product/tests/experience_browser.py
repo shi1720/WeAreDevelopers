@@ -71,9 +71,11 @@ class ExperienceBrowser(unittest.TestCase):
         self.process.stderr.close()
 
     def tearDown(self):
-        self.context.close()
-        self.stop()
-        self.directory.cleanup()
+        try:
+            self.context.close()
+        finally:
+            self.stop()
+            self.directory.cleanup()
         self.assertEqual([], self.errors)
 
     def screenshot(self, name, width=1440):
@@ -102,7 +104,7 @@ class ExperienceBrowser(unittest.TestCase):
 
     def search(self, date='2035-06-14', party=2):
         self.page.goto(self.base + '/')
-        self.page.get_by_test_id('restaurant-select').locator('option').first.wait_for()
+        self.page.get_by_test_id('restaurant-select').locator('option').first.wait_for(state='attached')
         self.page.wait_for_function("document.querySelector('#restaurant')?.value !== ''")
         self.page.get_by_test_id('date-input').fill(date)
         self.page.get_by_test_id('party-size-input').fill(str(party))
@@ -136,7 +138,8 @@ class ExperienceBrowser(unittest.TestCase):
         self.page.get_by_test_id('edit-choice').select_option(label='19:30 · Garden table')
         self.page.get_by_test_id('edit-terms').wait_for()
         self.screenshot('edit-review', 375)
-        self.page.get_by_test_id('edit-confirm').click()
+        self.page.get_by_test_id('edit-confirm').focus()
+        self.page.keyboard.press('Enter')
         self.page.get_by_test_id('edit-success').wait_for()
         self.assertIn('19:30', self.page.get_by_test_id('reservation-detail').inner_text())
         self.page.goto(self.base + '/manager')
@@ -156,18 +159,30 @@ class ExperienceBrowser(unittest.TestCase):
         def lose(route):
             requests.append((route.request.post_data, route.request.headers.get('idempotency-key')))
             response = route.fetch()
-            self.assertEqual(201, response.status)
-            receipts.append(response.json())
+            receipts.append({'status': response.status, 'body': response.json()})
             route.abort('connectionreset')
 
         self.page.route('**/reservations', lose)
         self.page.get_by_test_id('booking-submit').click()
         self.page.get_by_test_id('booking-uncertain').wait_for()
+        self.assertEqual(201, receipts[0]['status'], receipts[0]['body'])
         saved = self.page.evaluate('Object.values(localStorage).map(v=>JSON.parse(v))')
         self.assertEqual(1, len(saved))
         self.assertEqual(requests[0][1], saved[0]['key'])
         self.assertNotIn(PASSWORD, json.dumps(saved))
         self.page.unroute('**/reservations', lose)
+        csrf = self.page.evaluate('sessionInfo.csrf_token')
+        self.page.evaluate("sessionInfo.csrf_token='deliberately-invalid-test-token'")
+        self.page.get_by_test_id('recover-request').click()
+        self.page.get_by_test_id('recovery-error').wait_for()
+        self.assertEqual(saved, self.page.evaluate('Object.values(localStorage).map(v=>JSON.parse(v))'))
+        revoked = self.context.request.post(self.base + '/auth/logout', data={},
+                    headers={'Origin': self.base, 'X-CSRF-Token': csrf})
+        self.assertEqual(200, revoked.status)
+        self.page.get_by_test_id('recover-request').click()
+        self.page.get_by_role('link', name='Sign in again to recover this request').wait_for()
+        self.assertEqual(saved, self.page.evaluate('Object.values(localStorage).map(v=>JSON.parse(v))'))
+        self.login()
         self.page.get_by_test_id('logout-button').click()
         self.page.goto(self.base + '/signup')
         self.page.get_by_test_id('signup-display-name').fill('Another Synthetic Guest')
@@ -193,7 +208,7 @@ class ExperienceBrowser(unittest.TestCase):
         self.page.get_by_test_id('recover-request').click()
         self.page.get_by_text('Original result recovered.', exact=True).wait_for()
         self.assertEqual(requests[0], requests[1])
-        self.assertIn(receipts[0]['reference'], self.page.locator('#pending-recovery').inner_text())
+        self.assertIn(receipts[0]['body']['reference'], self.page.locator('#pending-recovery').inner_text())
         self.page.goto(self.base + '/bookings')
         self.page.get_by_test_id('booking-list-item').wait_for()
         self.assertEqual(1, self.page.get_by_test_id('booking-list-item').count())
@@ -222,6 +237,80 @@ class ExperienceBrowser(unittest.TestCase):
         self.screenshot('closure-preview', 375)
         self.page.get_by_test_id('replan-apply').click()
         self.page.get_by_test_id('replan-success').wait_for()
+
+    def test_demo_reset_isolates_saved_pending_request(self):
+        self.page.goto(self.base + '/demo')
+        self.page.locator('#start-demo').click()
+        self.page.get_by_test_id('current-user').wait_for()
+        original_scope = self.page.evaluate('session.account_scope')
+        self.search(date='2035-07-15')
+        self.page.get_by_test_id('slot-window-17:00').click()
+        results = []
+
+        def lose(route):
+            response = route.fetch()
+            results.append(response.status)
+            route.abort('connectionreset')
+
+        self.page.route('**/reservations', lose)
+        self.page.get_by_test_id('booking-submit').click()
+        self.page.get_by_test_id('booking-uncertain').wait_for()
+        self.assertEqual([201], results)
+        self.page.unroute('**/reservations', lose)
+        self.page.goto(self.base + '/demo')
+        self.page.locator('#reset-demo').click()
+        self.page.locator('#confirm-reset').click()
+        self.page.get_by_test_id('current-user').wait_for()
+        self.assertNotEqual(original_scope, self.page.evaluate('session.account_scope'))
+        self.assertEqual(0, self.page.get_by_test_id('recover-request').count())
+        self.assertTrue(self.page.evaluate('(scope)=>localStorage.getItem(`tablekeeper.pending.v1.${scope}`)!==null', original_scope))
+
+    def test_material_amendment_and_repair_recover_after_restart(self):
+        self.page.goto(self.base + '/demo')
+        self.page.locator('#start-demo').click()
+        self.page.get_by_test_id('current-user').wait_for()
+        self.page.goto(self.base + '/lookup?reference=EVENING1')
+        self.page.get_by_test_id('series-count').fill('2')
+        self.page.get_by_test_id('series-create').click()
+        self.page.get_by_test_id('series-created').get_by_role('link').click()
+
+        def recover_lost(pattern, submit, uncertain):
+            attempts, results = [], []
+
+            def lose(route):
+                attempts.append((route.request.post_data, route.request.headers.get('idempotency-key')))
+                response = route.fetch()
+                results.append({'status': response.status, 'body': response.json()})
+                route.abort('connectionreset')
+
+            self.page.route(pattern, lose)
+            submit.click()
+            self.page.get_by_test_id(uncertain).wait_for()
+            self.assertEqual(200, results[0]['status'], results[0]['body'])
+            self.page.unroute(pattern, lose)
+            self.stop()
+            self.start()
+            self.page.reload()
+            self.page.get_by_test_id('recover-request').wait_for()
+
+            def replay(route):
+                attempts.append((route.request.post_data, route.request.headers.get('idempotency-key')))
+                route.continue_()
+
+            self.page.route(pattern, replay)
+            self.page.get_by_test_id('recover-request').click()
+            self.page.get_by_text('Original result recovered.', exact=True).wait_for()
+            self.assertEqual(attempts[0], attempts[1])
+            self.page.unroute(pattern, replay)
+
+        self.page.get_by_test_id('series-local-time').fill('18:00')
+        recover_lost('**/series/*/amend', self.page.get_by_test_id('series-amend-submit'), 'series-amend-uncertain')
+        self.assertEqual(2, self.page.locator('.occurrences h3').filter(has_text='18:00').count())
+        self.page.goto(self.base + '/demo')
+        self.page.locator('[data-demo="manager"]').click()
+        self.page.get_by_test_id('closure-preview').click()
+        self.page.get_by_test_id('replan-preview').wait_for()
+        recover_lost('**/replans/*/apply', self.page.get_by_test_id('replan-apply'), 'replan-uncertain')
 
 
 if __name__ == '__main__':

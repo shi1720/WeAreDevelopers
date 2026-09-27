@@ -81,7 +81,7 @@ async function loadManager(restaurant) {
 }
 function renderPolicyList(policies,restaurant) {
   const mount=document.querySelector('#policy-list');
-  mount.innerHTML=policies.length ? policies.map(policy=>`<article class="policy-card"><p class="eyebrow">Version ${policy.policy_version}</p><h3>From ${escapeHTML(policy.effective_from)}</h3>${termsHTML(policy,restaurant)}</article>`).join('') : '<div class="empty">No published policies yet.<br>The original restaurant rules still apply.</div>';
+  mount.innerHTML=policies.length ? policies.map(policy=>`<article class="policy-card"><p class="eyebrow">Version ${policy.policy_version}</p><h3>${policy.effective_from==='0001-01-01'?'Initial venue policy':`From ${escapeHTML(policy.effective_from)}`}</h3>${termsHTML(policy,restaurant)}</article>`).join('') : '<div class="empty">No published policies yet.<br>The original restaurant rules still apply.</div>';
 }
 
 async function seriesScreen() {
