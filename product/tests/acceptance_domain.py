@@ -7,6 +7,7 @@ from itertools import product
 import pytest
 
 from acceptance_http import service, BrowserClient, setup_body
+from independent_planner_oracle import solve
 
 
 def configured(service, zone='Etc/UTC'):
@@ -93,3 +94,23 @@ def test_closure_counts_every_overlap_preview_pure_stale_and_replay(service):
     applied = owner.expect(201, 'POST', route + '/' + plan['plan_id'] + '/apply', {}, 'apply')
     assert owner.expect(200, 'POST', route + '/' + plan['plan_id'] + '/apply', {}, 'apply') == applied
     owner.expect(409, 'POST', '/reservations', {'restaurant_id':rid,'table_id':'table_1','starts_at_local':'2032-06-17T10:00','party_size':2}, 'closed', 'table_unavailable')
+
+
+@pytest.mark.parametrize('selections,closed', [
+    ([(['table_1'],1,'18:00'),(['table_3'],5,'18:00'),(['table_1'],2,'19:00')],'table_1'),
+    ([(['table_1'],1,'18:00'),(['table_2'],4,'18:00')],'table_1'),
+    ([(['table_1','table_2'],5,'18:00')],'table_2'),
+])
+def test_planner_matches_independent_exhaustive_oracle(service,selections,closed):
+    owner,rid = configured(service)
+    bookings=[]
+    for index,(tables,party,clock) in enumerate(selections):
+        bookings.append(owner.expect(201,'POST','/reservations',{'restaurant_id':rid,'table_ids':tables,
+                        'starts_at_local':'2032-06-17T'+clock,'party_size':party},'oracle'+str(index)))
+    restaurant=owner.expect(200,'GET','/restaurants/'+rid)
+    closure={'table_id':closed,'from':'2032-06-17T17:00:00+00:00','to':'2032-06-17T22:00:00+00:00'}
+    expected=solve(restaurant,bookings,closure)
+    assert expected is not None
+    plan=owner.expect(201,'POST','/restaurants/'+rid+'/replans',closure,'oracle-plan')
+    for key in ('assignments','moved_count','unused_seats'):
+        assert plan[key] == expected[key]
