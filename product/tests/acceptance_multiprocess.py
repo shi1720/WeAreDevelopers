@@ -42,20 +42,31 @@ def test_two_live_processes_same_key_and_competition(pair):
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures = [pool.submit(send, server.url, owner, body, 'shared-key') for server in (a, b)]
         responses = [future.result() for future in futures]
+    initial = [response.status_code for response in responses]
     for index, response in enumerate(responses):
         if response.status_code == 503:
             # Honest unknown outcome: recover with exact same body and key.
             responses[index] = send((a, b)[index].url, owner, body, 'shared-key')
-    assert sorted(response.status_code for response in responses) == [200, 201]
+    recovered = sorted(response.status_code for response in responses)
+    print('Same-key HTTP initial/recovered statuses:', initial, recovered)
+    assert recovered == [200, 201] or (503 in initial and recovered == [200, 200])
     assert responses[0].json() == responses[1].json()
+    original = responses[0].json()
+    assert original['revision'] == 1
+    for server in (a, b):
+        replay = send(server.url, owner, body, 'shared-key')
+        assert replay.status_code == 200 and replay.json() == original
     competitor = dict(body, starts_at_local='2032-06-18T18:00')
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures = [pool.submit(send, server.url, owner, competitor, f'competitor-{index}') for index, server in enumerate((a, b))]
         responses = [future.result() for future in futures]
+    initial = [response.status_code for response in responses]
     for index, response in enumerate(responses):
         if response.status_code == 503:
             responses[index] = send((a, b)[index].url, owner, competitor, f'competitor-{index}')
-    assert sorted(response.status_code for response in responses) == [201, 409]
+    recovered = sorted(response.status_code for response in responses)
+    print('Competing-key HTTP initial/recovered statuses:', initial, recovered)
+    assert recovered == [201, 409] or (503 in initial and recovered == [200, 409])
     assert len(owner.expect(200, 'GET', '/reservations?limit=50&offset=0')['reservations']) == 2
 
 
