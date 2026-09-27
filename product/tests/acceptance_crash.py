@@ -50,15 +50,17 @@ def test_http_crash_exact_receipt_recovery(tmp_path, adapter, fault, exit_code, 
         # A killed Firestore transaction can hold locks until server expiry.
         # Transport timeout remains unknown outcome, so repeat only exact key/body.
         result = None
-        for attempt in range(4):
+        # Emulator observation: a killed transaction releases its lock after
+        # about60s. Eight10s HTTP attempts bound recovery beyond that window.
+        for attempt in range(8):
             try:
                 response = owner.request('POST','/reservations',body,'crash-key')
             except httpx.TransportError:
-                if attempt == 3:
+                if attempt == 7:
                     raise
                 time.sleep(1)
                 continue
-            if response.status_code == 503 and attempt < 3:
+            if response.status_code == 503 and attempt < 7:
                 time.sleep(1)
                 continue
             assert response.status_code in ((200,) if expected == 200 else (200,201))
