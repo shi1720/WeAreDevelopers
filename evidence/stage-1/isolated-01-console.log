@@ -1,0 +1,32 @@
+harness could not complete: docker build failed:
+Sending build context to Docker daemon  202.8kB
+
+Step 1/5 : FROM python:3.12-slim
+ ---> cf9ba7e57be0
+Step 2/5 : ENV PIP_DISABLE_PIP_VERSION_CHECK=1 PYTHONUNBUFFERED=1
+ ---> Running in 09f07afbc5d2
+ ---> Removed intermediate container 09f07afbc5d2
+ ---> e9ecb6fe11d2
+Step 3/5 : COPY requirements.txt /tmp/requirements.txt
+ ---> ac3618c179ad
+Step 4/5 : RUN pip install --no-cache-dir -r /tmp/requirements.txt  && playwright install --with-deps chromium
+ ---> Running in 25f53ccc9945
+[91mWARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<pip._vendor.urllib3.connection.HTTPSConnection object at 0xfcc6dcc3ca10>, 'Connection to pypi.org timed out. (connect timeout=15)')': /simple/httpx/
+[0m[91mWARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<pip._vendor.urllib3.connection.HTTPSConnection object at 0xfcc6db8f6de0>, 'Connection to pypi.org timed out. (connect timeout=15)')': /simple/httpx/
+[0m[91mWARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<pip._vendor.urllib3.connection.HTTPSConnection object at 0xfcc6db8f6d50>, 'Connection to pypi.org timed out. (connect timeout=15)')': /simple/httpx/
+[0m[91mWARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<pip._vendor.urllib3.connection.HTTPSConnection object at 0xfcc6db8f7290>, 'Connection to pypi.org timed out. (connect timeout=15)')': /simple/httpx/
+[0m[91mWARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<pip._vendor.urllib3.connection.HTTPSConnection object at 0xfcc6db8f7650>, 'Connection to pypi.org timed out. (connect timeout=15)')': /simple/httpx/
+[0m[91mERROR: Could not find a version that satisfies the requirement httpx==0.28.1 (from versions: none)
+[0m[91mERROR: No matching distribution found for httpx==0.28.1
+[0m
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+The command '/bin/sh -c pip install --no-cache-dir -r /tmp/requirements.txt  && playwright install --with-deps chromium' returned a non-zero code: 1
+
+building /Users/shivamgupta/Downloads/we-are-developers/stage-1 ...
+highest contiguous stage: 0
+claimed stage: none (a suite passed under 50% of its checks)
+report: /private/tmp/proofline-verifier-s1-isolated-01/report.json
+NOTE: this run only includes a portion of the full tests that are applied before judging; this is meant to provide directional feedback, and ultimately you may not pass the stage with the full set of tests.

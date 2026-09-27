@@ -12,7 +12,8 @@ Reviewer: Proofline Verifier. Implementation candidate: `8a2a07abfe972815cfea7c0
 | Two-container transfer probe | Exit 0, all assertions passed | probe 0.324 s |
 | Independent HTTP inside network-none container, 2 CPU/2 GiB | Exit 0, 23/23 | unittest 6.080 s; subprocess 6.503 s |
 | Official host run, attempt 01 | Exit 0, stage 1 120/120; expected stage 2 rejection | subprocess 40.652 s; stage 1 pytest 23.80 s; stage 2 pytest 15.16 s |
-| Official isolated run, attempt 01 | Pending runner build | Not complete |
+| Official isolated run, attempt 01 | Exit 3; official runner build failed before tests: PyPI connection timeout fetching httpx 0.28.1 | subprocess 370.334 s |
+| Explicit test-control-disable mode | Exit 0; health 200, export/reset/import all 404 not_found | in-container probe 0.015 s |
 
 Official host report records root revision `19628383096d045f67c5653b8477afeb22601cf6`: coordinator evidence-only commits followed the frozen candidate. `git diff 8a2a07abfe972815cfea7c02176a075b8b2accaf -- stage-1` was empty before reviewer test additions. The only subsequent stage change is the verifier-owned boundary test file, committed at `5fb91092752dc97fe4df6b17bd0659a0a5c1fe28`. Docker excludes tests. Stage-2 overshoot uses `-x`: 25 collected, zero passed, one expected failure at route `/` waiting for `[data-testid='search-button']`; it did not run all stage-2 cases.
 
@@ -62,4 +63,6 @@ Runner-build diagnosis: a separate default-network `python:3.12-slim` container 
 
 ## Current outcome
 
-No material implementation violation found. Source review, host conformance and independent adversarial checks passed. Acceptance remains pending the final isolated official run. The service is ephemeral and its judge image intentionally exposes test controls; RUN.md documents these limitations and its explicit control-disable mode. This review is not a production certification or a claim about unshipped judge tests.
+No material implementation violation found. Source review, host conformance and independent adversarial checks passed. Acceptance is **blocked, not passed**: final isolated attempt 01 exited 3 before executing service tests, because the unchanged official runner could not reach PyPI for `httpx==0.28.1`. Five pip retries exhausted; the runner's Docker build exited 1, and the harness returned 3 after 370.334 seconds. The complete failed console output and harness report are preserved beside this file. Coordinator owns infrastructure recovery; a new isolated output directory is required after recovery.
+
+The service is ephemeral and its judge image intentionally exposes test controls; RUN.md documents these limitations and its explicit control-disable mode. An independent container started with `--network none -e PORT=8094 -e TABLEKEEPER_TEST_CONTROLS=0` returned health 200 and 404 `not_found` for all three test routes. All verifier-created service containers were stopped. This review is not a production certification or a claim about unshipped judge tests.
