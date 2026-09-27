@@ -1,0 +1,6 @@
+building /Users/shivamgupta/Downloads/we-are-developers/stage-1 ...
+  stage 1: error  (log: /private/tmp/proofline-verifier-s1-isolated-03/stage-1.log)
+highest contiguous stage: 0
+claimed stage: none (a suite passed under 50% of its checks)
+report: /private/tmp/proofline-verifier-s1-isolated-03/report.json
+NOTE: this run only includes a portion of the full tests that are applied before judging; this is meant to provide directional feedback, and ultimately you may not pass the stage with the full set of tests.

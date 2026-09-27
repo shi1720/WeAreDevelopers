@@ -1,0 +1,5 @@
+$ docker run --rm --network df-run-912d01364c6c4533a795a3788f5b767c -v /private/tmp/proofline-official-spec:/work:ro -v /private/tmp/proofline-verifier-s1-isolated-03:/out -e PYTHONDONTWRITEBYTECODE=1 -e PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 -e COLUMNS=200 -w /work df-harness-runner python -m pytest tablekeeper/test/stage_1 --base-url http://df-svc-68ffe7edf369:8080 -p harness.plugin --rootdir tablekeeper/test -q --harness-summary /out/stage-1.counts.json
+
+
+ERROR: Directory '/work/tablekeeper/test' not found. Check your '--rootdir' option.
+
