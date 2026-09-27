@@ -216,3 +216,25 @@ def test_concurrent_setup_and_backup_during_writes(app, tmp_path):
             assert len(snapshot['domain']['reservations']) == len(snapshot['domain']['receipts'])
             reader.close()
         future.result()
+
+
+def test_anonymous_abuse_preserves_authenticated_booking_capacity(app):
+    owner = Browser(app)
+    owner.call('POST', '/setup', setup_body())
+    for _ in range(65):
+        status, _, _ = app.dispatch('GET', '/api/session', {}, {}, {})
+        assert status in (200, 429)
+    assert owner.call('POST', '/reservations', booking(), key='during-abuse')[0] == 201
+    value = app.store.snapshot('main')[1]
+    assert sum(s['user_id'] is None for s in value['sessions'].values()) <= 128
+
+
+def test_demo_reset_rotates_recovery_scope_and_expiry_recovers_shell(app):
+    browser = Browser(app)
+    original = browser.call('POST', '/api/demo/start')[1]['account_scope']
+    reset = browser.call('POST', '/api/demo/reset')[1]['account_scope']
+    assert reset != original
+    namespace, _ = app.locator({'Cookie': browser.cookie})
+    app.store.transact(namespace, lambda value: value.update(expires_at=time.time() - 1))
+    result = browser.call('GET', '/api/session')[1]
+    assert result['authenticated'] is False and result['demo'] is False

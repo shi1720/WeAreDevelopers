@@ -71,6 +71,13 @@ class Companion:
 
     def new_session(self, value, user, now):
         self.prune(value, now)
+        anonymous = sorted(((key, session) for key, session in value['sessions'].items() if session['user_id'] is None),
+                           key=lambda item: item[1]['last_seen'])
+        if user is None and len(anonymous) >= 128:
+            # Anonymous browser preparation cannot consume authenticated capacity.
+            value['sessions'].pop(anonymous[0][0])
+        elif len(value['sessions']) >= 1024 and anonymous:
+            value['sessions'].pop(anonymous[0][0])
         if len(value['sessions']) >= 1024:
             raise APIError(429, 'session_capacity')
         if user is not None:
@@ -101,7 +108,7 @@ class Companion:
         if user:
             role = 'manager' if any(uid in r['manager_user_ids'] for r in value['domain']['restaurants']) else 'guest'
             user = {k: user[k] for k in ('display_name', 'email')} | {'user_id': uid, 'role': role}
-        scope = digest(namespace + ':' + str(uid))
+        scope = digest(namespace + ':' + value.get('scope_generation', 'initial') + ':' + str(uid))
         return {'user': user, 'authenticated': user is not None, 'user_id': uid,
                 'display_name': user['display_name'] if user else None, 'role': user['role'] if user else None,
                 'email': user['email'] if user else None, 'account_scope': scope,
@@ -160,14 +167,17 @@ class Companion:
         if path == '/demo/start' and method == 'POST':
             return self.start_demo(namespace, token, headers, now)
 
-        def execute(value):
-            nonlocal token
+        def execute(value, token=token):
             cookie = None
             try:
                 session = self.get_session(value, token, now)
             except APIError:
                 if method != 'GET' or path != '/auth/session' or namespace != 'main':
                     raise
+                try:
+                    self.throttle(value, 'anonymous-sessions', now, 60)
+                except APIError as exc:
+                    return exc.status, {'error': {'code': exc.code, 'message': exc.message}}, None
                 token, session = self.new_session(value, None, now)
                 cookie = self.cookie(namespace, token, ANON_SECONDS)
             if method != 'GET':
@@ -258,6 +268,7 @@ class Companion:
                 if path.endswith('reset'):
                     from .demo import fixture
                     value['domain'] = from_fixture(fixture())
+                    value['scope_generation'] = secrets.token_hex(16)
                     value['extra_receipts'] = []
                     value['sessions'] = {}
                     uid = 'demo_guest'
@@ -313,7 +324,14 @@ class Companion:
                 domain['tokens'].clear()
             return status, response, None
 
-        return self.store.transact(namespace, execute)
+        try:
+            return self.store.transact(namespace, execute)
+        except APIError as exc:
+            if namespace != 'main' and method == 'GET' and path == '/auth/session' and exc.code in ('unauthenticated', 'demo_expired', 'not_found'):
+                # Expired demo credentials cannot access their namespace. Issue
+                # a fresh anonymous main session so the visitor can start again.
+                return self.dispatch(method, path, query, dict(headers) | {'Cookie': ''}, body)
+            raise
 
     def page(self, records, query, default=20):
         try:

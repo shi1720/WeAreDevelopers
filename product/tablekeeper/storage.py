@@ -52,8 +52,14 @@ def validate(value):
                 raise ValueError('invalid csrf digest')
         if type(value['setup_consumed']) is not bool or type(value['demo']) is not bool:
             raise ValueError('invalid flags')
+        if 'scope_generation' in value and (type(value['scope_generation']) is not str or not re.fullmatch('[0-9a-f]{32}', value['scope_generation'])):
+            raise ValueError('invalid recovery generation')
         if value['expires_at'] is not None and (type(value['expires_at']) not in (int, float) or not math.isfinite(value['expires_at'])):
             raise ValueError('invalid namespace lifetime')
+        lock = value['maintenance']
+        if lock is not None and (type(lock) is not dict or set(lock) != {'since'}
+                or type(lock['since']) not in (int, float) or not math.isfinite(lock['since']) or lock['since'] < 0):
+            raise ValueError('invalid maintenance lock')
         for entry in value['attempts'].values():
             if type(entry['count']) is not int or entry['count'] < 0 or type(entry['until']) not in (int, float) or not math.isfinite(entry['until']):
                 raise ValueError('invalid throttle')
