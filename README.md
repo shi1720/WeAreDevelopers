@@ -1,6 +1,6 @@
 # Tablekeeper
 
-**Keep the promise, even when the floor changes.** A reservation is a promise to a guest. Tablekeeper is being built to help a restaurant keep that promise through booking changes, evolving policies and table closures.
+**Keep the promise, even when the floor changes.** A reservation is a promise to a guest. Tablekeeper helps a restaurant keep that promise through booking changes, evolving policies and table closures.
 
 This repository is the Tablekeeper-track output of **Proofline**, a four-seat software factory. Shivam Gupta supplied product direction and factory configuration; Proofline's coding-agent seats implement and independently verify the software. See [FACTORY.md](FACTORY.md) for setup, responsibilities and release gates.
 
@@ -14,7 +14,7 @@ This repository is the Tablekeeper-track output of **Proofline**, a four-seat so
 - [Release ledger](docs/RELEASE-GATES.md): requirement families, accepted revisions and evidence status.
 - [Security boundaries](docs/SECURITY.md): judge controls, private exports and deployment limitations.
 
-The four folders are complete, independently buildable sequential releases. Each extends its accepted predecessor. Exact accepted revisions, independent review and final execution results are in the [release ledger](docs/RELEASE-GATES.md) and [final verification report](evidence/final/verification.md). Submission eligibility still requires the authentic operator-exported `room.json`.
+The four folders are complete, independently buildable sequential releases. Each extends its accepted predecessor. Exact accepted revisions, independent review and final execution results are in the [release ledger](docs/RELEASE-GATES.md) and [final verification report](evidence/final/verification.md). The authentic full [BAND room export](room.json) contains 3,540 messages and was exported after completion. The original run needed an operator daemon/session restart, disclosed in [FACTORY.md](FACTORY.md); no additional human implementation task or hint was sent.
 
 ## Verification
 
@@ -27,7 +27,7 @@ The official contracts are from kickoff revision `803560d2a678ace1414465c098eb0a
 .venv/bin/python -m harness check /absolute/path/to/this/repository --track tablekeeper
 ```
 
-Every run needs a new output directory. Published checks are partial; independent specification-derived checks and source review are also required. The operator exports the authentic complete Band room as `room.json` after the autonomous run. Until then the room-log submission gate remains pending.
+Every run needs a new output directory. Published checks are partial; independent specification-derived checks and source review are also required. Final isolated execution passed 120, 145, 152 and 158 required checks for stages 1 through 4 respectively, both in the workspace and a fresh local clone: 575 check executions per run, not 575 distinct requirements. The published suites are partial. Historical submission-check logs predate the final room export; final post-export packaging validation remains a separate gate.
 
 Run the accepted browser product locally:
 
@@ -38,4 +38,12 @@ docker run --rm -e PORT=8080 -p 127.0.0.1:8080:8080 tablekeeper-stage-4
 
 Open `http://localhost:8080`. See [demo runbook](docs/DEMO-RUNBOOK.md) for the exact synthetic account and scenario, and each stage's `RUN.md` for options. The judge image intentionally enables unauthenticated test controls. It must not be exposed publicly in that mode.
 
-Licensed under [MIT](LICENSE). This is a hackathon service, not a production certification or claim of customer adoption.
+## Product boundary and next step
+
+The accepted stage-4 product includes guest signup/login, booking and lookup, recurring administration, manager closure preview/apply, and responsive browser flows. Its recovery planner supports at most **6 tables, 4 declared pairs and 6 considered bookings**. All confirmed bookings overlapping the closure count, including those on unaffected tables; splitting arbitrary overlapping plans is not a validated extension.
+
+The graded service keeps state in memory and enables judge test controls by default. It is a local demonstration and contract implementation, not a durable public restaurant service. A separate operational companion and Firebase deployment are pending. No hosted URL, durable cloud storage or production certification is claimed here. Individual booking amendment is API-only in the frozen product, and amended-series summary refresh has a documented UX limitation.
+
+Our proposed first pilots are intimate four-to-six-table venues with direct or recurring groups. The proposed $79/location/month is a hypothesis, not customer revenue. Read the [commercial thesis](docs/COMMERCIAL-THESIS.md), [submission copy](docs/SUBMISSION.md), and [video script](docs/VIDEO-SCRIPT.md).
+
+Original project code is [MIT](LICENSE). Official specification text retained in the room export keeps its upstream license; see [third-party notices](THIRD-PARTY-NOTICES.md).

@@ -1,0 +1,8 @@
+{
+  "room": "d82b4197-09c0-4af3-aabf-fa336747ff95",
+  "message_id": "27cef353-ee6c-45ed-80bd-78684731ad14",
+  "task": "factory/tasks/dispatch.md",
+  "stage_source_empty_at_dispatch": true,
+  "human_inputs_planned": 1,
+  "delivery_note": "CLI timed out; verified original message persisted in room, did not resend."
+}

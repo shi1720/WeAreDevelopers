@@ -1,0 +1,212 @@
+{
+  "measured_at": "2026-09-27T18:02:01.565269+00:00",
+  "room_id": "d82b4197-09c0-4af3-aabf-fa336747ff95",
+  "source": "Last cumulative total_token_usage per independently verified production provider-session epoch",
+  "method": "Sum the listed zero-baseline epochs across four seats; duplicate cumulative notifications are not summed. No copied event signatures or within-epoch decreases/delta mismatches observed.",
+  "billing": "Runtime-reported counters, not provider-billed spend. Cached input is a subset of input; reasoning output is a subset of output. Rehearsal, operator and presentation sessions excluded.",
+  "totals": {
+    "input_tokens": 119107529,
+    "cached_input_tokens": 116797184,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 335630,
+    "reasoning_output_tokens": 30359,
+    "total_tokens": 119443159
+  },
+  "status": "fixed post-acceptance snapshot; not an invoice",
+  "cutoff": "2026-09-27T18:02:01.565269+00:00",
+  "coverage": "Eight explicitly identified original-run provider-session epochs, two per seat. Excludes operator, rehearsal, presentation and companion work. Sampling was sequential; each epoch has its own latest event timestamp. Does not claim usage after the cutoff.",
+  "epochs": [
+    {
+      "seat": "coordinator",
+      "provider_session_id": "01a0e2a7-33a6-7750-a7eb-023dbaff302b",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T13:51:09.970Z",
+      "usage": {
+        "input_tokens": 30715994,
+        "cached_input_tokens": 30454912,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 38244,
+        "reasoning_output_tokens": 2363,
+        "total_tokens": 30754238
+      },
+      "counter_events": 212,
+      "duplicate_counter_events": 2,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    },
+    {
+      "seat": "coordinator",
+      "provider_session_id": "01a0e3f2-96e3-72d1-9d1d-2bbb931929a3",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T18:00:43.907Z",
+      "usage": {
+        "input_tokens": 2648257,
+        "cached_input_tokens": 2546048,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 12040,
+        "reasoning_output_tokens": 483,
+        "total_tokens": 2660297
+      },
+      "counter_events": 55,
+      "duplicate_counter_events": 1,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    },
+    {
+      "seat": "engineer",
+      "provider_session_id": "01a0e2a9-0854-7fd3-8026-43c7b5dc3e43",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T17:34:22.952Z",
+      "usage": {
+        "input_tokens": 24382724,
+        "cached_input_tokens": 23619712,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 82759,
+        "reasoning_output_tokens": 10322,
+        "total_tokens": 24465483
+      },
+      "counter_events": 175,
+      "duplicate_counter_events": 4,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    },
+    {
+      "seat": "engineer",
+      "provider_session_id": "01a0e3ee-ab50-73d0-9f79-476304a1c65d",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T17:44:40.920Z",
+      "usage": {
+        "input_tokens": 4161328,
+        "cached_input_tokens": 4060032,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9988,
+        "reasoning_output_tokens": 857,
+        "total_tokens": 4171316
+      },
+      "counter_events": 56,
+      "duplicate_counter_events": 0,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    },
+    {
+      "seat": "experience",
+      "provider_session_id": "01a0e2a9-1028-7840-9e50-ba6255b4b01c",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T17:34:25.406Z",
+      "usage": {
+        "input_tokens": 14737630,
+        "cached_input_tokens": 14510336,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 60969,
+        "reasoning_output_tokens": 4147,
+        "total_tokens": 14798599
+      },
+      "counter_events": 112,
+      "duplicate_counter_events": 3,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    },
+    {
+      "seat": "experience",
+      "provider_session_id": "01a0e3ee-b5a1-7e30-bfd3-259ab2f25620",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T18:00:53.476Z",
+      "usage": {
+        "input_tokens": 5834010,
+        "cached_input_tokens": 5715456,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 14972,
+        "reasoning_output_tokens": 1035,
+        "total_tokens": 5848982
+      },
+      "counter_events": 77,
+      "duplicate_counter_events": 0,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    },
+    {
+      "seat": "verifier",
+      "provider_session_id": "01a0e2a9-1b1c-7953-b096-45566a3077a2",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T13:51:24.583Z",
+      "usage": {
+        "input_tokens": 31917340,
+        "cached_input_tokens": 31307648,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 94649,
+        "reasoning_output_tokens": 9806,
+        "total_tokens": 32011989
+      },
+      "counter_events": 227,
+      "duplicate_counter_events": 3,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    },
+    {
+      "seat": "verifier",
+      "provider_session_id": "01a0e3f3-0071-7930-b605-73625933ebbd",
+      "reported_models": [
+        "gpt-6-astra"
+      ],
+      "reported_efforts": [
+        "low"
+      ],
+      "observed_at": "2026-09-27T18:00:42.251Z",
+      "usage": {
+        "input_tokens": 4710246,
+        "cached_input_tokens": 4583040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 22009,
+        "reasoning_output_tokens": 1346,
+        "total_tokens": 4732255
+      },
+      "counter_events": 64,
+      "duplicate_counter_events": 0,
+      "counter_decreases": 0,
+      "counter_delta_mismatches": 0,
+      "first_total_equals_last_usage": true
+    }
+  ]
+}

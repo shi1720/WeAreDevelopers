@@ -12,3 +12,12 @@ node_modules/
 playwright-report/
 test-results/
 .private/
+firebase-debug*.log
+.firebase/
+output/presentation/.build/
+output/presentation/deliverables/*draft*
+output/presentation/deliverables/*preview*
+output/presentation/deliverables/*timing-corrected*
+output/pdf/*draft*
+output/pdf/*preview*
+output/pdf/*timing-corrected*
