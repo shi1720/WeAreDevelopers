@@ -58,6 +58,27 @@ class AvailabilityTests(unittest.TestCase):
                 get_availability(self.restaurant, [], "2026-09-24", party)
             self.assertEqual("validation_failed", error.exception.code)
 
+    def test_pairs_in_declared_order_and_occupy_both_members(self):
+        self.restaurant['tables'].append({'id': 'b', 'capacity': 3})
+        self.restaurant['combinable'] = [['a', 'z'], ['z', 'b']]
+        result = get_availability(self.restaurant, [], '2026-09-24', 2)['slots'][0]
+        self.assertEqual([['z'], ['a'], ['b'], ['a', 'z'], ['z', 'b']],
+                         [option['table_ids'] for option in result['available_options']])
+        self.assertEqual([4, 2, 3, 6, 7], [option['capacity'] for option in result['available_options']])
+        booked = dict(self.booking, table_ids=['a', 'z'])
+        booked.pop('table_id')
+        result = get_availability(self.restaurant, [booked], '2026-09-24', 2)['slots'][0]
+        self.assertEqual(['b'], result['available_table_ids'])
+        self.assertEqual([{'table_ids': ['b'], 'capacity': 3}], result['available_options'])
+
+    def test_pairs_capacity_is_sum_no_transitive_options(self):
+        self.restaurant['tables'].append({'id': 'b', 'capacity': 3})
+        self.restaurant['combinable'] = [['a', 'z'], ['z', 'b']]
+        result = get_availability(self.restaurant, [], '2026-09-24', 5)['slots'][0]
+        self.assertEqual([], result['available_table_ids'])
+        self.assertEqual([['a', 'z'], ['z', 'b']], [o['table_ids'] for o in result['available_options']])
+        self.assertEqual([], get_availability(self.restaurant, [], '2026-09-24', 8)['slots'][0]['available_options'])
+
 
 if __name__ == "__main__":
     unittest.main()

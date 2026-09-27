@@ -19,14 +19,24 @@ def get_availability(restaurant: dict, reservations: list[dict], date: str, part
     occupied = {}
     for reservation in reservations:
         if reservation["restaurant_id"] == restaurant["id"] and reservation["status"] == "confirmed":
-            occupied.setdefault(reservation["table_id"], []).append(reservation)
+            for table_id in reservation.get("table_ids", [reservation.get("table_id")]):
+                occupied.setdefault(table_id, []).append(reservation)
     slots = []
     for start, end in iter_slots(restaurant, date):
         available = [table["id"] for table in restaurant["tables"]
                      if table["capacity"] >= party_size and not any(
                          overlaps(start, end, reservation)
                          for reservation in occupied.get(table["id"], ()))]
+        capacities = {table["id"]: table["capacity"] for table in restaurant["tables"]}
+        options = [{"table_ids": [tid], "capacity": capacities[tid]} for tid in available]
+        for pair in restaurant.get("combinable", []):
+            capacity = sum(capacities[tid] for tid in pair)
+            if capacity >= party_size and not any(
+                    overlaps(start, end, reservation)
+                    for tid in pair for reservation in occupied.get(tid, ())):
+                options.append({"table_ids": list(pair), "capacity": capacity})
         slots.append({"starts_at_local": start.isoformat(timespec="minutes")[:16],
-                      "starts_at": start.isoformat(), "available_table_ids": available})
+                      "starts_at": start.isoformat(), "available_table_ids": available,
+                      "available_options": options})
     return {"restaurant_id": restaurant["id"], "date": date,
             "timezone": restaurant["timezone"], "slots": slots}
