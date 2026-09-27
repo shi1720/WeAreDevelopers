@@ -28,4 +28,8 @@ Separating implementation from acceptance makes the review accountable to a diff
 
 The production dispatch was observed at 2026-09-27 11:36:24 UTC; coordinator execution began approximately 11:37 UTC. Final elapsed time and accepted revisions will be recorded after completion. Tool durations and verifier command logs provide measured execution times. Provider-billed spend and a reliable per-run token total are currently unknown; any available Band catalog estimate will be labelled an estimate rather than a bill.
 
-No stage is claimed accepted yet. Failure/recovery examples will be added only when observed in this production room, with the rejected revision, evidence and repair. Infrastructure rehearsal is a separate room and is not product-build evidence.
+No stage is claimed accepted yet. Stage-1 candidate `8a2a07abfe972815cfea7c02176a075b8b2accaf` is frozen for independent acceptance. Infrastructure rehearsal is a separate room and is not product-build evidence.
+
+## Observed recovery
+
+The initial two container builds timed out fetching Python image metadata through Colima, while host HTTPS reached the registry. A mirror pull from Colima also timed out. Coordinator downloaded the official image through the host using `crane`, loaded it into Docker, and returned the build to Engineer/Verifier without changing service or harness code. A temporary public-only Docker configuration avoided a missing credential helper without changing the user's configuration. [Recovery evidence](evidence/factory/registry-recovery.md) preserves the failed attempts and successful commands. Passing local tests were explicitly kept separate from pending container acceptance.
