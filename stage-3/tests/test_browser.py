@@ -55,6 +55,7 @@ class BrowserTests(unittest.TestCase):
                    'restaurants': [], 'reservations': []}
         for rid, name in [('r', 'The Test Garden'), ('other', 'The Second Room')]:
             fixture['restaurants'].append({'id': rid, 'name': name, 'timezone': 'Europe/Berlin',
+                'manager_user_ids': ['u'] if rid == 'r' else [],
                 'slot_minutes': 30, 'reservation_duration_minutes': 90, 'cancellation_cutoff_minutes': 60,
                 'opening_hours': [{'weekday': d, 'opens': '18:00', 'closes': '23:00'}
                                   for d in ('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun')],
@@ -230,6 +231,72 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(0, self.page.get_by_test_id('booking-uncertain').count())
         self.assertIn('Garden', self.page.get_by_test_id('confirmation-tables').inner_text())
         self.assertIn('Window', self.page.get_by_test_id('confirmation-tables').inner_text())
+
+    def test_manager_policy_and_immutable_guest_terms(self):
+        self.login(); self.search()
+        self.page.get_by_test_id('slot-c-18:00').click()
+        self.page.get_by_test_id('booking-submit').click()
+        reference = self.page.get_by_test_id('confirmation-reference').inner_text()
+        self.page.goto(self.base + '/manager')
+        self.page.get_by_test_id('policy-effective').fill('2035-06-14')
+        self.page.get_by_test_id('policy-duration').fill('120')
+        self.page.get_by_test_id('policy-publish').click()
+        self.page.get_by_test_id('policy-success').wait_for()
+        self.assertIn('Version 1', self.page.get_by_test_id('policy-list').inner_text())
+        self.page.get_by_test_id('policy-publish').click()
+        self.page.get_by_test_id('policy-success').wait_for()
+        policies = self.context.request.get(self.base + '/restaurants/r/policies').json()['policies']
+        self.assertEqual(1, len(policies))
+        self.page.set_viewport_size({'width':375,'height':900})
+        self.assertLessEqual(self.page.evaluate('document.documentElement.scrollWidth'), 375)
+        self.page.goto(self.base + '/lookup?reference=' + reference)
+        self.assertIn('90 minutes', self.page.get_by_test_id('accepted-terms').inner_text())
+        self.page.get_by_test_id('reservation-history').get_by_text('Reserved', exact=True).wait_for()
+        self.assertIn('Version 0', self.page.get_by_test_id('accepted-terms').inner_text())
+
+    def test_series_adoption_replay_list_and_history(self):
+        self.login(); self.search()
+        self.page.get_by_test_id('slot-a-18:00').click()
+        self.page.get_by_test_id('booking-submit').click()
+        reference = self.page.get_by_test_id('confirmation-reference').inner_text()
+        self.page.goto(self.base + '/lookup?reference=' + reference)
+        self.page.get_by_test_id('series-count').fill('3')
+        self.page.get_by_test_id('series-create').click()
+        self.page.get_by_test_id('series-created').wait_for()
+        self.assertIn('3 visits', self.page.get_by_test_id('series-created').inner_text())
+        self.page.get_by_test_id('series-create').click()
+        self.page.get_by_test_id('series-created').wait_for()
+        self.page.get_by_role('link', name='View your regular evenings').click()
+        self.page.get_by_test_id('series-detail').wait_for()
+        self.assertEqual(3, self.page.locator('.occurrences > li').count())
+        self.assertIn(reference, self.page.get_by_test_id('series-detail').inner_text())
+        self.page.set_viewport_size({'width':375,'height':900})
+        self.assertLessEqual(self.page.evaluate('document.documentElement.scrollWidth'),375)
+        self.page.goto(self.base + '/series')
+        self.page.get_by_test_id('series-detail').wait_for()
+        self.assertEqual(1, self.page.get_by_test_id('series-detail').count())
+
+    def test_policy_uncertain_retry_and_permission_screen(self):
+        self.login(); self.page.goto(self.base + '/manager')
+        self.page.get_by_test_id('policy-effective').fill('2036-02-20')
+        original = []
+        def lose(route):
+            original.append((route.request.post_data,route.request.headers['idempotency-key']))
+            self.assertEqual(201,route.fetch().status);route.abort('connectionreset')
+        self.page.route('**/restaurants/r/policies',lose,times=1)
+        self.page.get_by_test_id('policy-publish').click()
+        self.page.get_by_test_id('policy-uncertain').wait_for()
+        def recover(route):
+            self.assertEqual(original[0],(route.request.post_data,route.request.headers['idempotency-key']))
+            route.continue_()
+        self.page.route('**/restaurants/r/policies',recover,times=1)
+        self.page.get_by_test_id('policy-publish').click()
+        self.page.get_by_test_id('policy-success').wait_for()
+        self.assertEqual(0,self.page.get_by_test_id('policy-uncertain').count())
+        self.page.get_by_test_id('logout-button').click()
+        self.page.goto(self.base + '/manager')
+        self.assertEqual(0,self.page.get_by_test_id('policy-publish').count())
+        self.page.get_by_role('heading',name='A place to return to.').wait_for()
 
 
 if __name__ == '__main__':

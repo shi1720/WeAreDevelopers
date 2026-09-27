@@ -9,11 +9,13 @@ from datetime import datetime
 
 from tablekeeper.availability import get_availability, overlaps
 from tablekeeper.validation import APIError
+from tablekeeper.policies import base_terms
 
 
 class AvailabilityTests(unittest.TestCase):
     def setUp(self):
         self.restaurant = {"id": "r", "timezone": "Europe/Berlin", "slot_minutes": 30,
+                           "cancellation_cutoff_minutes": 60,
                            "reservation_duration_minutes": 90,
                            "opening_hours": [{"weekday": "thu", "opens": "18:00", "closes": "22:00"}],
                            "tables": [{"id": "z", "capacity": 4}, {"id": "a", "capacity": 2}]}
@@ -78,6 +80,33 @@ class AvailabilityTests(unittest.TestCase):
         self.assertEqual([], result['available_table_ids'])
         self.assertEqual([['a', 'z'], ['z', 'b']], [o['table_ids'] for o in result['available_options']])
         self.assertEqual([], get_availability(self.restaurant, [], '2026-09-24', 8)['slots'][0]['available_options'])
+
+    def test_explanation_rules_independent_and_omitted_by_default(self):
+        self.restaurant['policy_version'] = 7
+        self.restaurant['tables'][0]['capacity'] = 1
+        policy = base_terms(self.restaurant)
+        policy['policy_version'] = 7
+        response = get_availability(self.restaurant, [self.booking], '2026-09-24', 2, policy=policy, explain=True)
+        first = response['slots'][0]
+        self.assertEqual(['z', 'a'], [d['table_id'] for d in first['explain']])
+        self.assertEqual([{'rule':'capacity','holds':False}, {'rule':'no_overlap','holds':False}], first['explain'][0]['rules'])
+        self.assertEqual(7, first['explain'][0]['policy_version'])
+        self.assertEqual(first['available_table_ids'], [d['table_id'] for d in first['explain'] if d['available']])
+        last = response['slots'][-1]['explain'][0]
+        self.assertEqual([False, True], [r['holds'] for r in last['rules']])
+        self.assertNotIn('explain', get_availability(self.restaurant, [self.booking], '2026-09-24', 2)['slots'][0])
+
+    def test_effective_restaurant_drives_grid_duration_capacity(self):
+        selected = copy.deepcopy(self.restaurant)
+        selected.update(slot_minutes=60, reservation_duration_minutes=120, policy_version=3)
+        selected['tables'][0]['capacity'] = 1
+        before = copy.deepcopy(selected)
+        policy = base_terms(selected)
+        policy['policy_version'] = 3
+        response = get_availability(self.restaurant, [], '2026-09-24', 2, policy=policy, explain=True)
+        self.assertEqual(['18:00', '19:00', '20:00'], [s['starts_at_local'][-5:] for s in response['slots']])
+        self.assertTrue(all(s['available_table_ids'] == ['a'] for s in response['slots']))
+        self.assertEqual(before, selected)
 
 
 if __name__ == "__main__":

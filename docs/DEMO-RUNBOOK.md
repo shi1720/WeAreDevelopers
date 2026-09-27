@@ -1,7 +1,7 @@
 # Tablekeeper local demo
 
-This runbook currently covers the completed stage-2 experience. Manager policies,
-recurring bookings and closure planning are later-stage work and are not demonstrated here.
+This runbook covers the stage-3 experience. Closure planning and collective recurring
+amendments are later-stage work and are not demonstrated here.
 All people, restaurant names and account details below are synthetic fixtures.
 
 ## Start a fresh local demo
@@ -9,11 +9,11 @@ All people, restaurant names and account details below are synthetic fixtures.
 From the repository root:
 
 ```sh
-docker build -t tablekeeper-stage2 ./stage-2
-docker run --rm --name tablekeeper-demo -p 127.0.0.1:8080:8080 -e PORT=8080 tablekeeper-stage2
+docker build -t tablekeeper-stage3 ./stage-3
+docker run --rm --name tablekeeper-demo -p 127.0.0.1:8080:8080 -e PORT=8080 tablekeeper-stage3
 ```
 
-Open `http://localhost:8080`. The initial startup loads `stage-2/tablekeeper/demo.py`:
+Open `http://localhost:8080`. The initial startup loads `stage-3/tablekeeper/demo.py`:
 
 | Fixture | Value |
 | --- | --- |
@@ -25,6 +25,7 @@ Open `http://localhost:8080`. The initial startup loads `stage-2/tablekeeper/dem
 | The round table / Quiet alcove | 4 / 6 seats; declared pair, 10 together |
 | Demo guest | Alex, `guest@tablekeeper.test` |
 | Demo password | `a lovely evening` — deliberately public synthetic demo credential |
+| Demo manager | Sam, `manager@tablekeeper.test`, password `a thoughtful service` — also public and synthetic |
 | Initial reservations | None |
 
 The fixture is deterministic. Use 2035-06-14 for the walkthrough while that date is
@@ -45,20 +46,26 @@ restores the initial fixture. A test reset/import replaces it; it is not silentl
    19:00, then **Confirm reservation**. The form stays visible and the confirmation
    names both tables, the restaurant, local time and unique reference. Click
    **Confirm reservation** again without editing: the server returns the same reference.
-4. **1:40–2:20 — Find and cancel.** Follow **View your reservation** to `/lookup`,
-   or enter the reference on **Your reservation**. Show the confirmed status and both
-   table names. Select **Cancel reservation**; status becomes `cancelled` and the
-   cancellation button disappears. Returning to search makes both tables available again.
-5. **2:20–3:00 — Show the experience and evidence.** Resize to 375 CSS pixels. The
-   search controls, seating cards and booking form stack without horizontal page scroll.
-   Explain that automated browser checks exercise a competing booking, delayed search,
-   and a deliberately lost response followed by import and an unchanged retry. Do not
-   simulate a successful uncertain response in the product or imply this is a production
-   deployment.
+4. **1:40–2:20 — Make it a regular evening.** Follow **View your reservation** to
+   `/lookup`. Show **The promise we kept** (policy 0, 90 minutes), then the immutable
+   creation history. In **Make it a regular evening**, keep 4 visits and 1 week and
+   select **Reserve regular visits**. Follow the agreement link. The original reference
+   remains occurrence 1; all four visits have their own references. `/series` lists
+   your agreements. Cancelling a visit from its lookup page cancels only that visit.
+5. **2:20–3:00 — Show manager policy control.** Sign out and sign in as the demo
+   manager. Open **For restaurants** (`/manager`), choose effective date 2035-06-14,
+   change dining time to 120 minutes and publish. Policy version 1 appears. Explain that
+   the guest's existing visits retain their accepted 90-minute terms. The manager cannot
+   open another diner's private reservation history. Show the 375px layout if time permits.
+
+For a focused resilience demonstration, run the automated browser cases below: they
+exercise a competing booking, delayed search, and deliberately lost committed responses
+followed by exact-body/key retries. Do not manufacture a successful uncertain response
+in the product or imply this is a production deployment.
 
 ## Reproduce the browser failure checks
 
-With Python and Playwright Chromium installed, from `stage-2`:
+With Python and Playwright Chromium installed, from `stage-3`:
 
 ```sh
 python -m unittest discover -s tests -p test_browser.py -v
@@ -83,12 +90,14 @@ displaying confirmation. Exported credentials remain in memory and are not writt
   after a page reload. Sessions are stored in this browser's local storage.
 - A changed form is a new booking request. An unchanged form retries its existing key
   and body. If the response is uncertain, retry unchanged before making another booking.
-- The stage-2 UI does not expose batch amendments. The required atomic batch API remains
-  available. No manager policy, series or closure UI is claimed at this stage.
+- The UI does not expose individual or batch amendments. The required amendment APIs
+  remain available. Stage 3 adds policy publishing, accepted terms/history and recurring
+  adoption/list/detail. Closure planning and collective recurring amendments are not yet
+  available. A manager only sees restaurants assigned to that account.
 - All illustrations, styles and scripts are local; typography uses installed system
   Georgia and Arial fallbacks. There are no runtime font or asset downloads.
 
-## Development evidence
+## Stage-2 development evidence retained
 
 The first focused browser run completed in 3.837 seconds and exposed two mistakes in
 the test driver: an unquoted CSS attribute value containing a colon and a positional
@@ -99,3 +108,22 @@ suite passed in 4.789 seconds, adding changed-body identity and paired uncertain
 Availability passed seven
 tests in 0.004 seconds. These are local development results, not independent release
 acceptance. The verifier's immutable revision and official isolated results govern release.
+
+## Stage-3 development evidence
+
+Crossed interface proposals initially left the server passing `policy=` while availability
+expected an already-effective restaurant. The seats explicitly settled on the keyword
+contract, and availability now uses the shared policy helpers. The integration also exposed
+a missing cutoff field in the small availability unit-test fixture (seven errors in 0.001
+seconds); adding the required fixture field restored all nine checks (0.004 seconds).
+The first ten-scenario browser run passed nine and failed the final series-list navigation
+check in 13.251 seconds: direct series detail worked, but the agreed optional list API was
+not yet integrated. This failure was sent to the backend owner rather than hidden by
+removing the list assertion.
+
+The final list contract is an authenticated, owner-only `GET /api/series`; `/series`
+remains the HTML screen and `/series/{id}` remains the specified private detail API.
+After backend integration, all ten browser scenarios passed in 5.984 seconds (exit 0).
+Engineer separately reported the complete 61-test local suite passing in 13.076 seconds.
+Manager layouts were visually inspected at desktop and 375px; measured document width
+at the mobile viewport was exactly 375px. Independent acceptance remains a separate gate.

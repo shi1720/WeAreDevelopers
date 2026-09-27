@@ -97,8 +97,10 @@ async function runSearch({preserve=false, values=null}={}) {
   const loading=feedback(messages,'search-loading','Finding a place for your evening…','loading');
   if(!preserve) { selection=null; attempt=null; shownSearch=null; document.querySelector('#results').replaceChildren(); }
   try {
-    const [restaurant,availability]=await Promise.all([api(`/restaurants/${encodeURIComponent(query.restaurant_id)}`),api(`/availability?${new URLSearchParams(query)}`)]);
+    const [restaurant,availability,policyList]=await Promise.all([api(`/restaurants/${encodeURIComponent(query.restaurant_id)}`),api(`/availability?${new URLSearchParams({...query,explain:'true'})}`),api(`/restaurants/${encodeURIComponent(query.restaurant_id)}/policies`)]);
     if(generation!==searchGeneration) return;
+    const policy=policyList.policies.filter(p=>p.effective_from<=query.date).sort((a,b)=>b.effective_from.localeCompare(a.effective_from)||b.policy_version-a.policy_version)[0];
+    if(policy) { restaurant.tables=restaurant.tables.map(table=>({...table,capacity:policy.capacities[table.id]})); restaurant.policy_version=policy.policy_version; }
     shownSearch={restaurant,availability,query:{...query}}; renderResults(preserve);
   } catch(error) {
     if(generation!==searchGeneration) return;
@@ -125,6 +127,10 @@ function renderResults(preserve=false) {
         const available=choice.ids.length===1 ? slot.available_table_ids.includes(choice.ids[0]) : (slot.available_options||[]).some(o=>o.table_ids.length===2 && o.table_ids.every((id,i)=>id===choice.ids[i]));
         const button=document.createElement('button'); button.className='slot'; button.textContent=time; button.dataset.testid=`slot-${choice.ids.join('+')}-${time}`; button.dataset.available=String(available); button.setAttribute('aria-disabled',String(!available));
         button.setAttribute('aria-label',`${tableLabels(restaurant,choice.ids)}, ${time}, ${available?'available':'unavailable'}`);
+        if(!available && choice.ids.length===1) {
+          const decision=slot.explain?.find(d=>d.table_id===choice.ids[0]);
+          if(decision) { const reasons=decision.rules.filter(rule=>!rule.holds).map(rule=>rule.rule==='capacity'?'Not enough seats for this party':'Already reserved'); button.title=reasons.join(' · '); button.setAttribute('aria-label',`${tableLabels(restaurant,choice.ids)}, ${time}: ${reasons.join('; ')}`); }
+        }
         button.setAttribute('aria-pressed',String(Boolean(selection && selection.local===slot.starts_at_local && JSON.stringify(selection.ids)===JSON.stringify(choice.ids))));
         button.onclick=()=>{if(!available || bookingPending) return; if(!session) { clearFeedback(document.querySelector('#search-feedback')); feedback(document.querySelector('#search-feedback'),'auth-error','Please sign in to reserve your table.'); return; } selection={restaurant,ids:[...choice.ids],local:slot.starts_at_local,party:Number(query.party_size)}; attempt=null; renderResults(); renderBooking(); document.querySelector('#booking-party').focus({preventScroll:true});};
         card.querySelector('.times').append(button);
@@ -201,9 +207,10 @@ function renderDetail(reservation,restaurant) {
     try { const result=await api(`/reservations/${encodeURIComponent(reservation.reference)}/cancel`,{method:'POST',body:{}});renderDetail(result,restaurant); }
     catch(error) { feedback(document.querySelector('#cancel-feedback'),'reservation-error',error instanceof Refusal?friendly(error):'The response was lost. Try cancel again to check the current state.');cancel.disabled=false; }
   };
+  if(typeof enhanceReservation==='function') enhanceReservation(reservation,restaurant,mount.querySelector('.detail'));
 }
 renderAccount();
 if(location.pathname==='/signup') authScreen(true);
 else if(location.pathname==='/login') authScreen(false);
 else if(location.pathname==='/lookup') lookupScreen();
-else searchScreen();
+else if(location.pathname==='/') searchScreen();

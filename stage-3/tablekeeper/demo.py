@@ -4,9 +4,12 @@
 def fixture():
     return {
         "users": [{"id": "demo_guest", "email": "guest@tablekeeper.test",
-                   "password": "a lovely evening", "display_name": "Alex"}],
+                   "password": "a lovely evening", "display_name": "Alex"},
+                  {"id": "demo_manager", "email": "manager@tablekeeper.test",
+                   "password": "a thoughtful service", "display_name": "Sam"}],
         "restaurants": [{
             "id": "the_orangery", "name": "The Orangery", "timezone": "Europe/London",
+            "manager_user_ids": ["demo_manager"],
             "slot_minutes": 30, "reservation_duration_minutes": 90,
             "cancellation_cutoff_minutes": 60,
             "opening_hours": [{"weekday": day, "opens": "17:00", "closes": "23:00"}
