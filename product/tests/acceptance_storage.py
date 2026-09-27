@@ -45,7 +45,7 @@ def replace(candidate, value):
 def test_callback_failure_and_invalid_candidate_are_atomic(store):
     before = store.snapshot('main')
     def fail(candidate):
-        candidate['setup_consumed'] = True
+        candidate['acceptance_probe'] = True
         raise RuntimeError('synthetic callback failure')
     with pytest.raises((RuntimeError, StoreError)):
         store.transact('main', fail)
@@ -57,14 +57,14 @@ def test_callback_failure_and_invalid_candidate_are_atomic(store):
 
 def test_noop_snapshot_isolation_and_revision_cas(store):
     revision, original = store.snapshot('main')
-    original['setup_consumed'] = True
-    assert store.snapshot('main')[1]['setup_consumed'] is False
+    original['acceptance_probe'] = True
+    assert store.snapshot('main')[1].get('acceptance_probe', False) is False
     store.transact('main', lambda c: None)
     assert store.snapshot('main')[0] == revision
-    store.transact('main', lambda c: c.update(setup_consumed=True), expected_revision=revision)
+    store.transact('main', lambda c: c.update(acceptance_probe=True), expected_revision=revision)
     after = store.snapshot('main')
     with pytest.raises(APIError):
-        store.transact('main', lambda c: c.update(setup_consumed=False), expected_revision=revision)
+        store.transact('main', lambda c: c.update(acceptance_probe=False), expected_revision=revision)
     assert store.snapshot('main') == after
 
 
@@ -76,7 +76,7 @@ def test_persistence_failure_rolls_back(store, monkeypatch, tmp_path):
     monkeypatch.setenv('TABLEKEEPER_FAULT', 'commit_failure')
     monkeypatch.setenv('TABLEKEEPER_FAULT_ARM_FILE', str(marker))
     with pytest.raises(StoreError):
-        store.transact('main', lambda c: c.update(setup_consumed=True))
+        store.transact('main', lambda c: c.update(acceptance_probe=True))
     assert not marker.exists()
     assert store.snapshot('main') == before
 
@@ -87,9 +87,9 @@ def test_production_ignores_host_fault_marker(store, monkeypatch, tmp_path):
     monkeypatch.setenv('TABLEKEEPER_MODE', 'production')
     monkeypatch.setenv('TABLEKEEPER_FAULT', 'commit_failure')
     monkeypatch.setenv('TABLEKEEPER_FAULT_ARM_FILE', str(marker))
-    store.transact('main', lambda c: c.update(setup_consumed=True))
+    store.transact('main', lambda c: c.update(acceptance_probe=True))
     assert marker.exists()
-    assert store.snapshot('main')[1]['setup_consumed']
+    assert store.snapshot('main')[1]['acceptance_probe']
 
 
 def test_state_capacity_boundary_is_atomic(store):
@@ -112,7 +112,7 @@ def test_backup_restore_maintenance_cas_and_private_permissions(store, tmp_path)
     operations.backup(store, 'main', destination)
     assert destination.stat().st_mode & 0o777 == 0o600
     original = store.snapshot('main')[1]
-    store.transact('main', lambda c: c.update(setup_consumed=True))
+    store.transact('main', lambda c: c.update(acceptance_probe=True))
     before = store.snapshot('main')
     with pytest.raises(StoreError):
         operations.restore(store, 'main', destination, before[0])
@@ -120,7 +120,7 @@ def test_backup_restore_maintenance_cas_and_private_permissions(store, tmp_path)
     locked_revision = operations.maintenance(store, 'main', True)
     locked = store.snapshot('main')
     with pytest.raises(APIError):
-        store.transact('main', lambda c: c.update(setup_consumed=False))
+        store.transact('main', lambda c: c.update(acceptance_probe=False))
     assert store.snapshot('main') == locked
     with pytest.raises(APIError):
         operations.restore(store, 'main', destination, locked_revision - 1)
@@ -237,7 +237,7 @@ def test_sqlite_corrupt_startup_refuses(tmp_path, corruption):
 
 
 def test_restore_into_separate_sqlite_store_preserves_snapshot(store, tmp_path):
-    store.transact('main', lambda c: c.update(setup_consumed=True))
+    store.transact('main', lambda c: c.update(acceptance_probe=True))
     path = tmp_path / 'portable.json'
     operations.backup(store, 'main', path)
     destination = SQLiteStore(tmp_path / 'separate.sqlite3')
@@ -310,13 +310,13 @@ def test_sqlite_crash_boundary(tmp_path, fault, exit_code, committed):
     marker.touch()
     env = dict(os.environ, TABLEKEEPER_MODE='development', TABLEKEEPER_FAULT=fault,
                TABLEKEEPER_FAULT_ARM_FILE=str(marker))
-    code = 'from tablekeeper.storage import SQLiteStore; import sys; s=SQLiteStore(sys.argv[1]); s.transact("main",lambda c:c.update(setup_consumed=True))'
+    code = 'from tablekeeper.storage import SQLiteStore; import sys; s=SQLiteStore(sys.argv[1]); s.transact("main",lambda c:c.update(acceptance_probe=True))'
     result = subprocess.run([sys.executable, '-c', code, str(path)], env=env, capture_output=True, timeout=10)
     assert result.returncode == exit_code
     reopened = SQLiteStore(path)
     try:
         revision, value = reopened.snapshot('main')
-        assert value['setup_consumed'] is committed
+        assert value.get('acceptance_probe', False) is committed
         assert revision == (2 if committed else 1)
     finally:
         reopened.close()
@@ -391,7 +391,7 @@ def test_firestore_corrupt_root_or_chunk_refuses(corruption):
         with pytest.raises(StoreError):
             store.snapshot('main')
         with pytest.raises(StoreError):
-            store.transact('main', lambda c: c.update(setup_consumed=True), create=True)
+            store.transact('main', lambda c: c.update(acceptance_probe=True), create=True)
         assert root.get().to_dict() == metadata
     finally:
         store.close()
