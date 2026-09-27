@@ -26,6 +26,16 @@ function clearPending(key) {
   try { if(readPending()?.key===key) localStorage.removeItem(pendingStorage()); }
   catch(_) { /* Keep the UI explicit if storage becomes unavailable. */ }
 }
+function pendingAction(request) {
+  if(request.path.endsWith('/cancel'))return 'Cancel booking';
+  if(request.path.includes('/replans/'))return 'Apply seating repair';
+  if(request.path.endsWith('/replans'))return 'Preview seating repair';
+  if(request.path.endsWith('/policies'))return 'Publish booking policy';
+  if(request.path.endsWith('/amend'))return 'Update regular evenings';
+  if(request.path==='/series')return 'Reserve regular evenings';
+  if(request.method==='PATCH')return 'Change booking';
+  return 'Reserve your table';
+}
 function renderPending() {
   let mount=document.querySelector('#pending-recovery');
   if(!mount) { mount=document.createElement('section');mount.id='pending-recovery';mount.className='recovery-wrap';main.before(mount); }
@@ -34,7 +44,7 @@ function renderPending() {
   try { request=readPending(); }
   catch(error) { feedback(mount,'recovery-error',error.message);return; }
   if(!request) return;
-  mount.innerHTML=`<div class="recovery-card" role="status"><p class="eyebrow">${materialInFlight?'Saving your request':'A request needs checking'}</p><h2>${materialInFlight?'Waiting for confirmation.':'Recover before making another change.'}</h2><p>The server may already have saved this request. An unchanged retry uses its original body and key, even after a restart.</p><p class="small-note">Started ${escapeHTML(request.created_at)} · ${escapeHTML(request.method)} ${escapeHTML(request.path)}</p><div class="button-row"><button class="primary" data-testid="recover-request" ${materialInFlight?'disabled':''}>Recover original result</button><button class="quiet-button" data-testid="discard-request" ${materialInFlight?'disabled':''}>Review discard options</button></div><div class="recovery-feedback"></div></div>`;
+  mount.innerHTML=`<div class="recovery-card" role="status"><p class="eyebrow">${materialInFlight?'Saving your request':'A request needs checking'}</p><h2>${materialInFlight?'Waiting for confirmation.':'Recover before making another change.'}</h2><p>The server may already have saved this request. An unchanged retry checks that same request safely, even after a restart.</p><p class="small-note">${escapeHTML(pendingAction(request))} · Started ${escapeHTML(new Date(request.created_at).toLocaleString())}</p><div class="button-row"><button class="primary" data-testid="recover-request" ${materialInFlight?'disabled':''}>Recover original result</button><button class="quiet-button" data-testid="discard-request" ${materialInFlight?'disabled':''}>Review discard options</button></div><div class="recovery-feedback"></div></div>`;
   mount.querySelector('[data-testid="recover-request"]').onclick=async()=>{
     const messages=mount.querySelector('.recovery-feedback');
     try {
@@ -48,6 +58,8 @@ function renderPending() {
     } catch(error) {
       renderPending();
       feedback(document.querySelector('#pending-recovery'),'recovery-error',error instanceof Refusal?friendly(error):'The result is still uncertain. Keep this saved request and retry when the connection returns.');
+      if(error.status===401) {const link=document.createElement('a');link.href='/login';link.textContent='Sign in again to recover this request';document.querySelector('#pending-recovery').append(link);}
+      if(error.status===403) {const link=document.createElement('a');link.href=location.pathname;link.textContent='Reload security token';document.querySelector('#pending-recovery').append(link);}
     }
   };
   mount.querySelector('[data-testid="discard-request"]').onclick=()=>{

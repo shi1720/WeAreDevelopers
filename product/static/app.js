@@ -40,8 +40,9 @@ async function api(path, {method='GET', body, key}={}) {
   let result;
   try { result = await response.json(); } catch (_) { throw new Error('The response could not be read.'); }
   if (!response.ok) {
-    // Server errors can conceal a committed outcome. Retain the exact attempt.
-    if(pendingRequest && response.status<500 && ![408,429].includes(response.status)) clearPending(pendingRequest.key);
+    // Authentication and transport boundaries cannot settle an earlier outcome.
+    // A revoked session or stale CSRF token must not erase its original retry.
+    if(pendingRequest && response.status<500 && ![401,403,404,408,429].includes(response.status)) clearPending(pendingRequest.key);
     throw new Refusal(response.status, result);
   }
   if(pendingRequest) clearPending(pendingRequest.key);
@@ -55,6 +56,7 @@ function friendly(error) {
     table_unavailable:'That seating option was just taken. We refreshed the times below. Your selection is still here so you can choose another table or time.',
     cutoff_passed:'This reservation is too close to its start to change or cancel online.',
     unauthenticated:'Please sign in with your email and password to continue.',
+    csrf_failed:'Your security token changed. Reload this page before retrying. Your saved request is retained.',
     email_taken:'An account already uses this email. Try signing in.',
     not_found:'We could not find that reservation in your account. Check the reference and try again.',
     party_exceeds_capacity:'This table cannot seat that many guests. Choose a larger seating option.',

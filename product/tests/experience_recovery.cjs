@@ -33,8 +33,20 @@ const ok=(value)=>{assert.ok(value);checks++;};
   run("session={user_id:'guest',account_scope:'namespace-two:guest'}");
   ok(run('readPending()')===null);
   run("session={user_id:'guest',account_scope:'namespace-one:guest'}");
+  for(const [status,code] of [[401,'unauthenticated'],[403,'csrf_failed']]) {
+    context.fetch=async()=>({ok:false,status,json:async()=>({error:{code}})});
+    await assert.rejects(run("api('/reservations',{method:'POST',body:{party_size:2},key:'original-key'})"));checks++;
+    ok(run('readPending().key')==='original-key');
+    ok(run('readPending().body.party_size')===2);
+  }
+  // Signing in again rotates credentials, but the account recovery scope stays.
+  run("session=null;sessionInfo={csrf_token:'anonymous'}");
+  ok(run('readPending()')===null);
+  run("session={user_id:'guest',account_scope:'namespace-one:guest'};sessionInfo={csrf_token:'rotated-csrf'}");
+  ok(run('readPending().key')==='original-key');
   context.fetch=async(url,options)=>{
     assert.equal(options.headers['Idempotency-Key'],'original-key');
+    assert.equal(options.headers['X-CSRF-Token'],'rotated-csrf');
     assert.equal(options.body,'{"party_size":2}');
     return {ok:true,status:201,json:async()=>({reference:'ORIGINAL'})};
   };
