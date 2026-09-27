@@ -35,7 +35,7 @@ def setup_body(secret):
 
 
 class Service:
-    def __init__(self, directory, demo=False):
+    def __init__(self, directory, demo=False, overrides=None):
         self.directory = directory
         self.secret = secrets.token_urlsafe(32)
         with socket.socket() as sock:
@@ -48,6 +48,7 @@ class Service:
                                 TABLEKEEPER_SETUP_SECRET=self.secret, TABLEKEEPER_PUBLIC_DEMO='1' if demo else '0')
         for name in ('K_SERVICE', 'TABLEKEEPER_FAULT', 'TABLEKEEPER_FAULT_ARM_FILE'):
             self.environment.pop(name, None)
+        self.environment.update(overrides or {})
         self.process = None
         self.log = (directory / 'private-service.log').open('ab')
         self.start()
