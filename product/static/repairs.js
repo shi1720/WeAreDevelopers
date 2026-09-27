@@ -81,7 +81,7 @@ function enhanceSeries(initial,card) {
   const form=section.querySelector('form'), from=form.querySelector('select'), time=form.querySelector('input'), messages=section.querySelector('.series-amend-feedback'), refresh=section.querySelector('[data-testid="series-refresh"]');
   function eligibility() {
     const start=Number(from.value);
-    section.querySelector('.eligibility').innerHTML=`<p class="small-note">Using agreement revision <strong>${current.revision}</strong></p><ul class="plain-list">${current.occurrences.map(o=>`<li><strong>Visit ${o.index+1}</strong> — ${o.index<start?'Unchanged: before selected visit':o.reservation.status==='cancelled'?'Skipped: cancelled':o.exception?'Skipped: individually changed':'Eligible for the new time'}</li>`).join('')}</ul>`;
+    section.querySelector('.eligibility').innerHTML=`<p class="small-note">Using agreement revision <strong>${current.revision}</strong></p><ul class="plain-list">${current.occurrences.map(o=>`<li><strong>Visit ${o.index+1}</strong> · ${o.index<start?'Unchanged: before selected visit':o.reservation.status==='cancelled'?'Skipped: cancelled':o.exception?'Skipped: individually changed':'Eligible for the new time'}</li>`).join('')}</ul>`;
   }
   from.onchange=eligibility;eligibility();
   refresh.onclick=async()=>{
@@ -100,7 +100,8 @@ function enhanceSeries(initial,card) {
       const result=await api(`/series/${encodeURIComponent(current.series_id)}/amend`,{method:'POST',body:request.body,key:request.key});
       feedback(messages,'series-amend-success',`Agreement updated to revision ${result.revision}. All eligible changes were saved together. Cancelled and individually changed visits were preserved.`,'success');
       const link=document.createElement('a');link.href=`/series?series_id=${encodeURIComponent(current.series_id)}`;link.textContent='View updated visits →';messages.append(link);
-      // Retain the original revision/body/key for an unchanged replay; refresh is explicit.
+      await seriesScreen();
+      feedback(document.querySelector('#series-content'),'series-amend-success',`Agreement updated to revision ${result.revision}. The visits below have been refreshed.`,'success');
     } catch(error) {
       const stale=error instanceof Refusal && error.code==='stale_revision';
       const message=stale?'This agreement changed since you opened it. Refresh the agreement, review eligible visits, then try again.':error.code==='table_unavailable'?'At least one visit conflicts with another booking or a closed table. No visits changed. Choose another arrival time.':error.code==='cutoff_passed'?'At least one eligible visit is too close to its arrival time to change. No visits changed. Choose a later starting visit.':error instanceof Refusal?friendly(error):'The response was lost. Retry unchanged to recover this same amendment safely.';

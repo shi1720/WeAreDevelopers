@@ -2,10 +2,10 @@
 'use strict';
 const main = document.querySelector('#main');
 const account = document.querySelector('#account');
-const SESSION_KEY = 'tablekeeper.session';
 let session = null;
-try { session = JSON.parse(localStorage.getItem(SESSION_KEY)); } catch (_) {}
-if (!session || typeof session.token !== 'string') session = null;
+let sessionInfo = null;
+// Remove credentials left by the original local demonstration.
+try { localStorage.removeItem('tablekeeper.session'); } catch (_) {}
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const idsOf = reservation => reservation.table_ids || [reservation.table_id];
 const displayDate = value => {
@@ -24,15 +24,31 @@ class Refusal extends Error {
   constructor(status, body) { super(body?.error?.message || 'The request could not be completed.'); this.status = status; this.code = body?.error?.code; }
 }
 async function api(path, {method='GET', body, key}={}) {
+  const material = session && !['GET','HEAD'].includes(method) && !path.startsWith('/auth/') && !path.startsWith('/api/demo/') && path!=='/api/setup';
+  let pendingRequest;
+  if(material) {
+    pendingRequest = preparePending(path, method, body, key);
+    key = pendingRequest.key;
+    body = pendingRequest.body;
+  }
   const headers = {'Accept':'application/json'};
-  if (session) headers.Authorization = `Bearer ${session.token}`;
+  if (sessionInfo?.csrf_token && !['GET','HEAD'].includes(method)) headers['X-CSRF-Token'] = sessionInfo.csrf_token;
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   if (key) headers['Idempotency-Key'] = key;
-  const response = await fetch(path, {method, headers, body: body === undefined ? undefined : JSON.stringify(body), cache:'no-store'});
+  try {
+  const response = await fetch(path, {method, headers, body: body === undefined ? undefined : JSON.stringify(body), cache:'no-store', credentials:'same-origin'});
   let result;
   try { result = await response.json(); } catch (_) { throw new Error('The response could not be read.'); }
-  if (!response.ok) throw new Refusal(response.status, result);
+  if (!response.ok) {
+    // Server errors can conceal a committed outcome. Retain the exact attempt.
+    if(pendingRequest && response.status<500 && ![408,429].includes(response.status)) clearPending(pendingRequest.key);
+    throw new Refusal(response.status, result);
+  }
+  if(pendingRequest) clearPending(pendingRequest.key);
   return result;
+  } finally {
+    if(pendingRequest) { materialInFlight=false; renderPending(); }
+  }
 }
 function friendly(error) {
   const messages = {
@@ -43,6 +59,9 @@ function friendly(error) {
     not_found:'We could not find that reservation in your account. Check the reference and try again.',
     party_exceeds_capacity:'This table cannot seat that many guests. Choose a larger seating option.',
     combination_not_allowed:'These tables cannot be booked together. Choose one of the paired options shown.',
+    pending_recovery:'A previous request has an uncertain outcome. Use the recovery panel above before starting a different change.',
+    stale_revision:'This booking changed since you opened it. Reload its current details, review the proposed terms and try again.',
+    planning_limit:'This closure overlaps more than six confirmed bookings, or exceeds the supported table or pair limits. Nothing changed. Choose a smaller operational closure; separate plans do not guarantee a safe combined repair.',
   };
   return messages[error.code] || error.message || 'Something went wrong. Please try again.';
 }
@@ -58,22 +77,27 @@ function renderAccount() {
   if (session) {
     const user = document.createElement('span'); user.dataset.testid='current-user'; user.textContent=session.display_name;
     const logout = document.createElement('button'); logout.className='quiet-button'; logout.dataset.testid='logout-button'; logout.textContent='Sign out';
-    logout.onclick=() => { session=null; localStorage.removeItem(SESSION_KEY); location.assign('/'); };
-    account.append(user,logout);
+    logout.onclick=async() => {
+      logout.disabled=true;
+      try { await api('/auth/logout',{method:'POST',body:{}}); session=null; location.assign('/login'); }
+      catch(error) { logout.disabled=false;feedback(account,'logout-error','Sign out could not be confirmed. Try again.'); }
+    };
+    const settings=document.createElement('a');settings.href='/account';settings.textContent='Account';
+    account.append(user,settings,logout);
   } else account.innerHTML='<a class="pill-link" href="/login">Sign in</a>';
 }
 const illustration = `<figure class="illustration"><svg viewBox="0 0 360 290" role="img" aria-label="Illustration of a thoughtfully set dining table"><path d="M50 240V95a130 130 0 0 1 260 0v145" fill="#e5e8d6"/><path d="M70 238V100a110 110 0 0 1 220 0v138" fill="none" stroke="#b9c2a8" stroke-width="1.5"/><path d="M180 0v88M69 103h221" stroke="#b9c2a8" stroke-width="1.5"/><ellipse cx="180" cy="193" rx="124" ry="57" fill="#b16a4c"/><path d="M74 201v35m212-35v35" stroke="#704b36" stroke-width="8" stroke-linecap="round"/><ellipse cx="180" cy="183" rx="124" ry="57" fill="#e6d1af" stroke="#b18359" stroke-width="2"/><ellipse cx="126" cy="184" rx="34" ry="24" fill="#fffaf0" stroke="#ac9472"/><ellipse cx="126" cy="184" rx="24" ry="16" fill="none" stroke="#d6c8ae"/><ellipse cx="232" cy="184" rx="34" ry="24" fill="#fffaf0" stroke="#ac9472"/><ellipse cx="232" cy="184" rx="24" ry="16" fill="none" stroke="#d6c8ae"/><path d="M78 172v26m5-26v26m195-26v26" stroke="#777968" stroke-width="2" stroke-linecap="round"/><path d="M173 164l-5-27h26l-5 27z" fill="#a04a30"/><path d="M180 140v-44m0 29c-22-1-27-16-23-24 19 0 26 12 23 24m0-11c21-1 28-14 24-24-19 1-28 10-24 24" fill="#6d835f" stroke="#526b48" stroke-width="2"/><ellipse cx="151" cy="153" rx="10" ry="7" fill="#faf4e6" stroke="#a4a58d"/><path d="M151 159v12m-6 1h12" stroke="#8a927d"/><ellipse cx="210" cy="153" rx="10" ry="7" fill="#faf4e6" stroke="#a4a58d"/><path d="M210 159v12m-6 1h12" stroke="#8a927d"/></svg><figcaption>Good company. A place to gather.</figcaption></figure>`;
 
 function authScreen(signup) {
   const action = signup ? 'signup' : 'login';
-  document.title = `${signup ? 'Create an account' : 'Sign in'} — Tablekeeper`;
-  main.innerHTML=`<div class="auth-layout"><section class="auth-intro"><p class="eyebrow">Your evening starts here</p><h1>A little less planning.<br><em>A little more together.</em></h1><p class="lede">Keep your reservations in one place, and leave room for the good part.</p>${illustration}</section><section class="auth-card"><h2>${signup?'Make yourself at home.':'Welcome back.'}</h2><form id="auth-form">${signup?'<div class="field"><label for="display-name">Your name</label><input id="display-name" autocomplete="name" data-testid="signup-display-name" required></div>':''}<div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" data-testid="${action}-email" required></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="${signup?'new-password':'current-password'}" data-testid="${action}-password" ${signup?'minlength="8"':''} required>${signup?'<p class="inline-note">At least 8 characters.</p>':''}</div><button class="primary" data-testid="${action}-submit">${signup?'Create account':'Sign in'}</button></form><div id="auth-feedback"></div><p>${signup?'Already have an account? <a href="/login">Sign in</a>':'New to Tablekeeper? <a href="/signup">Create an account</a>'}</p></section></div>`;
+  document.title = `${signup ? 'Create an account' : 'Sign in'} · Tablekeeper`;
+  main.innerHTML=`<div class="auth-layout"><section class="auth-intro"><p class="eyebrow">Your evening starts here</p><h1>A little less planning.<br><em>A little more together.</em></h1><p class="lede">Keep your reservations in one place, and leave room for the good part.</p>${illustration}</section><section class="auth-card"><h2>${signup?'Make yourself at home.':'Welcome back.'}</h2><form id="auth-form">${signup?'<div class="field"><label for="display-name">Your name</label><input id="display-name" autocomplete="name" data-testid="signup-display-name" required></div>':''}<div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" data-testid="${action}-email" required></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="${signup?'new-password':'current-password'}" data-testid="${action}-password" ${signup?'minlength="12"':''} required>${signup?'<p class="inline-note">At least 12 characters.</p>':''}</div><button class="primary" data-testid="${action}-submit">${signup?'Create account':'Sign in'}</button></form><div id="auth-feedback"></div><p>${signup?'Already have an account? <a href="/login">Sign in</a>':'New to Tablekeeper? <a href="/signup">Create an account</a>'}</p></section></div>`;
   document.querySelector('#auth-form').onsubmit=async event => {
     event.preventDefault(); const button=event.currentTarget.querySelector('button'); button.disabled=true;
     const messages=document.querySelector('#auth-feedback'); clearFeedback(messages);
     const body={email:document.querySelector('#email').value,password:document.querySelector('#password').value};
     if(signup) body.display_name=document.querySelector('#display-name').value;
-    try { session=await api(`/auth/${action}`,{method:'POST',body}); localStorage.setItem(SESSION_KEY,JSON.stringify(session)); location.assign('/'); }
+    try { sessionInfo=await api(`/auth/${action}`,{method:'POST',body}); session=sessionInfo.authenticated?sessionInfo:null; location.assign('/'); }
     catch(error) { feedback(messages,'auth-error', error instanceof Refusal ? friendly(error) : 'We could not connect. Please try again.'); }
     finally { button.disabled=false; }
   };
@@ -179,7 +203,7 @@ async function submitBooking(event) {
 
 let lookupGeneration=0;
 function lookupScreen() {
-  document.title='Your reservation — Tablekeeper';
+  document.title='Your reservation · Tablekeeper';
   main.innerHTML=`<section class="page-heading"><p class="eyebrow">Keep the evening yours</p><h1>Your place is in the book.</h1><p class="lede">Find the details of your reservation, or let us know if your plans have changed.</p></section><div class="lookup-layout"><section class="lookup-card"><h2>Find your reservation</h2><form id="lookup-form"><div><label for="reference">Booking reference</label><input id="reference" data-testid="lookup-reference-input" autocomplete="off" placeholder="Your confirmation reference" required></div><button class="primary" data-testid="lookup-submit">Find reservation</button></form><p class="small-note">Sign in with the account you used to book. Your reservations are private to you.</p><div id="lookup-feedback"></div></section><div id="detail-mount"><div class="empty">A little reminder of what’s ahead.<br>Your reservation details will appear here.</div></div></div>`;
   const input=document.querySelector('#reference'); input.value=new URLSearchParams(location.search).get('reference') || '';
   document.querySelector('#lookup-form').onsubmit=event=>{event.preventDefault();lookup(input.value);};
@@ -208,9 +232,5 @@ function renderDetail(reservation,restaurant) {
     catch(error) { feedback(document.querySelector('#cancel-feedback'),'reservation-error',error instanceof Refusal?friendly(error):'The response was lost. Try cancel again to check the current state.');cancel.disabled=false; }
   };
   if(typeof enhanceReservation==='function') enhanceReservation(reservation,restaurant,mount.querySelector('.detail'));
+  if(typeof addBookingEditor==='function') addBookingEditor(reservation,restaurant,mount.querySelector('.detail'));
 }
-renderAccount();
-if(location.pathname==='/signup') authScreen(true);
-else if(location.pathname==='/login') authScreen(false);
-else if(location.pathname==='/lookup') lookupScreen();
-else if(location.pathname==='/') searchScreen();
